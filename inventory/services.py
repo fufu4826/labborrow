@@ -4,11 +4,13 @@ from datetime import datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
 from django.core.files.base import ContentFile
-from django.db.models import Q
+from django.db.models import Q, Sum
 from PIL import Image, ImageOps
 
-from borrowing.availability import STATUS_BADGE, available_quantity, display_status, free_now
+from borrowing.availability import STATUS_BADGE, available_quantity, bulk_status
+from borrowing.models import HOLDING_BOOKING, HOLDING_REQUEST, ON_LOAN, Booking, BorrowItem
 from core.models import SystemSetting
+from inventory.models import AdminStatus
 
 TZ = ZoneInfo("Asia/Bangkok")
 
@@ -53,6 +55,29 @@ def free_on_day(equipment, day, setting=None):
     return available_quantity(equipment, *window)
 
 
+def _free_on_day_bulk(equipment_list, day, setting):
+    window = day_window(day, setting)
+    if window is None:
+        return {eq.pk: 0 for eq in equipment_list}
+    start, end = window
+    ids = [eq.pk for eq in equipment_list]
+    bookings = Booking.objects.filter(equipment_id__in=ids, status__in=HOLDING_BOOKING,
+                                     start_at__lt=end, end_at__gt=start)
+    booking_totals = {row["equipment_id"]: row["total"] or 0
+                      for row in bookings.values("equipment_id").annotate(total=Sum("quantity"))}
+    requests = BorrowItem.objects.filter(
+        Q(request__status__in=HOLDING_REQUEST, request__borrow_at__lt=end, request__due_at__gt=start)
+        | Q(request__status__in=ON_LOAN, request__borrow_at__lt=end), equipment_id__in=ids,
+    )
+    request_totals = {row["equipment_id"]: row["total"] or 0
+                      for row in requests.values("equipment_id").annotate(total=Sum("quantity"))}
+    return {
+        eq.pk: max(eq.usable_quantity - booking_totals.get(eq.pk, 0) - request_totals.get(eq.pk, 0), 0)
+        if eq.is_active and eq.status == AdminStatus.AVAILABLE else 0
+        for eq in equipment_list
+    }
+
+
 def availability_strip(equipment, start_day, days=14):
     setting = SystemSetting.load()
     rows = []
@@ -74,12 +99,16 @@ def filter_equipment(qs, cleaned_data):
     status = cleaned_data.get("status")
     day = cleaned_data.get("date")
     setting = SystemSetting.load() if day else None
+    equipment = list(qs)
+    statuses = bulk_status(equipment)
+    day_free = _free_on_day_bulk(equipment, day, setting) if day else None
     result = []
-    for eq in qs:
-        eq.status_value = display_status(eq)
+    for eq in equipment:
+        eq.status_value, free = statuses[eq.pk]
         if status and eq.status_value != status:
             continue
         eq.badge = STATUS_BADGE[eq.status_value]
-        eq.free_qty = free_on_day(eq, day, setting) if day else free_now(eq)
+        eq.free_now = free
+        eq.free_qty = day_free[eq.pk] if day else eq.free_now
         result.append(eq)
     return result

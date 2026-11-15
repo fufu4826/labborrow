@@ -1,11 +1,12 @@
 """Reporting queries and dashboard aggregates."""
 from datetime import datetime, time, timedelta
 
-from django.db.models import Count, Sum
+from django.db.models import Count, Q, Sum
 from django.utils import timezone
+from django.utils.translation import get_language
 from django.utils.translation import gettext as _
 
-from borrowing.availability import display_status, on_loan_quantity
+from borrowing.availability import bulk_status
 from borrowing.models import BorrowItem, BorrowRequest, RequestStatus
 from inventory.models import DisplayStatus, Equipment
 from maintenance.models import DamageReport
@@ -45,10 +46,16 @@ def _borrowed_items(start=None, end=None):
 def dashboard_stats():
     now = timezone.localtime()
     equipment = list(Equipment.objects.active().select_related("category"))
-    loaned_by_id = {item.pk: on_loan_quantity(item, now) for item in equipment}
+    statuses = bulk_status(equipment, now)
+    loaned_by_id = {
+        row["equipment_id"]: row["quantity"]
+        for row in BorrowItem.objects.filter(equipment_id__in=[item.pk for item in equipment],
+                                             request__status__in=(RequestStatus.BORROWED, RequestStatus.OVERDUE))
+        .values("equipment_id").annotate(quantity=Sum("quantity"))
+    }
     total_equipment = sum(item.quantity_total for item in equipment)
     on_loan_units = sum(loaned_by_id.values())
-    available_units = sum(max(item.usable_quantity - loaned_by_id[item.pk], 0) for item in equipment)
+    available_units = sum(statuses[item.pk][1] for item in equipment)
     damaged_units = sum(item.quantity_out_of_service for item in equipment)
     month_start = _month_start(now.date())
     month_end = _next_month(month_start)
@@ -61,11 +68,15 @@ def dashboard_stats():
         .annotate(times_borrowed=Count("request_id", distinct=True), total_quantity=Sum("quantity"))
         .order_by("-total_quantity", "equipment__asset_code")[:10]
     )
-    top_borrowed = [{
-        "name": _equipment_name(Equipment.objects.get(pk=row["equipment_id"])),
-        "times_borrowed": row["times_borrowed"],
-        "total_quantity": row["total_quantity"] or 0,
-    } for row in top_rows]
+    top_borrowed = []
+    for row in top_rows:
+        name = row["equipment__name_en"] if get_language() == "en" and row["equipment__name_en"] \
+            else row["equipment__name_th"]
+        top_borrowed.append({
+            "name": f'{row["equipment__asset_code"]} - {name}',
+            "times_borrowed": row["times_borrowed"],
+            "total_quantity": row["total_quantity"] or 0,
+        })
 
     return {
         "total_equipment": total_equipment,
@@ -90,20 +101,23 @@ def monthly_loans(months=12):
     for _month in range(months):
         starts.append(cursor)
         cursor = _next_month(cursor)
-    results = []
-    for start in starts:
-        count = BorrowRequest.objects.filter(
-            handed_over_at__gte=_local_midnight(start), handed_over_at__lt=_local_midnight(_next_month(start))
-        ).count()
-        results.append((start.strftime("%m/%Y"), count))
-    return results
+    counts = BorrowRequest.objects.aggregate(**{
+        f"month_{index}": Count("pk", filter=Q(
+            handed_over_at__gte=_local_midnight(start),
+            handed_over_at__lt=_local_midnight(_next_month(start)),
+        ))
+        for index, start in enumerate(starts)
+    })
+    return [(start.strftime("%m/%Y"), counts[f"month_{index}"])
+            for index, start in enumerate(starts)]
 
 
 def status_breakdown():
-    equipment = Equipment.objects.active().select_related("category")
+    equipment = list(Equipment.objects.active().select_related("category"))
     counts = {status.value: 0 for status in DisplayStatus}
-    for item in equipment:
-        counts[display_status(item)] += 1
+    statuses = bulk_status(equipment)
+    for status, _free_now in statuses.values():
+        counts[status] += 1
     return {"labels": [str(status.label) for status in DisplayStatus],
             "values": [counts[status.value] for status in DisplayStatus]}
 
@@ -117,7 +131,8 @@ def _date_filtered(qs, field, date_from, date_to):
 
 
 def loans_report(date_from=None, date_to=None):
-    qs = _date_filtered(BorrowRequest.objects.select_related("user").prefetch_related("items__equipment"),
+    qs = _date_filtered(BorrowRequest.objects.select_related("user", "return_record")
+                        .prefetch_related("items__equipment"),
                         "borrow_at", date_from, date_to)
     rows = [(req.code, req.user.get_full_name() or req.user.username, _item_names(req), req.borrow_at, req.due_at,
              req.get_status_display(), getattr(getattr(req, "return_record", None), "returned_at", None))
@@ -127,9 +142,10 @@ def loans_report(date_from=None, date_to=None):
 
 
 def equipment_report(date_from=None, date_to=None):
+    equipment = list(Equipment.objects.active().select_related("category"))
+    statuses = bulk_status(equipment)
     rows = [(item.asset_code, item.display_name, item.category.display_name, item.quantity_total,
-             item.quantity_out_of_service, str(display_status(item).label))
-            for item in Equipment.objects.active().select_related("category")]
+             item.quantity_out_of_service, str(statuses[item.pk][0].label)) for item in equipment]
     return _("Equipment report"), [_ ("Asset"), _("Name"), _("Category"), _("Total"), _("Out of service"),
                                    _("Display status")], rows
 
@@ -138,7 +154,8 @@ def top_borrowed_report(date_from=None, date_to=None):
     rows = list(_borrowed_items(date_from, date_to).values("equipment_id", "equipment__asset_code")
                 .annotate(times=Count("request_id", distinct=True), quantity=Sum("quantity"))
                 .order_by("-quantity", "equipment__asset_code"))
-    equipment = {item.pk: item for item in Equipment.objects.filter(pk__in=[r["equipment_id"] for r in rows])}
+    equipment = {item.pk: item for item in Equipment.objects.filter(
+        pk__in=[r["equipment_id"] for r in rows]).select_related("category")}
     data = [(_equipment_name(equipment[row["equipment_id"]]), row["times"], row["quantity"] or 0) for row in rows]
     return _("Most borrowed equipment"), [_ ("Equipment"), _("Times borrowed"), _("Total quantity")], data
 

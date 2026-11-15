@@ -299,7 +299,8 @@ def request_detail(request, pk):
 
 
 def _own_or_staff_qs(user):
-    qs = _request_qs().select_related("decided_by", "handed_over_by", "cancelled_by")
+    qs = _request_qs().select_related("decided_by", "handed_over_by", "cancelled_by",
+                                     "return_record", "return_record__received_by")
     return qs if _is_staff(user) else qs.filter(user=user)
 
 
