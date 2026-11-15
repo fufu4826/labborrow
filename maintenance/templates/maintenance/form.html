@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n form_tags %}
+{% block title %}{% translate "Report damage" %}{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">{% translate "Report damage" %}</h1>
+<form method="post" enctype="multipart/form-data" class="card card-body" style="max-width:720px">
+  {% csrf_token %}
+  {% bs_form form %}
+  <div class="d-flex gap-2">
+    <button class="btn btn-primary" type="submit">{% translate "Submit report" %}</button>
+    <a class="btn btn-outline-secondary" href="{% url 'maintenance:list' %}">{% translate "Cancel" %}</a>
+  </div>
+</form>
+{% endblock %}

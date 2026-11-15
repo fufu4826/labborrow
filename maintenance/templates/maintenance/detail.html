@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n form_tags %}
+{% block title %}{{ report }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">{{ report }} <span class="badge bg-{{ report.badge }} fs-6">{{ report.get_status_display }}</span></h1>
+  <a class="btn btn-outline-secondary" href="{% url 'maintenance:list' %}">{% translate "Back" %}</a>
+</div>
+<div class="row g-3">
+  <div class="col-12 col-lg-7">
+    <div class="card card-body">
+      <dl class="row mb-0">
+        <dt class="col-sm-4">{% translate "Equipment" %}</dt><dd class="col-sm-8">{{ report.equipment }}</dd>
+        <dt class="col-sm-4">{% translate "Quantity" %}</dt><dd class="col-sm-8">{{ report.quantity }}</dd>
+        <dt class="col-sm-4">{% translate "Problem" %}</dt><dd class="col-sm-8">{{ report.problem }}</dd>
+        <dt class="col-sm-4">{% translate "Description" %}</dt><dd class="col-sm-8">{{ report.description|default:"-"|linebreaksbr }}</dd>
+        <dt class="col-sm-4">{% translate "Reported by" %}</dt><dd class="col-sm-8">{{ report.reported_by.get_full_name|default:report.reported_by.username }}</dd>
+        <dt class="col-sm-4">{% translate "Date" %}</dt><dd class="col-sm-8">{{ report.created_at|date:"d/m/Y H:i" }}</dd>
+        <dt class="col-sm-4">{% translate "Staff note" %}</dt><dd class="col-sm-8">{{ report.staff_note|default:"-"|linebreaksbr }}</dd>
+        {% if report.handled_by %}<dt class="col-sm-4">{% translate "Handled by" %}</dt><dd class="col-sm-8">{{ report.handled_by.get_full_name|default:report.handled_by.username }}</dd>{% endif %}
+        {% if report.resolved_at %}<dt class="col-sm-4">{% translate "Resolved at" %}</dt><dd class="col-sm-8">{{ report.resolved_at|date:"d/m/Y H:i" }}</dd>{% endif %}
+      </dl>
+      {% if report.image %}<img src="{{ report.image.url }}" alt="{% translate 'Photo' %}" class="img-fluid rounded mt-3">{% endif %}
+    </div>
+  </div>
+  {% if is_staff_view and form %}
+  <div class="col-12 col-lg-5">
+    <form method="post" class="card card-body">
+      {% csrf_token %}
+      <h2 class="h5">{% translate "Update status" %}</h2>
+      {% bs_form form %}
+      <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

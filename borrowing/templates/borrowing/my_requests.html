@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "My requests" %}{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <h1 class="h3 mb-0">{% translate "My requests" %}</h1>
+  <a class="btn btn-primary" href="{% url 'borrowing:request_create' %}"><i class="bi bi-plus-lg"></i> {% translate "New borrow request" %}</a>
+</div>
+<ul class="nav nav-tabs mb-3">
+  <li class="nav-item"><a class="nav-link {% if tab == 'active' %}active{% endif %}" href="?tab=active">{% translate "Active" %} <span class="badge text-bg-secondary">{{ active_count }}</span></a></li>
+  <li class="nav-item"><a class="nav-link {% if tab == 'history' %}active{% endif %}" href="?tab=history">{% translate "History" %}</a></li>
+</ul>
+{% include "borrowing/_request_table.html" with show_user=False show_actions=False %}
+
+<h2 class="h5 mt-5 mb-3">{% translate "My bookings" %}</h2>
+<div class="list-group">
+  {% for b in bookings %}
+  <div class="list-group-item">
+    <div class="d-flex flex-wrap justify-content-between gap-2">
+      <div>
+        <strong>{{ b }}</strong> &middot; {{ b.equipment.display_name }} &times;{{ b.quantity }}
+        {% include "borrowing/_status_badge.html" with status=b.status label=b.get_status_display %}
+        <div class="small text-muted">{{ b.start_at|date:"d/m/Y H:i" }} &rarr; {{ b.end_at|date:"d/m/Y H:i" }}</div>
+      </div>
+      <div class="d-flex gap-2 align-items-start">
+        {% if "convert" in b.actions %}<button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#convert-{{ b.pk }}">{% translate "Convert to request" %}</button>{% endif %}
+        {% if "cancel" in b.actions %}
+        <form method="post" action="{% url 'borrowing:booking_cancel' b.pk %}">{% csrf_token %}<button class="btn btn-sm btn-outline-danger">{% translate "Cancel" %}</button></form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% if "convert" in b.actions %}
+  <div class="modal fade" id="convert-{{ b.pk }}" tabindex="-1" aria-hidden="true"><div class="modal-dialog"><form class="modal-content" method="post" action="{% url 'borrowing:booking_convert' b.pk %}">{% csrf_token %}
+    <div class="modal-header"><h5 class="modal-title">{% translate "Convert to borrow request" %}</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button></div>
+    <div class="modal-body"><label class="form-label" for="purpose-{{ b.pk }}">{% translate "Purpose" %} <span class="text-danger">*</span></label>
+      <input class="form-control" id="purpose-{{ b.pk }}" name="purpose" maxlength="255" required></div>
+    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate "Close" %}</button><button class="btn btn-primary">{% translate "Submit" %}</button></div>
+  </form></div></div>
+  {% endif %}
+  {% empty %}
+  <div class="list-group-item text-muted text-center">{% translate "You have no bookings." %}</div>
+  {% endfor %}
+</div>
+{% endblock %}

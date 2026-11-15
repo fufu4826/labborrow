@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Reports dashboard" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+  <h1 class="h3 mb-0">{% translate "Reports dashboard" %}</h1>
+  <a class="btn btn-outline-primary" href="{% url 'reports:index' %}">{% translate "Export reports" %}</a>
+</div>
+<div class="row row-cols-2 row-cols-lg-4 g-3 mb-4">
+  <div class="col"><div class="card h-100"><div class="card-body"><div class="text-muted small">{% translate "Total equipment" %}</div><div class="fs-3 fw-semibold">{{ stats.total_equipment }}</div></div></div></div>
+  <div class="col"><div class="card h-100"><div class="card-body"><div class="text-muted small">{% translate "Available units" %}</div><div class="fs-3 fw-semibold">{{ stats.available_units }}</div></div></div></div>
+  <div class="col"><div class="card h-100"><div class="card-body"><div class="text-muted small">{% translate "Units on loan" %}</div><div class="fs-3 fw-semibold">{{ stats.on_loan_units }}</div></div></div></div>
+  <div class="col"><div class="card h-100"><div class="card-body"><div class="text-muted small">{% translate "Damaged units" %}</div><div class="fs-3 fw-semibold">{{ stats.damaged_units }}</div></div></div></div>
+  <div class="col"><div class="card h-100"><div class="card-body"><div class="text-muted small">{% translate "Pending requests" %}</div><div class="fs-3 fw-semibold">{{ stats.pending_requests }}</div></div></div></div>
+  <div class="col"><div class="card h-100"><div class="card-body"><div class="text-muted small">{% translate "Overdue requests" %}</div><div class="fs-3 fw-semibold">{{ stats.overdue_requests }}</div></div></div></div>
+  <div class="col"><div class="card h-100"><div class="card-body"><div class="text-muted small">{% translate "Loans this month" %}</div><div class="fs-3 fw-semibold">{{ stats.loans_this_month }}</div></div></div></div>
+  <div class="col"><div class="card h-100"><div class="card-body"><div class="text-muted small">{% translate "Top borrowed" %}</div>
+    {% with top=stats.top_borrowed.0 %}{% if top %}<div class="fw-semibold">{{ top.name }}</div><div>{{ top.total_quantity }} {% translate "units" %}</div>{% else %}<div class="text-muted">{% translate "No data" %}</div>{% endif %}{% endwith %}
+  </div></div></div>
+</div>
+<div class="row g-3">
+  <div class="col-12 col-xl-6"><div class="card h-100"><div class="card-body"><h2 class="h5">{% translate "Monthly loans" %}</h2><canvas id="monthly-chart" aria-label="{% translate 'Monthly loans' %}"></canvas></div></div></div>
+  <div class="col-12 col-xl-6"><div class="card h-100"><div class="card-body"><h2 class="h5">{% translate "Top 10 equipment" %}</h2><canvas id="top-chart" aria-label="{% translate 'Top 10 equipment' %}"></canvas></div></div></div>
+  <div class="col-12 col-xl-6"><div class="card h-100"><div class="card-body"><h2 class="h5">{% translate "Equipment status" %}</h2><canvas id="status-chart" aria-label="{% translate 'Equipment status' %}"></canvas></div></div></div>
+</div>
+{{ data|json_script:"dash-data" }}
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+  const dashboardData = JSON.parse(document.getElementById("dash-data").textContent);
+  const chartColors = ["#0d6efd", "#198754", "#ffc107", "#dc3545", "#6f42c1", "#20c997", "#fd7e14", "#6c757d"];
+  new Chart(document.getElementById("monthly-chart"), {
+    type: "bar",
+    data: { labels: dashboardData.monthly.labels, datasets: [{ label: "{% translate 'Loans' %}", data: dashboardData.monthly.values, backgroundColor: "#0d6efd" }] },
+    options: { responsive: true, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
+  });
+  new Chart(document.getElementById("top-chart"), {
+    type: "bar", data: { labels: dashboardData.top.labels, datasets: [{ label: "{% translate 'Units borrowed' %}", data: dashboardData.top.values, backgroundColor: "#198754" }] },
+    options: { indexAxis: "y", responsive: true, scales: { x: { beginAtZero: true, ticks: { precision: 0 } } } }
+  });
+  new Chart(document.getElementById("status-chart"), {
+    type: "doughnut", data: { labels: dashboardData.status.labels, datasets: [{ data: dashboardData.status.values, backgroundColor: chartColors }] },
+    options: { responsive: true }
+  });
+</script>
+{% endblock %}

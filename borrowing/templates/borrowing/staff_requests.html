@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Borrow requests" %}{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">{% translate "Borrow requests" %}</h1>
+<form method="get" class="card card-body mb-3">
+  <input type="hidden" name="tab" value="{{ tab }}">
+  <div class="input-group">
+    <input class="form-control" name="q" value="{{ q }}" placeholder="{% translate 'Code, borrower or equipment' %}" aria-label="{% translate 'Search' %}">
+    <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> {% translate "Search" %}</button>
+  </div>
+</form>
+<ul class="nav nav-tabs mb-3 flex-nowrap overflow-auto">
+  <li class="nav-item"><a class="nav-link text-nowrap {% if tab == 'pending' %}active{% endif %}" href="?tab=pending&amp;q={{ q|urlencode }}">{% translate "Pending" %} <span class="badge text-bg-warning">{{ counts.pending }}</span></a></li>
+  <li class="nav-item"><a class="nav-link text-nowrap {% if tab == 'approved' %}active{% endif %}" href="?tab=approved&amp;q={{ q|urlencode }}">{% translate "To hand over" %} <span class="badge text-bg-info">{{ counts.approved }}</span></a></li>
+  <li class="nav-item"><a class="nav-link text-nowrap {% if tab == 'loan' %}active{% endif %}" href="?tab=loan&amp;q={{ q|urlencode }}">{% translate "On loan" %} <span class="badge text-bg-primary">{{ counts.loan }}</span></a></li>
+  <li class="nav-item"><a class="nav-link text-nowrap {% if tab == 'all' %}active{% endif %}" href="?tab=all&amp;q={{ q|urlencode }}">{% translate "All" %} <span class="badge text-bg-secondary">{{ counts.all }}</span></a></li>
+</ul>
+{% include "borrowing/_request_table.html" with show_user=True show_actions=True %}
+{% endblock %}

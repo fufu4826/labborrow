@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n form_tags %}
+
+{% block title %}{% translate "Reports" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+  <h1 class="h3 mb-0">{% translate "Reports" %}</h1>
+  <a class="btn btn-outline-secondary" href="{% url 'reports:dashboard' %}">{% translate "Dashboard" %}</a>
+</div>
+<div class="card mb-4"><div class="card-body">
+  <h2 class="h5">{% translate "Choose report and period" %}</h2>
+  <form method="get" action="{% url 'reports:index' %}">
+    {% bs_form form %}
+    <button class="btn btn-primary" type="submit">{% translate "Apply" %}</button>
+  </form>
+</div></div>
+<h2 class="h5 mb-3">{% translate "Download a report" %}</h2>
+<div class="list-group">
+  {% for report in reports %}
+  <div class="list-group-item d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <span class="fw-medium">{{ report.label }}</span>
+    <span class="d-flex gap-2">
+      <a class="btn btn-sm btn-outline-success" href="{{ report.xlsx_url }}">{% translate "Excel" %}</a>
+      <a class="btn btn-sm btn-outline-danger" href="{{ report.pdf_url }}">{% translate "PDF" %}</a>
+    </span>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

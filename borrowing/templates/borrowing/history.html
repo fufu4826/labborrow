@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n form_tags %}
+{% block title %}{% translate "History" %}{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">{% translate "History" %}</h1>
+<form method="get" class="card card-body mb-3">
+  <div class="row g-2 align-items-end">
+    <div class="col-6 col-md-2">{{ form.date_from|bs_field }}</div>
+    <div class="col-6 col-md-2">{{ form.date_to|bs_field }}</div>
+    <div class="col-6 col-md-2">{{ form.status|bs_field }}</div>
+    {% if form.user %}<div class="col-6 col-md-2">{{ form.user|bs_field }}</div>{% endif %}
+    <div class="col-12 col-md-2">{{ form.equipment|bs_field }}</div>
+    <div class="col-12 col-md-2 mb-3 d-grid"><button class="btn btn-primary" type="submit">{% translate "Filter" %}</button></div>
+  </div>
+</form>
+{% include "borrowing/_request_table.html" with show_user=is_staff_user show_actions=False %}
+{% endblock %}

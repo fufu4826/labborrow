@@ -1,0 +1,48 @@
+{% load i18n %}
+{# Expects page_obj of BorrowRequest; show_user toggles the borrower column. #}
+<div class="table-responsive d-none d-md-block">
+  <table class="table table-hover align-middle bg-white mb-0">
+    <thead><tr>
+      <th>{% translate "Code" %}</th>{% if show_user %}<th>{% translate "Borrower" %}</th>{% endif %}
+      <th>{% translate "Items" %}</th><th>{% translate "Borrow at" %}</th><th>{% translate "Due at" %}</th>
+      <th>{% translate "Status" %}</th><th></th>
+    </tr></thead>
+    <tbody>
+    {% for r in page_obj %}
+      <tr class="{% if r.is_late %}table-danger{% endif %}">
+        <td><a href="{% url 'borrowing:request_detail' r.pk %}">{{ r.code }}</a></td>
+        {% if show_user %}<td>{{ r.user.get_full_name|default:r.user.username }}</td>{% endif %}
+        <td>{% for i in r.items.all %}{{ i.equipment.display_name }} &times;{{ i.quantity }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+        <td>{{ r.borrow_at|date:"d/m/Y H:i" }}</td><td>{{ r.due_at|date:"d/m/Y H:i" }}</td>
+        <td>{% include "borrowing/_status_badge.html" with status=r.status label=r.get_status_display %}</td>
+        <td class="text-end text-nowrap">
+          {% if show_actions %}
+            {% if "approve" in r.actions %}<form method="post" action="{% url 'borrowing:request_approve' r.pk %}" class="d-inline">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><button class="btn btn-sm btn-success">{% translate "Approve" %}</button></form>{% endif %}
+            {% if "hand_over" in r.actions %}<form method="post" action="{% url 'borrowing:request_hand_over' r.pk %}" class="d-inline">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><button class="btn btn-sm btn-primary">{% translate "Hand over" %}</button></form>{% endif %}
+            {% if "receive_return" in r.actions %}<a class="btn btn-sm btn-outline-primary" href="{% url 'borrowing:request_return' r.pk %}">{% translate "Receive return" %}</a>{% endif %}
+          {% endif %}
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'borrowing:request_detail' r.pk %}">{% translate "Details" %}</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="7" class="text-center text-muted py-4">{% translate "No requests found." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="list-group d-md-none">
+  {% for r in page_obj %}
+  <a class="list-group-item list-group-item-action {% if r.is_late %}list-group-item-danger{% endif %}" href="{% url 'borrowing:request_detail' r.pk %}">
+    <div class="d-flex justify-content-between align-items-start">
+      <strong>{{ r.code }}</strong>
+      {% include "borrowing/_status_badge.html" with status=r.status label=r.get_status_display %}
+    </div>
+    {% if show_user %}<div class="small">{{ r.user.get_full_name|default:r.user.username }}</div>{% endif %}
+    <div class="small">{% for i in r.items.all %}{{ i.equipment.display_name }} &times;{{ i.quantity }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+    <div class="small text-muted">{{ r.borrow_at|date:"d/m/Y H:i" }} &rarr; {{ r.due_at|date:"d/m/Y H:i" }}</div>
+  </a>
+  {% empty %}
+  <div class="list-group-item text-center text-muted">{% translate "No requests found." %}</div>
+  {% endfor %}
+</div>
+{% include "borrowing/_pagination.html" %}

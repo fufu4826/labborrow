@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n form_tags %}
+{% block title %}{% translate "Damage reports" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">{% translate "Damage reports" %}</h1>
+  <a class="btn btn-primary" href="{% url 'maintenance:create' %}"><i class="bi bi-plus-lg"></i> {% translate "Report damage" %}</a>
+</div>
+{% if is_staff_view %}
+<form method="get" class="row g-2 mb-3">
+  <div class="col-12 col-md-5"><input type="search" name="q" value="{{ form.q.value|default:'' }}" class="form-control" placeholder="{% translate 'Search' %}"></div>
+  <div class="col-8 col-md-4"><select name="status" class="form-select">
+    {% for value, label in form.fields.status.choices %}<option value="{{ value }}"{% if form.status.value == value %} selected{% endif %}>{{ label }}</option>{% endfor %}
+  </select></div>
+  <div class="col-4 col-md-3"><button class="btn btn-outline-primary w-100" type="submit">{% translate "Filter" %}</button></div>
+</form>
+{% endif %}
+<div class="table-responsive">
+<table class="table table-hover align-middle">
+  <thead><tr>
+    <th>{% translate "Code" %}</th><th>{% translate "Equipment" %}</th><th>{% translate "Qty" %}</th>
+    <th>{% translate "Problem" %}</th>{% if is_staff_view %}<th>{% translate "Reported by" %}</th>{% endif %}
+    <th>{% translate "Status" %}</th><th>{% translate "Date" %}</th>
+  </tr></thead>
+  <tbody>
+  {% for r in reports %}
+  <tr>
+    <td><a href="{{ r.get_absolute_url }}">{{ r }}</a></td>
+    <td>{{ r.equipment.display_name }}</td>
+    <td>{{ r.quantity }}</td>
+    <td>{{ r.problem }}</td>
+    {% if is_staff_view %}<td>{{ r.reported_by.get_full_name|default:r.reported_by.username }}</td>{% endif %}
+    <td><span class="badge bg-{{ r.badge }}">{{ r.get_status_display }}</span></td>
+    <td>{{ r.created_at|date:"d/m/Y H:i" }}</td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="7" class="text-center text-muted py-4">{% translate "No damage reports." %}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
