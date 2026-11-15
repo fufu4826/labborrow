@@ -69,8 +69,16 @@ def _action(request, func, success, *args, **kwargs):
     return result
 
 
+def _parse_int(value):
+    try:
+        value = int(value)
+    except (TypeError, ValueError):
+        return None
+    return value if -(2 ** 63) <= value < 2 ** 63 else None
+
+
 def _paginate(request, qs):
-    page = Paginator(qs, PAGE_SIZE).get_page(request.GET.get("page"))
+    page = Paginator(qs, PAGE_SIZE).get_page(_parse_int(request.GET.get("page")))
     params = request.GET.copy()
     params.pop("page", None)
     return page, params.urlencode()
@@ -103,7 +111,7 @@ def _request_qs():
 def calendar(request):
     return render(request, "borrowing/calendar.html", {
         "equipment_list": Equipment.objects.active().order_by("asset_code"),
-        "selected": request.GET.get("equipment", ""),
+        "selected": str(_parse_int(request.GET.get("equipment")) or ""),
         "lang": "en" if get_language() == "en" else "th",
     })
 
@@ -124,7 +132,7 @@ def calendar_events(request):
     user = request.user
     staff = _is_staff(user)
     start, end = _parse_dt(request.GET.get("start")), _parse_dt(request.GET.get("end"))
-    equipment_pk = request.GET.get("equipment", "")
+    equipment_pk = _parse_int(request.GET.get("equipment"))
     bookings = Booking.objects.filter(status=BookingStatus.ACTIVE).select_related("equipment", "user")
     requests_ = BorrowRequest.objects.filter(status__in=HOLDING_STATUSES).select_related("user")
     if start:
@@ -133,7 +141,7 @@ def calendar_events(request):
     if end:
         bookings = bookings.filter(start_at__lt=end)
         requests_ = requests_.filter(borrow_at__lt=end)
-    if equipment_pk.isdigit():
+    if equipment_pk is not None:
         bookings = bookings.filter(equipment_id=equipment_pk)
         requests_ = requests_.filter(items__equipment_id=equipment_pk).distinct()
     requests_ = requests_.prefetch_related("items__equipment")
@@ -156,7 +164,7 @@ def calendar_events(request):
     for r in requests_:
         mine = r.user_id == user.pk
         for item in r.items.all():
-            if equipment_pk.isdigit() and item.equipment_id != int(equipment_pk):
+            if equipment_pk is not None and item.equipment_id != equipment_pk:
                 continue
             events.append({
                 "id": f"r{r.pk}-{item.pk}",
@@ -232,9 +240,9 @@ def request_create(request):
     else:
         form = RequestForm()
         initial = []
-        pk = request.GET.get("equipment", "")
-        if pk.isdigit() and Equipment.objects.active().filter(pk=pk).exists():
-            initial = [{"equipment": int(pk), "quantity": 1}]
+        pk = _parse_int(request.GET.get("equipment"))
+        if pk is not None and Equipment.objects.active().filter(pk=pk).exists():
+            initial = [{"equipment": pk, "quantity": 1}]
         formset = ItemFormSet(initial=initial)
     return render(request, "borrowing/request_form.html", {
         "form": form, "formset": formset, "settings": settings, "hours_help": _hours_help(settings),
@@ -327,10 +335,13 @@ def staff_requests(request):
                 | Q(items__equipment__name_th__icontains=q) | Q(items__equipment__name_en__icontains=q)
                 | Q(items__equipment__asset_code__icontains=q))
         digits = q.upper().replace("REQ-", "").strip()
-        if digits.isdigit():
-            cond |= Q(pk=int(digits))
+        pk = _parse_int(digits)
+        if pk is not None:
+            cond |= Q(pk=pk)
             if len(digits) > 4:
-                cond |= Q(pk=int(digits[4:]))
+                suffix_pk = _parse_int(digits[4:])
+                if suffix_pk is not None:
+                    cond |= Q(pk=suffix_pk)
         qs = qs.filter(cond).distinct()
     qs = qs.order_by("due_at" if tab == "loan" else "-created_at")
     page, querystring = _paginate(request, qs)

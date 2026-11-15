@@ -137,7 +137,12 @@ def cancel_booking(booking, actor):
 def convert_booking(booking, actor, purpose):
     equipment_id = Booking.objects.values_list("equipment_id", flat=True).get(pk=booking.pk)
     _equipment([equipment_id])
-    transition(_lock(booking), "convert", actor)
+    _lock(booking)
+    if booking.start_at < timezone.now() - timedelta(minutes=5):
+        raise ValidationError(_("This booking has already started or passed."))
+    if booking.quantity > SystemSetting.load().max_items_per_request:
+        raise ValidationError(_("The maximum number of items per request was exceeded."))
+    transition(booking, "convert", actor)
     req = BorrowRequest.objects.create(
         user=booking.user, booking=booking, purpose=purpose,
         borrow_at=booking.start_at, due_at=booking.end_at,
@@ -195,7 +200,16 @@ def cancel_request(req, actor):
 
 @transaction.atomic
 def hand_over(req, actor):
-    return transition(_lock(req), "hand_over", actor)
+    items = list(req.items.all())
+    equipment = _equipment({item.equipment_id for item in items})
+    _lock(req)
+    start = max(timezone.now(), req.borrow_at)
+    for item in items:
+        eq = equipment[item.equipment_id]
+        if (not eq.is_bookable
+                or available_quantity(eq, start, req.due_at, exclude_request=req) < item.quantity):
+            raise ValidationError(_("Not enough usable units to hand over right now (damaged or not yet returned)."))
+    return transition(req, "hand_over", actor)
 
 
 @transaction.atomic

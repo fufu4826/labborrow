@@ -58,10 +58,15 @@ def change_status(report, actor, new_status, staff_note=""):
             raise ValidationError(_("This status change is not allowed."))
         eq = Equipment.objects.select_for_update().get(pk=report.equipment_id)
         qty = report.quantity
+        if new_status in (S.REPAIRED, S.WRITTEN_OFF) and eq.quantity_out_of_service < qty:
+            raise ValidationError(_("Damaged unit counts are inconsistent; cannot resolve this report."))
         if new_status in COUNTED and report.status not in COUNTED:
-            eq.quantity_out_of_service = min(eq.quantity_out_of_service + qty, eq.quantity_total)
+            if qty > eq.usable_quantity:
+                raise ValidationError(_("Only %(n)s usable unit(s) remain; cannot mark more as damaged.")
+                                      % {"n": eq.usable_quantity})
+            eq.quantity_out_of_service += qty
         elif new_status == S.REPAIRED:
-            eq.quantity_out_of_service = max(eq.quantity_out_of_service - qty, 0)
+            eq.quantity_out_of_service -= qty
         elif new_status == S.WRITTEN_OFF:
             if eq.quantity_total - qty <= 0:
                 eq.quantity_total = 1
@@ -69,7 +74,7 @@ def change_status(report, actor, new_status, staff_note=""):
                 eq.is_active = False
             else:
                 eq.quantity_total -= qty
-                eq.quantity_out_of_service = max(eq.quantity_out_of_service - qty, 0)
+                eq.quantity_out_of_service -= qty
         eq.save()
         report.status = new_status
         report.handled_by = actor
