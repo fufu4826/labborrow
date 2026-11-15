@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% load i18n form_tags %}
+{% block title %}{% translate "My profile" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-6">
+  <div class="card shadow-sm"><div class="card-body p-4">
+    <h1 class="h4 mb-3">{% translate "My profile" %}</h1>
+    <form method="post" novalidate>{% csrf_token %}
+      {% bs_form form %}
+      <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
+      <a class="btn btn-outline-secondary" href="{% url 'accounts:password_change' %}">{% translate "Change password" %}</a>
+    </form>
+  </div></div>
+</div></div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Delete equipment" %}{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">{% translate "Delete equipment" %}</h1>
+<form method="post" class="card card-body" style="max-width:560px">
+  {% csrf_token %}
+  <p>{% translate "Are you sure you want to delete this equipment? It will be hidden from the list." %}</p>
+  <p class="fw-semibold">{{ eq }}</p>
+  <div class="d-flex gap-2">
+    <button class="btn btn-danger" type="submit">{% translate "Delete" %}</button>
+    <a class="btn btn-outline-secondary" href="{% url 'inventory:detail' eq.pk %}">{% translate "Cancel" %}</a>
+  </div>
+</form>
+{% endblock %}

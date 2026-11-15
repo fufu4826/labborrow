@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -20,8 +22,8 @@ class SystemSetting(TimeStampedModel):
         _("max borrow days"), default=7, validators=[MinValueValidator(1)])
     max_advance_booking_days = models.PositiveSmallIntegerField(
         _("max advance booking days"), default=14, validators=[MinValueValidator(0)])
-    open_time = models.TimeField(_("opening time"), default="08:30")
-    close_time = models.TimeField(_("closing time"), default="16:30")
+    open_time = models.TimeField(_("opening time"), default=datetime.time(8, 30))
+    close_time = models.TimeField(_("closing time"), default=datetime.time(16, 30))
     open_weekdays = models.CharField(
         _("open weekdays"), max_length=20, default="0,1,2,3,4",
         help_text=_("Comma separated, Monday=0 ... Sunday=6"))

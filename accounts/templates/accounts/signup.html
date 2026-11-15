@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% load i18n form_tags %}
+{% block title %}{% translate "Sign up" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-6">
+  <div class="card shadow-sm"><div class="card-body p-4">
+    <h1 class="h4 mb-3">{% translate "Sign up" %}</h1>
+    <form method="post" novalidate>{% csrf_token %}
+      {% bs_form form %}
+      <button class="btn btn-primary w-100" type="submit">{% translate "Sign up" %}</button>
+    </form>
+    <p class="text-center small mt-3 mb-0">{% translate "Already have an account?" %} <a href="{% url 'accounts:login' %}">{% translate "Log in" %}</a></p>
+  </div></div>
+</div></div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Equipment" %}{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <h1 class="h3 mb-0">{% translate "Equipment" %}</h1>
+  {% if user.is_lab_staff %}
+  <div class="d-flex gap-2">
+    <a class="btn btn-outline-secondary" href="{% url 'inventory:category_list' %}">{% translate "Categories" %}</a>
+    <a class="btn btn-primary" href="{% url 'inventory:create' %}"><i class="bi bi-plus-lg"></i> {% translate "Add equipment" %}</a>
+  </div>
+  {% endif %}
+</div>
+<form method="get" class="card card-body mb-4">
+  <div class="row g-2 align-items-end">
+    <div class="col-12 col-md-3"><label class="form-label" for="{{ form.q.id_for_label }}">{{ form.q.label }}</label>{{ form.q }}</div>
+    <div class="col-6 col-md-3"><label class="form-label" for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>{{ form.category }}</div>
+    <div class="col-6 col-md-2"><label class="form-label" for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>{{ form.status }}</div>
+    <div class="col-8 col-md-2"><label class="form-label" for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>{{ form.date }}</div>
+    <div class="col-4 col-md-2 d-grid"><button class="btn btn-primary" type="submit">{% translate "Search" %}</button></div>
+  </div>
+</form>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">
+  {% for eq in equipment_list %}
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      {% if eq.image %}<img src="{{ eq.image.url }}" class="card-img-top" alt="{{ eq.display_name }}" style="height:160px;object-fit:cover">
+      {% else %}<div class="bg-light text-center text-muted py-5"><i class="bi bi-image fs-1"></i></div>{% endif %}
+      <div class="card-body">
+        <h2 class="h6 card-title mb-1"><a class="stretched-link text-decoration-none" href="{% url 'inventory:detail' eq.pk %}">{{ eq.display_name }}</a></h2>
+        <div class="small text-muted">{{ eq.asset_code }} &middot; {{ eq.category.display_name }}</div>
+      </div>
+      <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+        <span class="badge text-bg-{{ eq.badge }}">{{ eq.status_value.label }}</span>
+        <span class="small">{% if date_filter %}{% translate "Free on" %} {{ date_filter|date:"d/m/Y" }}{% else %}{% translate "Free now" %}{% endif %}: <strong>{{ eq.free_qty }}</strong>/{{ eq.usable_quantity }}</span>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-12"><div class="alert alert-info">{% translate "No equipment found." %}</div></div>
+  {% endfor %}
+</div>
+{% if page_obj.has_other_pages %}
+<nav class="mt-4" aria-label="{% translate 'Pages' %}"><ul class="pagination justify-content-center">
+  {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?{% if querystring %}{{ querystring }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">&laquo;</a></li>{% endif %}
+  <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+  {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?{% if querystring %}{{ querystring }}&amp;{% endif %}page={{ page_obj.next_page_number }}">&raquo;</a></li>{% endif %}
+</ul></nav>
+{% endif %}
+{% endblock %}

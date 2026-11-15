@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ eq.display_name }}{% endblock %}
+{% block content %}
+<a href="{% url 'inventory:list' %}" class="small text-decoration-none"><i class="bi bi-arrow-left"></i> {% translate "Back to equipment" %}</a>
+<div class="row g-4 mt-1">
+  <div class="col-12 col-md-5">
+    {% if eq.image %}<img src="{{ eq.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ eq.display_name }}">
+    {% else %}<div class="bg-light text-center text-muted py-5 rounded"><i class="bi bi-image display-1"></i></div>{% endif %}
+  </div>
+  <div class="col-12 col-md-7">
+    <h1 class="h3">{{ eq.display_name }}</h1>
+    <p class="text-muted mb-2">{{ eq.asset_code }} &middot; {{ eq.category.display_name }}</p>
+    <p><span class="badge text-bg-{{ badge }} fs-6">{{ status.label }}</span></p>
+    {% if not eq.is_active %}<div class="alert alert-warning">{% translate "This equipment has been removed." %}</div>{% endif %}
+    <dl class="row">
+      <dt class="col-5">{% translate "Free now" %}</dt><dd class="col-7">{{ free_qty }} / {{ eq.usable_quantity }}</dd>
+      <dt class="col-5">{% translate "Total quantity" %}</dt><dd class="col-7">{{ eq.quantity_total }}</dd>
+      <dt class="col-5">{% translate "Quantity out of service" %}</dt><dd class="col-7">{{ eq.quantity_out_of_service }}</dd>
+      <dt class="col-5">{% translate "Storage location" %}</dt><dd class="col-7">{{ eq.location|default:"-" }}</dd>
+    </dl>
+    {% if eq.description %}<p>{{ eq.description|linebreaksbr }}</p>{% endif %}
+    <div class="d-flex flex-wrap gap-2">
+      {% if user.is_lab_staff %}
+        <a class="btn btn-primary" href="{% url 'inventory:update' eq.pk %}"><i class="bi bi-pencil"></i> {% translate "Edit" %}</a>
+        {% if eq.is_active %}<a class="btn btn-outline-danger" href="{% url 'inventory:delete' eq.pk %}"><i class="bi bi-trash"></i> {% translate "Delete" %}</a>{% endif %}
+      {% elif eq.is_bookable %}
+        {% url 'borrowing:booking_create' eq.pk as booking_url %}
+        {% if booking_url %}<a class="btn btn-outline-primary" href="{{ booking_url }}"><i class="bi bi-calendar-plus"></i> {% translate "Book" %}</a>{% endif %}
+        {% url 'borrowing:request_create' as request_url %}
+        {% if request_url %}<a class="btn btn-primary" href="{{ request_url }}?equipment={{ eq.pk }}"><i class="bi bi-box-arrow-right"></i> {% translate "Borrow" %}</a>{% endif %}
+      {% endif %}
+      {% url 'maintenance:create' as damage_url %}
+      {% if damage_url and eq.is_active %}<a class="btn btn-outline-secondary" href="{{ damage_url }}?equipment={{ eq.pk }}"><i class="bi bi-tools"></i> {% translate "Report damage" %}</a>{% endif %}
+    </div>
+  </div>
+</div>
+<h2 class="h5 mt-4">{% translate "Availability for the next 14 days" %}</h2>
+<div class="row row-cols-2 row-cols-sm-4 row-cols-lg-7 g-2">
+  {% for d in strip %}
+  <div class="col">
+    <div class="border rounded p-2 text-center h-100 {% if d.closed %}bg-light text-muted{% elif d.free %}border-success{% else %}border-danger{% endif %}">
+      <div class="small">{{ d.date|date:"D d/m" }}</div>
+      {% if d.closed %}<div class="small">{% translate "Closed" %}</div>
+      {% else %}<div class="fw-bold {% if d.free %}text-success{% else %}text-danger{% endif %}">{{ d.free }}</div>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
