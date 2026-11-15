@@ -53,6 +53,11 @@ def to_xlsx(title, headers, rows, date_from, date_to, kind="report"):
         cell.alignment = Alignment(wrap_text=True, vertical="top")
     for row in rows:
         sheet.append([_local_value(value) for value in row])
+    for row in sheet.iter_rows():
+        for cell in row:
+            if isinstance(cell.value, str) and cell.value.startswith(("=", "+", "-", "@", "\t", "\r")):
+                cell.value = "'" + cell.value
+                cell.data_type = "s"
     for row in sheet.iter_rows(min_row=4):
         for cell in row:
             if isinstance(cell.value, datetime):

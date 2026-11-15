@@ -1,4 +1,5 @@
 import io
+from zipfile import ZIP_DEFLATED, ZIP_STORED, ZipFile
 
 import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -6,6 +7,7 @@ from django.core.management import call_command
 from django.urls import reverse
 from openpyxl import Workbook, load_workbook
 
+from inventory import importer
 from inventory.importer import HEADERS, import_equipment
 from inventory.models import Category, Equipment
 
@@ -106,3 +108,69 @@ def test_command(tmp_path):
     assert Equipment.objects.count() == 0
     call_command("import_equipment", str(p))
     assert Equipment.objects.count() == 1
+
+
+@pytest.mark.parametrize("kind", ["not_zip", "members", "member_size", "total_size", "ratio"])
+def test_unsafe_archive_rejected_before_loading(monkeypatch, kind):
+    buf = io.BytesIO()
+    if kind == "not_zip":
+        buf.write(b"not a zip")
+    else:
+        compression = ZIP_STORED if kind == "total_size" else ZIP_DEFLATED
+        with ZipFile(buf, "w", compression=compression) as archive:
+            if kind == "members":
+                for i in range(201):
+                    archive.writestr(str(i), b"")
+            elif kind == "member_size":
+                archive.writestr("huge.xml", b"x" * (20 * 1024 * 1024 + 1))
+            elif kind == "total_size":
+                for i in range(3):
+                    archive.writestr(str(i), b"x" * (17 * 1024 * 1024))
+            else:
+                archive.writestr("compressed.xml", b"x" * (1024 * 1024))
+    monkeypatch.setattr(importer, "MAX_BYTES", 60 * 1024 * 1024)
+
+    def unexpected_load(*args, **kwargs):
+        pytest.fail("Unsafe archive reached openpyxl")
+
+    monkeypatch.setattr(importer, "load_workbook", unexpected_load)
+    res = import_equipment(buf)
+    assert res.errors and res.errors[0][0] == 0
+    assert Equipment.objects.count() == 0
+
+
+@pytest.mark.parametrize("blank_rows", [False, True])
+def test_too_many_physical_rows(monkeypatch, blank_rows):
+    monkeypatch.setattr(importer, "MAX_ROWS", 2)
+    rows = [row("A-1"), [] if blank_rows else row("A-2"), row("A-3")]
+    res = import_equipment(make_xlsx(rows))
+    assert res.errors == [(4, importer._("Too many rows (maximum %(n)d).") % {"n": 2})]
+    assert Equipment.objects.count() == 0
+
+
+def test_maximum_rows_accepted(monkeypatch):
+    monkeypatch.setattr(importer, "MAX_ROWS", 2)
+    res = import_equipment(make_xlsx([row("A-1"), row("A-2")]))
+    assert res.errors == [] and res.created == 2
+
+
+def test_update_preserves_out_of_service_changed_after_load(monkeypatch):
+    import_equipment(make_xlsx([row()]))
+    original_apply = importer._apply_row
+    original_save = Equipment.save
+
+    def change_after_load(row_no, data, result, cache):
+        Equipment.objects.filter(asset_code="A-1").update(quantity_out_of_service=3)
+        return original_apply(row_no, data, result, cache)
+
+    def check_update_fields(self, *args, **kwargs):
+        assert set(kwargs["update_fields"]) == {"name_th", "quantity_total", "updated_at"}
+        return original_save(self, *args, **kwargs)
+
+    monkeypatch.setattr(importer, "_apply_row", change_after_load)
+    monkeypatch.setattr(Equipment, "save", check_update_fields)
+    res = import_equipment(make_xlsx([row(name="Updated", qty=9)]))
+    assert res.errors == [] and res.updated == 1
+    eq = Equipment.objects.get()
+    assert eq.name_th == "Updated" and eq.quantity_total == 9
+    assert eq.quantity_out_of_service == 3

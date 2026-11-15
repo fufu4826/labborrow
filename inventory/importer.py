@@ -1,5 +1,6 @@
 """Excel import of equipment (all-or-nothing, optional dry run)."""
 from dataclasses import dataclass, field
+from zipfile import ZipFile
 
 from django.db import transaction
 from django.utils.translation import gettext as _
@@ -75,11 +76,22 @@ def _parse_quantity(value):
 
 
 def _read_rows(file_obj):
+    file_obj.seek(0)
+    with ZipFile(file_obj) as archive:
+        members = archive.infolist()
+        if (len(members) > 200 or sum(member.file_size for member in members) > 50 * 1024 * 1024
+                or any(member.file_size > 20 * 1024 * 1024
+                       or member.file_size > 100 * member.compress_size for member in members)):
+            raise ValueError
+    file_obj.seek(0)
     wb = load_workbook(file_obj, read_only=True, data_only=True)
     try:
-        rows = wb.worksheets[0].iter_rows(values_only=True)
+        ws = wb.worksheets[0]
+        rows = ws.iter_rows(min_row=1, max_row=MAX_ROWS + 1, max_col=20, values_only=True)
         yield next(rows, None)
         yield from enumerate(rows, start=2)
+        extra = ws.iter_rows(min_row=MAX_ROWS + 2, max_row=MAX_ROWS + 2, max_col=20, values_only=True)
+        yield from enumerate(extra, start=MAX_ROWS + 2)
     finally:
         wb.close()
 
@@ -118,7 +130,7 @@ def _apply_row(row_no, data, result, cache):
             category.save(update_fields=["name_en", "updated_at"])
         cache["categories"][cat_th] = category
 
-    eq = Equipment.objects.filter(asset_code=code).first()
+    eq = cache["equipment"].get(code)
     if eq is None:
         Equipment.objects.create(asset_code=code, name_th=name_th, name_en=data["name_en"],
                                  category=category, description=data["description"],
@@ -129,10 +141,16 @@ def _apply_row(row_no, data, result, cache):
         result.errors.append((row_no, _("quantity_total (%(q)d) is below the quantity out of service "
                                         "(%(o)d).") % {"q": qty, "o": eq.quantity_out_of_service}))
         return
-    eq.name_th, eq.name_en, eq.category = name_th, data["name_en"], category
-    eq.description, eq.location, eq.quantity_total = data["description"], data["location"], qty
-    eq.is_active = True
-    eq.save()
+    changes = {"name_th": name_th, "name_en": data["name_en"], "category": category,
+               "description": data["description"], "location": data["location"],
+               "quantity_total": qty, "is_active": True}
+    changed_fields = []
+    for key, value in changes.items():
+        if getattr(eq, key) != value:
+            setattr(eq, key, value)
+            changed_fields.append(key)
+    if changed_fields:
+        eq.save(update_fields=[*changed_fields, "updated_at"])
     result.updated += 1
 
 
@@ -156,25 +174,35 @@ def import_equipment(file_obj, dry_run=False):
     absent = [k for k in REQUIRED if k not in keys]
     if absent:
         result.errors.append((1, _("Missing header column(s): %(cols)s") % {"cols": ", ".join(absent)}))
+        reader.close()
         return result
     index = {k: keys.index(k) for k in HEADERS if k in keys}
     cache = {"codes": set(), "categories": {}}
     try:
-        with transaction.atomic():
-            count = 0
+        parsed = []
+        try:
             for row_no, values in reader:
+                if row_no > MAX_ROWS + 1:
+                    result.errors.append((row_no, _("Too many rows (maximum %(n)d).") % {"n": MAX_ROWS}))
+                    break
                 values = tuple(values or ())
                 if all(v is None or _text(v) == "" for v in values):
                     continue
-                count += 1
-                if count > MAX_ROWS:
-                    result.errors.append((row_no, _("Too many rows (maximum %(n)d).") % {"n": MAX_ROWS}))
-                    break
                 data = {}
                 for k in HEADERS:
                     i = index.get(k)
                     raw = values[i] if i is not None and i < len(values) else None
                     data[k] = raw if k == "quantity_total" else _text(raw)
+                parsed.append((row_no, data))
+        finally:
+            reader.close()
+        if result.errors:
+            return result
+        with transaction.atomic():
+            codes = {data["asset_code"] for row_no, data in parsed}
+            cache["equipment"] = {eq.asset_code: eq for eq in Equipment.objects.select_for_update()
+                                  .filter(asset_code__in=codes).order_by("pk")}
+            for row_no, data in parsed:
                 _apply_row(row_no, data, result, cache)
             if result.errors or dry_run:
                 raise _Rollback

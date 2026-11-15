@@ -1,4 +1,5 @@
-from datetime import timedelta
+from contextlib import closing
+from datetime import date, datetime, timedelta
 from io import BytesIO
 
 import pytest
@@ -8,6 +9,7 @@ from openpyxl import load_workbook
 
 from borrowing.models import BorrowItem, BorrowRequest, RequestStatus
 from inventory.models import Category, Equipment
+from reports.exports import to_xlsx
 
 
 @pytest.fixture
@@ -54,3 +56,29 @@ def test_unknown_kind_returns_404(staff_client):
 def test_unknown_format_returns_404(staff_client):
     response = staff_client.get(reverse("reports:export", kwargs={"kind": "loans", "fmt": "csv"}))
     assert response.status_code == 404
+
+
+def test_equipment_formula_exported_as_text(staff_client, loan_report_data):
+    name = '=HYPERLINK("http://x")'
+    Equipment.objects.update(name_th=name, name_en=name)
+    response = staff_client.get(reverse("reports:export", kwargs={"kind": "equipment", "fmt": "xlsx"}))
+    with closing(load_workbook(BytesIO(response.content))) as workbook:
+        cell = workbook.active.cell(row=4, column=2)
+        assert cell.value == "'" + name
+        assert cell.data_type == "s"
+
+
+@pytest.mark.parametrize("prefix", ["=", "+", "-", "@", "\t", "\r"])
+def test_xlsx_escapes_all_string_cells_and_preserves_types(prefix):
+    text = prefix + "value"
+    day = date(2026, 1, 1)
+    moment = datetime(2026, 1, 1, 12, 30)
+    response = to_xlsx(text, [text], [[text, -2, day, moment]], day, day)
+    with closing(load_workbook(BytesIO(response.content))) as workbook:
+        sheet = workbook.active
+        for address in ("A1", "A3", "A4"):
+            assert sheet[address].value == "'" + text.replace("\r", "\n")
+            assert sheet[address].data_type == "s"
+        assert sheet["B4"].value == -2 and sheet["B4"].data_type == "n"
+        assert sheet["C4"].value.date() == day and sheet["C4"].data_type == "d"
+        assert sheet["D4"].value == moment and sheet["D4"].data_type == "d"
