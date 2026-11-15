@@ -4,10 +4,10 @@ from datetime import datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
 from django.core.files.base import ContentFile
-from django.db.models import Q, Sum
+from django.db.models import Q
 from PIL import Image, ImageOps
 
-from borrowing.availability import STATUS_BADGE, available_quantity, bulk_status
+from borrowing.availability import STATUS_BADGE, available_quantity, bulk_status, peak_quantity
 from borrowing.models import HOLDING_BOOKING, HOLDING_REQUEST, ON_LOAN, Booking, BorrowItem
 from core.models import SystemSetting
 from inventory.models import AdminStatus
@@ -63,16 +63,26 @@ def _free_on_day_bulk(equipment_list, day, setting):
     ids = [eq.pk for eq in equipment_list]
     bookings = Booking.objects.filter(equipment_id__in=ids, status__in=HOLDING_BOOKING,
                                      start_at__lt=end, end_at__gt=start)
-    booking_totals = {row["equipment_id"]: row["total"] or 0
-                      for row in bookings.values("equipment_id").annotate(total=Sum("quantity"))}
+    intervals = {pk: [] for pk in ids}
+    for booking in bookings:
+        intervals[booking.equipment_id].append(
+            (max(booking.start_at, start), min(booking.end_at, end), booking.quantity))
     requests = BorrowItem.objects.filter(
         Q(request__status__in=HOLDING_REQUEST, request__borrow_at__lt=end, request__due_at__gt=start)
-        | Q(request__status__in=ON_LOAN, request__borrow_at__lt=end), equipment_id__in=ids,
-    )
-    request_totals = {row["equipment_id"]: row["total"] or 0
-                      for row in requests.values("equipment_id").annotate(total=Sum("quantity"))}
+        | Q(request__status__in=ON_LOAN), equipment_id__in=ids,
+    ).select_related("request")
+    for item in requests:
+        req = item.request
+        if req.status in ON_LOAN:
+            begin = min(req.borrow_at, req.handed_over_at or req.borrow_at)
+            finish = end
+        else:
+            begin, finish = req.borrow_at, req.due_at
+        begin, finish = max(begin, start), min(finish, end)
+        if begin < finish:
+            intervals[item.equipment_id].append((begin, finish, item.quantity))
     return {
-        eq.pk: max(eq.usable_quantity - booking_totals.get(eq.pk, 0) - request_totals.get(eq.pk, 0), 0)
+        eq.pk: max(eq.usable_quantity - peak_quantity(intervals[eq.pk]), 0)
         if eq.is_active and eq.status == AdminStatus.AVAILABLE else 0
         for eq in equipment_list
     }

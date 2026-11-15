@@ -107,3 +107,85 @@ def test_staff_search_ignores_invalid_numeric_request_ids(staff_client, student,
     response = staff_client.get(reverse("borrowing:staff_requests"), {"q": value})
     assert response.status_code == 200
     assert response.context["page_obj"].paginator.count == 0
+
+
+@pytest.mark.parametrize("delay", [timedelta(0), timedelta(seconds=1)])
+def test_hand_over_rejects_ended_loan(student, staff, monkeypatch, delay):
+    req = services.create_request(student, [(equipment(), 1)], *window(), "Lab")
+    services.approve(req, staff)
+    monkeypatch.setattr(services.timezone, "now", lambda: req.due_at + delay)
+    with pytest.raises(ValidationError) as exc:
+        services.hand_over(req, staff)
+    assert exc.value.messages == ["This loan period has already ended. Please create a new request."]
+    req.refresh_from_db()
+    assert req.status == RequestStatus.APPROVED
+    assert req.handed_over_at is None
+
+
+@pytest.mark.parametrize("hold", ["booking", "request"])
+def test_early_hand_over_checks_current_holds(student, staff, monkeypatch, hold):
+    eq = equipment(quantity=1)
+    start, end = window()
+    req = services.create_request(student, [(eq, 1)], start, end, "Lab")
+    services.approve(req, staff)
+    now = start - timedelta(hours=1)
+    if hold == "booking":
+        Booking.objects.create(user=student, equipment=eq, quantity=1,
+                               start_at=now - timedelta(hours=1), end_at=start)
+    else:
+        other = BorrowRequest.objects.create(user=student, borrow_at=now - timedelta(hours=1),
+                                             due_at=start, status=RequestStatus.APPROVED)
+        BorrowItem.objects.create(request=other, equipment=eq, quantity=1)
+    monkeypatch.setattr(services.timezone, "now", lambda: now)
+    with pytest.raises(ValidationError, match="Not enough usable units"):
+        services.hand_over(req, staff)
+    req.refresh_from_db()
+    assert req.status == RequestStatus.APPROVED
+    assert req.handed_over_at is None
+
+
+def test_due_checks_clear_extended_overdue(student):
+    now = timezone.now()
+    req = BorrowRequest.objects.create(
+        user=student, status=RequestStatus.OVERDUE, borrow_at=now - timedelta(days=2),
+        due_at=now + timedelta(days=10), overdue_notified_at=now, reminder_sent_at=now,
+    )
+    assert services.run_due_checks(now) == {"overdue": 0, "due_soon": 0, "expired": 0, "cleared": 1}
+    req.refresh_from_db()
+    assert req.status == RequestStatus.BORROWED
+    assert req.overdue_notified_at is None
+    assert req.reminder_sent_at is None
+    assert services.run_due_checks(now)["cleared"] == 0
+
+
+@pytest.mark.parametrize("status", [RequestStatus.OVERDUE, RequestStatus.BORROWED])
+def test_calendar_keeps_unreturned_loan_after_due(student_client, student, monkeypatch, status):
+    now = timezone.now()
+    req = BorrowRequest.objects.create(
+        user=student, status=status, borrow_at=now - timedelta(days=2), due_at=now - timedelta(days=1),
+    )
+    item = BorrowItem.objects.create(request=req, equipment=equipment(), quantity=1)
+    monkeypatch.setattr("borrowing.views.timezone.now", lambda: now)
+    response = student_client.get(reverse("borrowing:calendar_events"), {
+        "start": (now - timedelta(hours=1)).isoformat(), "end": (now + timedelta(days=1)).isoformat(),
+    })
+    (event,) = response.json()
+    assert event["id"] == f"r{req.pk}-{item.pk}"
+    assert event["end"] == now.isoformat()
+    assert event["color"] == "#dc3545"
+    assert "Overdue" in event["title"]
+
+
+def test_calendar_includes_early_hand_over(student_client, student, monkeypatch):
+    now = timezone.now()
+    req = BorrowRequest.objects.create(
+        user=student, status=RequestStatus.BORROWED, borrow_at=now + timedelta(days=2),
+        due_at=now + timedelta(days=3), handed_over_at=now - timedelta(hours=1),
+    )
+    BorrowItem.objects.create(request=req, equipment=equipment(), quantity=1)
+    monkeypatch.setattr("borrowing.views.timezone.now", lambda: now)
+    (event,) = student_client.get(reverse("borrowing:calendar_events"), {
+        "start": now.isoformat(), "end": (now + timedelta(days=1)).isoformat(),
+    }).json()
+    assert event["start"] == req.handed_over_at.isoformat()
+    assert event["end"] == req.due_at.isoformat()

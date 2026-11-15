@@ -90,8 +90,8 @@ def test_tc08_due_checks_overdue_remind_once_and_expire():
         hand_over(req, staff)
     expired = Booking.objects.create(user=user, equipment=eq, start_at=start, end_at=end)
     boundary = Booking.objects.create(user=user, equipment=eq, start_at=end - timedelta(hours=1), end_at=end)
-    assert run_due_checks(end) == {"overdue": 1, "due_soon": 1, "expired": 1}
-    assert run_due_checks(end) == {"overdue": 0, "due_soon": 0, "expired": 0}
+    assert run_due_checks(end) == {"overdue": 1, "due_soon": 1, "expired": 1, "cleared": 0}
+    assert run_due_checks(end) == {"overdue": 0, "due_soon": 0, "expired": 0, "cleared": 0}
     overdue.refresh_from_db()
     soon.refresh_from_db()
     expired.refresh_from_db()

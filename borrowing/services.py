@@ -203,7 +203,9 @@ def hand_over(req, actor):
     items = list(req.items.all())
     equipment = _equipment({item.equipment_id for item in items})
     _lock(req)
-    start = max(timezone.now(), req.borrow_at)
+    start = timezone.now()
+    if start >= req.due_at:
+        raise ValidationError(_("This loan period has already ended. Please create a new request."))
     for item in items:
         eq = equipment[item.equipment_id]
         if (not eq.is_bookable
@@ -256,7 +258,13 @@ def receive_return(req, actor, item_results, note="", images=()):
 def run_due_checks(now=None):
     now = now or timezone.now()
     settings = SystemSetting.load()
-    counts = {"overdue": 0, "due_soon": 0, "expired": 0}
+    counts = {"overdue": 0, "due_soon": 0, "expired": 0, "cleared": 0}
+    extended = BorrowRequest.objects.select_for_update().filter(
+        status=RequestStatus.OVERDUE, due_at__gt=now,
+    ).order_by("pk")
+    for req in extended:
+        transition(req, "clear_overdue", None)
+        counts["cleared"] += 1
     requests = BorrowRequest.objects.select_for_update().filter(
         status=RequestStatus.BORROWED, due_at__lte=now + timedelta(hours=settings.due_reminder_hours),
     ).order_by("pk")

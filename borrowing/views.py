@@ -131,16 +131,19 @@ def _parse_dt(value):
 def calendar_events(request):
     user = request.user
     staff = _is_staff(user)
+    now = timezone.now()
     start, end = _parse_dt(request.GET.get("start")), _parse_dt(request.GET.get("end"))
     equipment_pk = _parse_int(request.GET.get("equipment"))
     bookings = Booking.objects.filter(status=BookingStatus.ACTIVE).select_related("equipment", "user")
     requests_ = BorrowRequest.objects.filter(status__in=HOLDING_STATUSES).select_related("user")
     if start:
         bookings = bookings.filter(end_at__gt=start)
-        requests_ = requests_.filter(due_at__gt=start)
+        requests_ = requests_.filter(Q(due_at__gt=start) | Q(status__in=ON_LOAN))
     if end:
         bookings = bookings.filter(start_at__lt=end)
-        requests_ = requests_.filter(borrow_at__lt=end)
+        requests_ = requests_.filter(
+            Q(borrow_at__lt=end) | Q(status__in=ON_LOAN, handed_over_at__lt=end),
+        )
     if equipment_pk is not None:
         bookings = bookings.filter(equipment_id=equipment_pk)
         requests_ = requests_.filter(items__equipment_id=equipment_pk).distinct()
@@ -163,14 +166,19 @@ def calendar_events(request):
         })
     for r in requests_:
         mine = r.user_id == user.pk
+        on_loan = r.status in ON_LOAN
+        begin = min(r.borrow_at, r.handed_over_at or r.borrow_at) if on_loan else r.borrow_at
+        finish = max(r.due_at, now) if on_loan else r.due_at
+        overdue = r.status == RequestStatus.OVERDUE or (on_loan and r.due_at <= now)
         for item in r.items.all():
             if equipment_pk is not None and item.equipment_id != equipment_pk:
                 continue
             events.append({
                 "id": f"r{r.pk}-{item.pk}",
-                "title": title(item.equipment.display_name, item.quantity, r.user, r.code),
-                "start": r.borrow_at.isoformat(), "end": r.due_at.isoformat(),
-                "color": EVENT_COLORS[r.status],
+                "title": title(item.equipment.display_name, item.quantity, r.user, r.code)
+                + (f" ({_('Overdue')})" if overdue else ""),
+                "start": begin.isoformat(), "end": finish.isoformat(),
+                "color": EVENT_COLORS["overdue" if overdue else r.status],
                 "url": r.get_absolute_url() if (mine or staff) else "",
             })
     return JsonResponse(events, safe=False)

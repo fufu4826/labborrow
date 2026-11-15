@@ -3,9 +3,9 @@ from datetime import date, datetime, timedelta
 import pytest
 from django.urls import reverse
 
-from borrowing.models import Booking
+from borrowing.models import Booking, BorrowItem, BorrowRequest, RequestStatus
 from inventory.models import AdminStatus, Category, Equipment
-from inventory.services import TZ
+from inventory.services import TZ, _free_on_day_bulk, free_on_day
 
 
 @pytest.fixture
@@ -65,3 +65,37 @@ def test_detail_strip_has_14_days_and_closed_days(student_client, data):
     strip = resp.context["strip"]
     assert len(strip) == 14
     assert all(d["closed"] == (d["date"].weekday() >= 5) for d in strip)
+
+
+@pytest.mark.parametrize("hold", ["booking", "request", "mixed", "early_loan"])
+def test_date_filter_uses_peak_holds(staff_client, student, data, django_assert_num_queries, hold):
+    from core.models import SystemSetting
+
+    eq = data[2]
+    day = date.today() + timedelta(days=1)
+    while day.weekday() >= 5:
+        day += timedelta(days=1)
+    start = datetime.combine(day, datetime.min.time(), tzinfo=TZ).replace(hour=9)
+    middle = start + timedelta(hours=1)
+    end = middle + timedelta(hours=1)
+    if hold == "early_loan":
+        req = BorrowRequest.objects.create(
+            user=student, status=RequestStatus.BORROWED, borrow_at=end + timedelta(days=1),
+            due_at=end + timedelta(days=2), handed_over_at=start,
+        )
+        BorrowItem.objects.create(request=req, equipment=eq, quantity=2)
+    else:
+        for index, (begin, finish) in enumerate(((start, middle), (middle, end))):
+            if hold == "booking" or (hold == "mixed" and index == 0):
+                Booking.objects.create(user=student, equipment=eq, quantity=2, start_at=begin, end_at=finish)
+            else:
+                req = BorrowRequest.objects.create(user=student, status=RequestStatus.APPROVED,
+                                                   borrow_at=begin, due_at=finish)
+                BorrowItem.objects.create(request=req, equipment=eq, quantity=2)
+    response = staff_client.get(reverse("inventory:list"), {"q": eq.asset_code, "date": day.isoformat()})
+    assert response.context["equipment_list"][0].free_qty == 3
+    setting = SystemSetting.load()
+    with django_assert_num_queries(2):
+        free = _free_on_day_bulk([eq, data[3]], day, setting)
+    assert free[eq.pk] == free_on_day(eq, day, setting) == 3
+    assert free[data[3].pk] == data[3].usable_quantity
