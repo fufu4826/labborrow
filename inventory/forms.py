@@ -52,3 +52,19 @@ class EquipmentFilterForm(forms.Form):
                                widget=forms.Select(attrs={"class": "form-select"}))
     date = forms.DateField(label=_("Date"), required=False,
                            widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}))
+
+
+class ImportForm(forms.Form):
+    file = forms.FileField(label=_("Excel file (.xlsx)"),
+                           widget=forms.ClearableFileInput(attrs={"class": "form-control",
+                                                                  "accept": ".xlsx"}))
+    dry_run = forms.BooleanField(label=_("Validate only (do not save)"), required=False, initial=True,
+                                 widget=forms.CheckboxInput(attrs={"class": "form-check-input"}))
+
+    def clean_file(self):
+        f = self.cleaned_data["file"]
+        if not f.name.lower().endswith(".xlsx"):
+            raise forms.ValidationError(_("Only .xlsx files are allowed."))
+        if f.size > 5 * 1024 * 1024:
+            raise forms.ValidationError(_("File must be 5 MB or smaller."))
+        return f

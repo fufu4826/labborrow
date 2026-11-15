@@ -132,7 +132,7 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
-#: accounts/templates/accounts/password_change.html:10 accounts/templates/accounts/user_edit.html:11 borrowing/templates/borrowing/booking_form.html:16
+#: accounts/templates/accounts/password_change.html:10 accounts/templates/accounts/user_edit.html:12 accounts/templates/accounts/user_set_password.html:11
 msgid "Cancel"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr ""
 msgid "My profile"
 msgstr ""
 
-#: accounts/templates/accounts/profile.html:9 accounts/templates/accounts/user_edit.html:10 core/templates/core/settings_form.html:7
+#: accounts/templates/accounts/profile.html:9 accounts/templates/accounts/user_edit.html:11 core/templates/core/settings_form.html:7
 msgid "Save"
 msgstr ""
 
@@ -156,6 +156,10 @@ msgstr ""
 msgid "Edit user"
 msgstr ""
 
+#: accounts/templates/accounts/user_edit.html:8 accounts/templates/accounts/user_set_password.html:2 accounts/templates/accounts/user_set_password.html:6
+msgid "Set new password"
+msgstr ""
+
 #: accounts/templates/accounts/user_list.html:10
 msgid "All roles"
 msgstr ""
@@ -164,7 +168,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: accounts/templates/accounts/user_list.html:19 reports/services.py:133 reports/services.py:179
+#: accounts/templates/accounts/user_list.html:19 reports/services.py:149 reports/services.py:196
 msgid "Name"
 msgstr ""
 
@@ -196,15 +200,15 @@ msgstr ""
 msgid "No users found."
 msgstr ""
 
-#: accounts/templates/accounts/user_list.html:37 borrowing/templates/borrowing/_pagination.html:3 inventory/templates/inventory/equipment_list.html:44
+#: accounts/templates/accounts/user_list.html:37 borrowing/templates/borrowing/_pagination.html:3 inventory/templates/inventory/equipment_list.html:45
 msgid "Pages"
 msgstr ""
 
-#: accounts/templates/accounts/user_list.html:38 borrowing/templates/borrowing/_pagination.html:4 inventory/templates/inventory/equipment_list.html:45
+#: accounts/templates/accounts/user_list.html:38 borrowing/templates/borrowing/_pagination.html:4 inventory/templates/inventory/equipment_list.html:46
 msgid "Previous"
 msgstr ""
 
-#: accounts/templates/accounts/user_list.html:40 borrowing/templates/borrowing/_pagination.html:6 inventory/templates/inventory/equipment_list.html:47
+#: accounts/templates/accounts/user_list.html:40 borrowing/templates/borrowing/_pagination.html:6 inventory/templates/inventory/equipment_list.html:48
 msgid "Next"
 msgstr ""
 
@@ -216,23 +220,32 @@ msgstr ""
 msgid "Search username, name or ID"
 msgstr ""
 
-#: accounts/templates/accounts/user_list.html:9 accounts/templates/accounts/user_list.html:20 reports/services.py:179
+#: accounts/templates/accounts/user_list.html:9 accounts/templates/accounts/user_list.html:20 reports/services.py:196
 msgid "Role"
 msgstr ""
 
-#: accounts/views.py:29
+#: accounts/views.py:115
+msgid "To change your own password, use the password change page."
+msgstr ""
+
+#: accounts/views.py:140
+#, python-format
+msgid "Password updated for %(name)s."
+msgstr ""
+
+#: accounts/views.py:31
 msgid "Welcome! Your account has been created."
 msgstr ""
 
-#: accounts/views.py:42
+#: accounts/views.py:44
 msgid "Profile updated."
 msgstr ""
 
-#: accounts/views.py:51
+#: accounts/views.py:53
 msgid "Password changed."
 msgstr ""
 
-#: accounts/views.py:95
+#: accounts/views.py:97
 msgid "User updated."
 msgstr ""
 
@@ -574,7 +587,7 @@ msgstr ""
 msgid "No requests found."
 msgstr ""
 
-#: borrowing/templates/borrowing/_request_table.html:6 borrowing/templates/borrowing/request_detail.html:24 maintenance/templates/maintenance/list.html:21
+#: borrowing/templates/borrowing/_request_table.html:6 borrowing/templates/borrowing/request_detail.html:24 maintenance/templates/maintenance/list.html:38
 msgid "Code"
 msgstr ""
 
@@ -659,7 +672,7 @@ msgstr ""
 msgid "Received by"
 msgstr ""
 
-#: borrowing/templates/borrowing/request_detail.html:31 reports/services.py:126
+#: borrowing/templates/borrowing/request_detail.html:31 reports/services.py:141
 msgid "Returned at"
 msgstr ""
 
@@ -780,27 +793,27 @@ msgstr ""
 msgid "Marked overdue"
 msgstr ""
 
-#: borrowing/views.py:310
+#: borrowing/views.py:311
 msgid "The request was cancelled."
 msgstr ""
 
-#: borrowing/views.py:368
+#: borrowing/views.py:369
 msgid "The request was approved."
 msgstr ""
 
-#: borrowing/views.py:375
+#: borrowing/views.py:376
 msgid "The request was rejected."
 msgstr ""
 
-#: borrowing/views.py:381
+#: borrowing/views.py:382
 msgid "The equipment was handed over."
 msgstr ""
 
-#: borrowing/views.py:388
+#: borrowing/views.py:389
 msgid "This request is not on loan."
 msgstr ""
 
-#: borrowing/views.py:404
+#: borrowing/views.py:405
 msgid "The return was recorded."
 msgstr ""
 
@@ -1019,7 +1032,7 @@ msgstr ""
 msgid "Name or asset code"
 msgstr ""
 
-#: inventory/forms.py:47 inventory/templates/inventory/category_form.html:3 reports/services.py:133
+#: inventory/forms.py:47 inventory/templates/inventory/category_form.html:3 reports/services.py:149
 msgid "Category"
 msgstr ""
 
@@ -1031,8 +1044,83 @@ msgstr ""
 msgid "All statuses"
 msgstr ""
 
-#: inventory/forms.py:53 maintenance/templates/maintenance/detail.html:18 maintenance/templates/maintenance/list.html:23
+#: inventory/forms.py:53 maintenance/templates/maintenance/detail.html:18 maintenance/templates/maintenance/list.html:40
 msgid "Date"
+msgstr ""
+
+#: inventory/forms.py:58
+msgid "Excel file (.xlsx)"
+msgstr ""
+
+#: inventory/forms.py:61
+msgid "Validate only (do not save)"
+msgstr ""
+
+#: inventory/forms.py:67
+msgid "Only .xlsx files are allowed."
+msgstr ""
+
+#: inventory/forms.py:69
+msgid "File must be 5 MB or smaller."
+msgstr ""
+
+#: inventory/importer.py:103
+#, python-format
+msgid "%(col)s is longer than %(n)d characters."
+msgstr ""
+
+#: inventory/importer.py:107
+#, python-format
+msgid "Duplicate asset_code in file: %(code)s"
+msgstr ""
+
+#: inventory/importer.py:129
+#, python-format
+msgid "quantity_total (%(q)d) is below the quantity out of service (%(o)d)."
+msgstr ""
+
+#: inventory/importer.py:148
+msgid "File is larger than 5 MB."
+msgstr ""
+
+#: inventory/importer.py:153
+msgid "The file is not a valid .xlsx workbook."
+msgstr ""
+
+#: inventory/importer.py:158
+#, python-format
+msgid "Missing header column(s): %(cols)s"
+msgstr ""
+
+#: inventory/importer.py:171
+#, python-format
+msgid "Too many rows (maximum %(n)d)."
+msgstr ""
+
+#: inventory/importer.py:184
+msgid "The file could not be read."
+msgstr ""
+
+#: inventory/importer.py:91
+#, python-format
+msgid "Missing required value: %(cols)s"
+msgstr ""
+
+#: inventory/importer.py:98
+msgid "quantity_total must be a whole number of at least 1."
+msgstr ""
+
+#: inventory/management/commands/import_equipment.py:23
+#, python-format
+msgid "Created: %(c)d, updated: %(u)d, errors: %(e)d"
+msgstr ""
+
+#: inventory/management/commands/import_equipment.py:26
+msgid "Dry run: nothing was saved."
+msgstr ""
+
+#: inventory/management/commands/import_equipment.py:28
+msgid "Import failed; nothing was saved."
 msgstr ""
 
 #: inventory/models.py:11 inventory/models.py:52
@@ -1139,11 +1227,11 @@ msgstr ""
 msgid "This equipment has been removed."
 msgstr ""
 
-#: inventory/templates/inventory/equipment_detail.html:17 inventory/templates/inventory/equipment_list.html:35
+#: inventory/templates/inventory/equipment_detail.html:17 inventory/templates/inventory/equipment_list.html:36
 msgid "Free now"
 msgstr ""
 
-#: inventory/templates/inventory/equipment_detail.html:18 reports/services.py:143
+#: inventory/templates/inventory/equipment_detail.html:18 reports/services.py:160
 msgid "Total quantity"
 msgstr ""
 
@@ -1175,7 +1263,7 @@ msgstr ""
 msgid "Back to equipment"
 msgstr ""
 
-#: inventory/templates/inventory/equipment_form.html:3 inventory/templates/inventory/equipment_form.html:5 inventory/templates/inventory/equipment_list.html:10
+#: inventory/templates/inventory/equipment_form.html:3 inventory/templates/inventory/equipment_form.html:5 inventory/templates/inventory/equipment_list.html:11
 msgid "Add equipment"
 msgstr ""
 
@@ -1183,27 +1271,84 @@ msgstr ""
 msgid "Edit equipment"
 msgstr ""
 
-#: inventory/templates/inventory/equipment_list.html:35
+#: inventory/templates/inventory/equipment_list.html:10 inventory/templates/inventory/import.html:3 inventory/templates/inventory/import.html:5
+msgid "Import from Excel"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_list.html:36
 msgid "Free on"
 msgstr ""
 
-#: inventory/templates/inventory/equipment_list.html:40
+#: inventory/templates/inventory/equipment_list.html:41
 msgid "No equipment found."
 msgstr ""
 
-#: inventory/views.py:122
-msgid "This category still has equipment and cannot be deleted."
+#: inventory/templates/inventory/import.html:21
+msgid "Upload"
+msgstr ""
+
+#: inventory/templates/inventory/import.html:27
+msgid "Result"
+msgstr ""
+
+#: inventory/templates/inventory/import.html:28
+msgid "Validation only: nothing was saved."
+msgstr ""
+
+#: inventory/templates/inventory/import.html:29
+msgid "Created"
+msgstr ""
+
+#: inventory/templates/inventory/import.html:29
+msgid "Errors"
+msgstr ""
+
+#: inventory/templates/inventory/import.html:29
+msgid "Updated"
+msgstr ""
+
+#: inventory/templates/inventory/import.html:31
+msgid "Nothing was saved. Fix the errors below and upload again."
+msgstr ""
+
+#: inventory/templates/inventory/import.html:33
+msgid "Message"
+msgstr ""
+
+#: inventory/templates/inventory/import.html:33
+msgid "Row"
+msgstr ""
+
+#: inventory/templates/inventory/import.html:37
+msgid "No errors found."
+msgstr ""
+
+#: inventory/templates/inventory/import.html:7
+msgid "Upload an .xlsx file with one equipment item per row. Existing asset codes are updated; nothing is saved if any row has an error."
+msgstr ""
+
+#: inventory/templates/inventory/import.html:8
+msgid "Download template"
 msgstr ""
 
 #: inventory/views.py:124
+msgid "This category still has equipment and cannot be deleted."
+msgstr ""
+
+#: inventory/views.py:126
 msgid "Category deleted."
 msgstr ""
 
-#: inventory/views.py:67
+#: inventory/views.py:143
+#, python-format
+msgid "Import complete: %(c)d created, %(u)d updated."
+msgstr ""
+
+#: inventory/views.py:69
 msgid "Equipment saved."
 msgstr ""
 
-#: inventory/views.py:88
+#: inventory/views.py:90
 msgid "Equipment deleted."
 msgstr ""
 
@@ -1219,7 +1364,7 @@ msgstr ""
 msgid "The image has too many pixels."
 msgstr ""
 
-#: maintenance/forms.py:34 maintenance/templates/maintenance/detail.html:15 maintenance/templates/maintenance/list.html:22
+#: maintenance/forms.py:34 maintenance/templates/maintenance/detail.html:15 maintenance/templates/maintenance/list.html:39
 msgid "Problem"
 msgstr ""
 
@@ -1321,7 +1466,7 @@ msgstr ""
 msgid "Only %(n)s usable unit(s) remain; cannot mark more as damaged."
 msgstr ""
 
-#: maintenance/templates/maintenance/detail.html:17 maintenance/templates/maintenance/list.html:22 reports/services.py:164
+#: maintenance/templates/maintenance/detail.html:17 maintenance/templates/maintenance/list.html:39 reports/services.py:181
 msgid "Reported by"
 msgstr ""
 
@@ -1341,16 +1486,16 @@ msgstr ""
 msgid "Submit report"
 msgstr ""
 
-#: maintenance/templates/maintenance/list.html:21
-msgid "Qty"
-msgstr ""
-
 #: maintenance/templates/maintenance/list.html:3 maintenance/templates/maintenance/list.html:6 templates/partials/nav_items.html:18
 msgid "Damage reports"
 msgstr ""
 
-#: maintenance/templates/maintenance/list.html:37
+#: maintenance/templates/maintenance/list.html:32 maintenance/templates/maintenance/list.html:54
 msgid "No damage reports."
+msgstr ""
+
+#: maintenance/templates/maintenance/list.html:38
+msgid "Qty"
 msgstr ""
 
 #: maintenance/views.py:104
@@ -1560,75 +1705,75 @@ msgstr ""
 msgid "Period"
 msgstr ""
 
-#: reports/services.py:125 reports/views.py:17
+#: reports/services.py:140 reports/views.py:17
 msgid "Loan report"
 msgstr ""
 
-#: reports/services.py:125 reports/services.py:152
+#: reports/services.py:140 reports/services.py:169
 msgid "Request code"
 msgstr ""
 
-#: reports/services.py:133
+#: reports/services.py:149
 msgid "Asset"
 msgstr ""
 
-#: reports/services.py:133 reports/views.py:18
+#: reports/services.py:149 reports/views.py:18
 msgid "Equipment report"
 msgstr ""
 
-#: reports/services.py:133
+#: reports/services.py:149
 msgid "Out of service"
 msgstr ""
 
-#: reports/services.py:133
+#: reports/services.py:149
 msgid "Total"
 msgstr ""
 
-#: reports/services.py:134
+#: reports/services.py:150
 msgid "Display status"
 msgstr ""
 
-#: reports/services.py:143 reports/views.py:19
+#: reports/services.py:160 reports/views.py:19
 msgid "Most borrowed equipment"
 msgstr ""
 
-#: reports/services.py:143
+#: reports/services.py:160
 msgid "Times borrowed"
 msgstr ""
 
-#: reports/services.py:152 reports/views.py:20
+#: reports/services.py:169 reports/views.py:20
 msgid "Overdue report"
 msgstr ""
 
-#: reports/services.py:152
+#: reports/services.py:169
 msgid "Phone"
 msgstr ""
 
-#: reports/services.py:153
+#: reports/services.py:170
 msgid "Days overdue"
 msgstr ""
 
-#: reports/services.py:163
+#: reports/services.py:180
 msgid "Damage code"
 msgstr ""
 
-#: reports/services.py:163 reports/views.py:21
+#: reports/services.py:180 reports/views.py:21
 msgid "Damaged equipment report"
 msgstr ""
 
-#: reports/services.py:164
+#: reports/services.py:181
 msgid "Reported at"
 msgstr ""
 
-#: reports/services.py:179
+#: reports/services.py:196
 msgid "Number of requests"
 msgstr ""
 
-#: reports/services.py:179
+#: reports/services.py:196
 msgid "Total items"
 msgstr ""
 
-#: reports/services.py:179 reports/views.py:22
+#: reports/services.py:196 reports/views.py:22
 msgid "Usage by user"
 msgstr ""
 

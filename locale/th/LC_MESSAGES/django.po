@@ -144,8 +144,8 @@ msgid "Log in"
 msgstr "เข้าสู่ระบบ"
 
 #: accounts/templates/accounts/password_change.html:10
-#: accounts/templates/accounts/user_edit.html:11
-#: borrowing/templates/borrowing/booking_form.html:16
+#: accounts/templates/accounts/user_edit.html:12
+#: accounts/templates/accounts/user_set_password.html:11
 msgid "Cancel"
 msgstr "ยกเลิก"
 
@@ -161,7 +161,7 @@ msgid "My profile"
 msgstr "ข้อมูลส่วนตัวของฉัน"
 
 #: accounts/templates/accounts/profile.html:9
-#: accounts/templates/accounts/user_edit.html:10
+#: accounts/templates/accounts/user_edit.html:11
 #: core/templates/core/settings_form.html:7
 msgid "Save"
 msgstr "บันทึก"
@@ -175,6 +175,12 @@ msgstr "มีบัญชีอยู่แล้ว?"
 msgid "Edit user"
 msgstr "แก้ไขผู้ใช้"
 
+#: accounts/templates/accounts/user_edit.html:8
+#: accounts/templates/accounts/user_set_password.html:2
+#: accounts/templates/accounts/user_set_password.html:6
+msgid "Set new password"
+msgstr "ตั้งรหัสผ่านใหม่"
+
 #: accounts/templates/accounts/user_list.html:10
 msgid "All roles"
 msgstr "ทุกบทบาท"
@@ -183,8 +189,8 @@ msgstr "ทุกบทบาท"
 msgid "ID"
 msgstr "รหัส"
 
-#: accounts/templates/accounts/user_list.html:19 reports/services.py:133
-#: reports/services.py:179
+#: accounts/templates/accounts/user_list.html:19 reports/services.py:149
+#: reports/services.py:196
 msgid "Name"
 msgstr "ชื่อ"
 
@@ -224,19 +230,19 @@ msgstr "ไม่พบผู้ใช้"
 
 #: accounts/templates/accounts/user_list.html:37
 #: borrowing/templates/borrowing/_pagination.html:3
-#: inventory/templates/inventory/equipment_list.html:44
+#: inventory/templates/inventory/equipment_list.html:45
 msgid "Pages"
 msgstr "หน้า"
 
 #: accounts/templates/accounts/user_list.html:38
 #: borrowing/templates/borrowing/_pagination.html:4
-#: inventory/templates/inventory/equipment_list.html:45
+#: inventory/templates/inventory/equipment_list.html:46
 msgid "Previous"
 msgstr "ก่อนหน้า"
 
 #: accounts/templates/accounts/user_list.html:40
 #: borrowing/templates/borrowing/_pagination.html:6
-#: inventory/templates/inventory/equipment_list.html:47
+#: inventory/templates/inventory/equipment_list.html:48
 msgid "Next"
 msgstr "ถัดไป"
 
@@ -251,23 +257,32 @@ msgid "Search username, name or ID"
 msgstr "ค้นหาด้วยชื่อผู้ใช้ ชื่อ หรือรหัส"
 
 #: accounts/templates/accounts/user_list.html:9
-#: accounts/templates/accounts/user_list.html:20 reports/services.py:179
+#: accounts/templates/accounts/user_list.html:20 reports/services.py:196
 msgid "Role"
 msgstr "บทบาท"
 
-#: accounts/views.py:29
+#: accounts/views.py:115
+msgid "To change your own password, use the password change page."
+msgstr "หากต้องการเปลี่ยนรหัสผ่านของตนเอง กรุณาใช้หน้าเปลี่ยนรหัสผ่าน"
+
+#: accounts/views.py:140
+#, python-format
+msgid "Password updated for %(name)s."
+msgstr "ตั้งรหัสผ่านใหม่ให้ %(name)s แล้ว"
+
+#: accounts/views.py:31
 msgid "Welcome! Your account has been created."
 msgstr "ยินดีต้อนรับ! สร้างบัญชีของคุณเรียบร้อยแล้ว"
 
-#: accounts/views.py:42
+#: accounts/views.py:44
 msgid "Profile updated."
 msgstr "อัปเดตข้อมูลส่วนตัวแล้ว"
 
-#: accounts/views.py:51
+#: accounts/views.py:53
 msgid "Password changed."
 msgstr "เปลี่ยนรหัสผ่านแล้ว"
 
-#: accounts/views.py:95
+#: accounts/views.py:97
 msgid "User updated."
 msgstr "อัปเดตข้อมูลผู้ใช้แล้ว"
 
@@ -628,7 +643,7 @@ msgstr "ไม่พบคำขอ"
 
 #: borrowing/templates/borrowing/_request_table.html:6
 #: borrowing/templates/borrowing/request_detail.html:24
-#: maintenance/templates/maintenance/list.html:21
+#: maintenance/templates/maintenance/list.html:38
 msgid "Code"
 msgstr "รหัส"
 
@@ -731,7 +746,7 @@ msgid "Received by"
 msgstr "รับคืนโดย"
 
 #: borrowing/templates/borrowing/request_detail.html:31
-#: reports/services.py:126
+#: reports/services.py:141
 msgid "Returned at"
 msgstr "คืนเมื่อ"
 
@@ -860,27 +875,27 @@ msgstr "ส่งมอบแล้ว"
 msgid "Marked overdue"
 msgstr "ทำเครื่องหมายเกินกำหนดแล้ว"
 
-#: borrowing/views.py:310
+#: borrowing/views.py:311
 msgid "The request was cancelled."
 msgstr "ยกเลิกคำขอแล้ว"
 
-#: borrowing/views.py:368
+#: borrowing/views.py:369
 msgid "The request was approved."
 msgstr "อนุมัติคำขอแล้ว"
 
-#: borrowing/views.py:375
+#: borrowing/views.py:376
 msgid "The request was rejected."
 msgstr "ไม่อนุมัติคำขอแล้ว"
 
-#: borrowing/views.py:381
+#: borrowing/views.py:382
 msgid "The equipment was handed over."
 msgstr "ส่งมอบอุปกรณ์แล้ว"
 
-#: borrowing/views.py:388
+#: borrowing/views.py:389
 msgid "This request is not on loan."
 msgstr "คำขอนี้ไม่ได้อยู่ในสถานะกำลังยืม"
 
-#: borrowing/views.py:404
+#: borrowing/views.py:405
 msgid "The return was recorded."
 msgstr "บันทึกการคืนแล้ว"
 
@@ -1114,7 +1129,7 @@ msgid "Name or asset code"
 msgstr "ชื่อหรือรหัสครุภัณฑ์"
 
 #: inventory/forms.py:47 inventory/templates/inventory/category_form.html:3
-#: reports/services.py:133
+#: reports/services.py:149
 msgid "Category"
 msgstr "หมวดหมู่"
 
@@ -1128,9 +1143,84 @@ msgid "All statuses"
 msgstr "ทุกสถานะ"
 
 #: inventory/forms.py:53 maintenance/templates/maintenance/detail.html:18
-#: maintenance/templates/maintenance/list.html:23
+#: maintenance/templates/maintenance/list.html:40
 msgid "Date"
 msgstr "วันที่"
+
+#: inventory/forms.py:58
+msgid "Excel file (.xlsx)"
+msgstr "ไฟล์ Excel (.xlsx)"
+
+#: inventory/forms.py:61
+msgid "Validate only (do not save)"
+msgstr "ตรวจสอบอย่างเดียว (ยังไม่บันทึก)"
+
+#: inventory/forms.py:67
+msgid "Only .xlsx files are allowed."
+msgstr "อนุญาตเฉพาะไฟล์ .xlsx"
+
+#: inventory/forms.py:69
+msgid "File must be 5 MB or smaller."
+msgstr "ไฟล์ต้องมีขนาดไม่เกิน 5 MB"
+
+#: inventory/importer.py:103
+#, python-format
+msgid "%(col)s is longer than %(n)d characters."
+msgstr "%(col)s ยาวเกิน %(n)d ตัวอักษร"
+
+#: inventory/importer.py:107
+#, python-format
+msgid "Duplicate asset_code in file: %(code)s"
+msgstr "รหัสครุภัณฑ์ซ้ำในไฟล์: %(code)s"
+
+#: inventory/importer.py:129
+#, python-format
+msgid "quantity_total (%(q)d) is below the quantity out of service (%(o)d)."
+msgstr "จำนวนทั้งหมด (%(q)d) น้อยกว่าจำนวนที่ไม่พร้อมใช้งาน (%(o)d)"
+
+#: inventory/importer.py:148
+msgid "File is larger than 5 MB."
+msgstr "ไฟล์มีขนาดเกิน 5 MB"
+
+#: inventory/importer.py:153
+msgid "The file is not a valid .xlsx workbook."
+msgstr "ไฟล์นี้ไม่ใช่ไฟล์ .xlsx ที่ถูกต้อง"
+
+#: inventory/importer.py:158
+#, python-format
+msgid "Missing header column(s): %(cols)s"
+msgstr "ไม่พบหัวคอลัมน์: %(cols)s"
+
+#: inventory/importer.py:171
+#, python-format
+msgid "Too many rows (maximum %(n)d)."
+msgstr "จำนวนแถวเกินกำหนด (สูงสุด %(n)d แถว)"
+
+#: inventory/importer.py:184
+msgid "The file could not be read."
+msgstr "ไม่สามารถอ่านไฟล์ได้"
+
+#: inventory/importer.py:91
+#, python-format
+msgid "Missing required value: %(cols)s"
+msgstr "ไม่ได้กรอกข้อมูลที่จำเป็น: %(cols)s"
+
+#: inventory/importer.py:98
+msgid "quantity_total must be a whole number of at least 1."
+msgstr "จำนวนทั้งหมดต้องเป็นจำนวนเต็มตั้งแต่ 1 ขึ้นไป"
+
+#: inventory/management/commands/import_equipment.py:23
+#, python-format
+msgid "Created: %(c)d, updated: %(u)d, errors: %(e)d"
+msgstr "เพิ่มใหม่: %(c)d, แก้ไข: %(u)d, ข้อผิดพลาด: %(e)d"
+
+#: inventory/management/commands/import_equipment.py:26
+msgid "Dry run: nothing was saved."
+msgstr "ตรวจสอบอย่างเดียว: ยังไม่ได้บันทึกข้อมูล"
+
+#: inventory/management/commands/import_equipment.py:28
+msgid "Import failed; nothing was saved."
+msgstr "นำเข้าไม่สำเร็จ ไม่มีข้อมูลถูกบันทึก"
 
 #: inventory/models.py:11 inventory/models.py:52
 msgid "name (Thai)"
@@ -1246,12 +1336,12 @@ msgid "This equipment has been removed."
 msgstr "อุปกรณ์นี้ถูกลบแล้ว"
 
 #: inventory/templates/inventory/equipment_detail.html:17
-#: inventory/templates/inventory/equipment_list.html:35
+#: inventory/templates/inventory/equipment_list.html:36
 msgid "Free now"
 msgstr "ว่างตอนนี้"
 
 #: inventory/templates/inventory/equipment_detail.html:18
-#: reports/services.py:143
+#: reports/services.py:160
 msgid "Total quantity"
 msgstr "จำนวนทั้งหมด"
 
@@ -1287,7 +1377,7 @@ msgstr "กลับไปหน้าอุปกรณ์"
 
 #: inventory/templates/inventory/equipment_form.html:3
 #: inventory/templates/inventory/equipment_form.html:5
-#: inventory/templates/inventory/equipment_list.html:10
+#: inventory/templates/inventory/equipment_list.html:11
 msgid "Add equipment"
 msgstr "เพิ่มอุปกรณ์"
 
@@ -1296,27 +1386,92 @@ msgstr "เพิ่มอุปกรณ์"
 msgid "Edit equipment"
 msgstr "แก้ไขอุปกรณ์"
 
-#: inventory/templates/inventory/equipment_list.html:35
+#: inventory/templates/inventory/equipment_list.html:10
+#: inventory/templates/inventory/import.html:3
+#: inventory/templates/inventory/import.html:5
+msgid "Import from Excel"
+msgstr "นำเข้าจาก Excel"
+
+#: inventory/templates/inventory/equipment_list.html:36
 msgid "Free on"
 msgstr "ว่างวันที่"
 
-#: inventory/templates/inventory/equipment_list.html:40
+#: inventory/templates/inventory/equipment_list.html:41
 msgid "No equipment found."
 msgstr "ไม่พบอุปกรณ์"
 
-#: inventory/views.py:122
+#: inventory/templates/inventory/import.html:21
+msgid "Upload"
+msgstr "อัปโหลด"
+
+#: inventory/templates/inventory/import.html:27
+msgid "Result"
+msgstr "ผลลัพธ์"
+
+#: inventory/templates/inventory/import.html:28
+msgid "Validation only: nothing was saved."
+msgstr "ตรวจสอบอย่างเดียว: ยังไม่ได้บันทึกข้อมูล"
+
+#: inventory/templates/inventory/import.html:29
+msgid "Created"
+msgstr "เพิ่มใหม่"
+
+#: inventory/templates/inventory/import.html:29
+msgid "Errors"
+msgstr "ข้อผิดพลาด"
+
+#: inventory/templates/inventory/import.html:29
+msgid "Updated"
+msgstr "แก้ไข"
+
+#: inventory/templates/inventory/import.html:31
+msgid "Nothing was saved. Fix the errors below and upload again."
+msgstr ""
+"ยังไม่มีข้อมูลถูกบันทึก กรุณาแก้ไขข้อผิดพลาดด้านล่างแล้วอัปโหลดอีกครั้ง"
+
+#: inventory/templates/inventory/import.html:33
+msgid "Message"
+msgstr "ข้อความ"
+
+#: inventory/templates/inventory/import.html:33
+msgid "Row"
+msgstr "แถว"
+
+#: inventory/templates/inventory/import.html:37
+msgid "No errors found."
+msgstr "ไม่พบข้อผิดพลาด"
+
+#: inventory/templates/inventory/import.html:7
+msgid ""
+"Upload an .xlsx file with one equipment item per row. Existing asset codes "
+"are updated; nothing is saved if any row has an error."
+msgstr ""
+"อัปโหลดไฟล์ .xlsx ที่มีอุปกรณ์แถวละหนึ่งรายการ "
+"รหัสครุภัณฑ์ที่มีอยู่แล้วจะถูกแก้ไข "
+"และหากมีแถวใดผิดพลาดจะไม่บันทึกข้อมูลทั้งไฟล์"
+
+#: inventory/templates/inventory/import.html:8
+msgid "Download template"
+msgstr "ดาวน์โหลดแบบฟอร์ม"
+
+#: inventory/views.py:124
 msgid "This category still has equipment and cannot be deleted."
 msgstr "หมวดหมู่นี้ยังมีอุปกรณ์อยู่ จึงลบไม่ได้"
 
-#: inventory/views.py:124
+#: inventory/views.py:126
 msgid "Category deleted."
 msgstr "ลบหมวดหมู่แล้ว"
 
-#: inventory/views.py:67
+#: inventory/views.py:143
+#, python-format
+msgid "Import complete: %(c)d created, %(u)d updated."
+msgstr "นำเข้าเรียบร้อย: เพิ่มใหม่ %(c)d รายการ แก้ไข %(u)d รายการ"
+
+#: inventory/views.py:69
 msgid "Equipment saved."
 msgstr "บันทึกอุปกรณ์แล้ว"
 
-#: inventory/views.py:88
+#: inventory/views.py:90
 msgid "Equipment deleted."
 msgstr "ลบอุปกรณ์แล้ว"
 
@@ -1333,7 +1488,7 @@ msgid "The image has too many pixels."
 msgstr "รูปภาพมีจำนวนพิกเซลมากเกินไป"
 
 #: maintenance/forms.py:34 maintenance/templates/maintenance/detail.html:15
-#: maintenance/templates/maintenance/list.html:22
+#: maintenance/templates/maintenance/list.html:39
 msgid "Problem"
 msgstr "ปัญหา"
 
@@ -1437,7 +1592,7 @@ msgstr ""
 "เหลือหน่วยที่ใช้งานได้เพียง %(n)s หน่วย ไม่สามารถทำเครื่องหมายชำรุดเพิ่มได้"
 
 #: maintenance/templates/maintenance/detail.html:17
-#: maintenance/templates/maintenance/list.html:22 reports/services.py:164
+#: maintenance/templates/maintenance/list.html:39 reports/services.py:181
 msgid "Reported by"
 msgstr "แจ้งโดย"
 
@@ -1457,19 +1612,20 @@ msgstr "อัปเดตสถานะ"
 msgid "Submit report"
 msgstr "ส่งการแจ้ง"
 
-#: maintenance/templates/maintenance/list.html:21
-msgid "Qty"
-msgstr "จำนวน"
-
 #: maintenance/templates/maintenance/list.html:3
 #: maintenance/templates/maintenance/list.html:6
 #: templates/partials/nav_items.html:18
 msgid "Damage reports"
 msgstr "การแจ้งชำรุด"
 
-#: maintenance/templates/maintenance/list.html:37
+#: maintenance/templates/maintenance/list.html:32
+#: maintenance/templates/maintenance/list.html:54
 msgid "No damage reports."
 msgstr "ไม่มีการแจ้งชำรุด"
+
+#: maintenance/templates/maintenance/list.html:38
+msgid "Qty"
+msgstr "จำนวน"
 
 #: maintenance/views.py:104
 msgid "Status updated."
@@ -1694,75 +1850,75 @@ msgstr "หน้า"
 msgid "Period"
 msgstr "ช่วงเวลา"
 
-#: reports/services.py:125 reports/views.py:17
+#: reports/services.py:140 reports/views.py:17
 msgid "Loan report"
 msgstr "รายงานการยืม"
 
-#: reports/services.py:125 reports/services.py:152
+#: reports/services.py:140 reports/services.py:169
 msgid "Request code"
 msgstr "รหัสคำขอ"
 
-#: reports/services.py:133
+#: reports/services.py:149
 msgid "Asset"
 msgstr "ครุภัณฑ์"
 
-#: reports/services.py:133 reports/views.py:18
+#: reports/services.py:149 reports/views.py:18
 msgid "Equipment report"
 msgstr "รายงานอุปกรณ์"
 
-#: reports/services.py:133
+#: reports/services.py:149
 msgid "Out of service"
 msgstr "ไม่พร้อมใช้งาน"
 
-#: reports/services.py:133
+#: reports/services.py:149
 msgid "Total"
 msgstr "รวม"
 
-#: reports/services.py:134
+#: reports/services.py:150
 msgid "Display status"
 msgstr "สถานะที่แสดง"
 
-#: reports/services.py:143 reports/views.py:19
+#: reports/services.py:160 reports/views.py:19
 msgid "Most borrowed equipment"
 msgstr "อุปกรณ์ที่ยืมมากที่สุด"
 
-#: reports/services.py:143
+#: reports/services.py:160
 msgid "Times borrowed"
 msgstr "จำนวนครั้งที่ยืม"
 
-#: reports/services.py:152 reports/views.py:20
+#: reports/services.py:169 reports/views.py:20
 msgid "Overdue report"
 msgstr "รายงานเกินกำหนด"
 
-#: reports/services.py:152
+#: reports/services.py:169
 msgid "Phone"
 msgstr "โทรศัพท์"
 
-#: reports/services.py:153
+#: reports/services.py:170
 msgid "Days overdue"
 msgstr "จำนวนวันที่เกินกำหนด"
 
-#: reports/services.py:163
+#: reports/services.py:180
 msgid "Damage code"
 msgstr "รหัสการแจ้งชำรุด"
 
-#: reports/services.py:163 reports/views.py:21
+#: reports/services.py:180 reports/views.py:21
 msgid "Damaged equipment report"
 msgstr "รายงานอุปกรณ์ชำรุด"
 
-#: reports/services.py:164
+#: reports/services.py:181
 msgid "Reported at"
 msgstr "แจ้งเมื่อ"
 
-#: reports/services.py:179
+#: reports/services.py:196
 msgid "Number of requests"
 msgstr "จำนวนคำขอ"
 
-#: reports/services.py:179
+#: reports/services.py:196
 msgid "Total items"
 msgstr "จำนวนรายการรวม"
 
-#: reports/services.py:179 reports/views.py:22
+#: reports/services.py:196 reports/views.py:22
 msgid "Usage by user"
 msgstr "การใช้งานตามผู้ใช้"
 

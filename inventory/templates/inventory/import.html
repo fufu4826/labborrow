@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Import from Excel" %}{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">{% translate "Import from Excel" %}</h1>
+<div class="card card-body mb-4">
+  <p class="mb-2">{% translate "Upload an .xlsx file with one equipment item per row. Existing asset codes are updated; nothing is saved if any row has an error." %}</p>
+  <p><a href="{% url 'inventory:import_template' %}"><i class="bi bi-download"></i> {% translate "Download template" %}</a></p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+    <div class="mb-3">
+      <label class="form-label" for="{{ form.file.id_for_label }}">{{ form.file.label }}</label>
+      {{ form.file }}
+      {% for e in form.file.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+    </div>
+    <div class="form-check mb-3">
+      {{ form.dry_run }}
+      <label class="form-check-label" for="{{ form.dry_run.id_for_label }}">{{ form.dry_run.label }}</label>
+    </div>
+    <button class="btn btn-primary" type="submit">{% translate "Upload" %}</button>
+    <a class="btn btn-outline-secondary" href="{% url 'inventory:list' %}">{% translate "Cancel" %}</a>
+  </form>
+</div>
+{% if result %}
+<div class="card card-body">
+  <h2 class="h5">{% translate "Result" %}</h2>
+  {% if dry_run %}<p class="text-muted">{% translate "Validation only: nothing was saved." %}</p>{% endif %}
+  <p>{% translate "Created" %}: <strong>{{ result.created }}</strong> &middot; {% translate "Updated" %}: <strong>{{ result.updated }}</strong> &middot; {% translate "Errors" %}: <strong>{{ result.errors|length }}</strong></p>
+  {% if result.errors %}
+  <div class="alert alert-danger">{% translate "Nothing was saved. Fix the errors below and upload again." %}</div>
+  <div class="table-responsive"><table class="table table-sm">
+    <thead><tr><th>{% translate "Row" %}</th><th>{% translate "Message" %}</th></tr></thead>
+    <tbody>{% for row, msg in result.errors %}<tr><td>{{ row }}</td><td>{{ msg }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% else %}
+  <div class="alert alert-success mb-0">{% translate "No errors found." %}</div>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

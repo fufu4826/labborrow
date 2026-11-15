@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import ProtectedError
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -12,7 +13,8 @@ from django.views.generic import CreateView, DetailView, ListView, TemplateView,
 from borrowing.availability import STATUS_BADGE, display_status, free_now
 from core.permissions import StaffRequiredMixin
 
-from .forms import CategoryForm, EquipmentFilterForm, EquipmentForm
+from .forms import CategoryForm, EquipmentFilterForm, EquipmentForm, ImportForm
+from .importer import build_template, import_equipment
 from .models import Category, Equipment
 from .services import TZ, availability_strip, filter_equipment, resize_image
 
@@ -123,3 +125,30 @@ class CategoryDeleteView(StaffRequiredMixin, View):
         else:
             messages.success(request, _("Category deleted."))
         return redirect("inventory:category_list")
+
+
+class EquipmentImportView(StaffRequiredMixin, View):
+    template_name = "inventory/import.html"
+
+    def get(self, request):
+        return render(request, self.template_name, {"form": ImportForm()})
+
+    def post(self, request):
+        form = ImportForm(request.POST, request.FILES)
+        if not form.is_valid():
+            return render(request, self.template_name, {"form": form})
+        dry_run = form.cleaned_data["dry_run"]
+        result = import_equipment(form.cleaned_data["file"], dry_run=dry_run)
+        if result.ok and not dry_run:
+            messages.success(request, _("Import complete: %(c)d created, %(u)d updated.")
+                             % {"c": result.created, "u": result.updated})
+            return redirect("inventory:list")
+        return render(request, self.template_name, {"form": form, "result": result, "dry_run": dry_run})
+
+
+class ImportTemplateView(StaffRequiredMixin, View):
+    def get(self, request):
+        response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        response["Content-Disposition"] = 'attachment; filename="equipment_import_template.xlsx"'
+        build_template().save(response)
+        return response

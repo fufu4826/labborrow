@@ -7,6 +7,7 @@
   {% if user.is_lab_staff %}
   <div class="d-flex gap-2">
     <a class="btn btn-outline-secondary" href="{% url 'inventory:category_list' %}">{% translate "Categories" %}</a>
+    <a class="btn btn-outline-secondary" href="{% url 'inventory:import' %}"><i class="bi bi-file-earmark-excel"></i> {% translate "Import from Excel" %}</a>
     <a class="btn btn-primary" href="{% url 'inventory:create' %}"><i class="bi bi-plus-lg"></i> {% translate "Add equipment" %}</a>
   </div>
   {% endif %}
