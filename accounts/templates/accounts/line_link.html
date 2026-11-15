@@ -1,0 +1,34 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% translate "Link LINE" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-6">
+  <div class="card shadow-sm"><div class="card-body p-4">
+    <h1 class="h4 mb-3">{% translate "Link LINE" %}</h1>
+    {% if linked %}
+      <p><span class="badge text-bg-success">{% translate "Linked" %}</span> {% translate "You will receive notifications via LINE." %}</p>
+      <form method="post">{% csrf_token %}<input type="hidden" name="action" value="unlink">
+        <button class="btn btn-outline-danger" type="submit">{% translate "Unlink" %}</button></form>
+    {% else %}
+      <p><span class="badge text-bg-secondary">{% translate "Not linked" %}</span></p>
+    {% endif %}
+    <hr>
+    <p>{% translate "1. Add the official account as a friend." %}</p>
+    {% if add_url %}
+      <p><a class="btn btn-success" href="{{ add_url }}" target="_blank" rel="noopener">{% translate "Add friend" %} {{ basic_id }}</a></p>
+      <p><img src="{{ qr_url }}" alt="LINE QR" width="160" height="160"></p>
+    {% else %}
+      <p class="text-muted">{% translate "The LINE official account is not configured yet." %}</p>
+    {% endif %}
+    <p>{% translate "2. Generate a code and send it to the official account in chat." %}</p>
+    {% if code %}
+      <div class="alert alert-info text-center">
+        <div class="display-5 fw-bold">{{ code }}</div>
+        <div class="small">{% translate "Valid until" %} {{ expires|date:"H:i" }}</div>
+      </div>
+    {% endif %}
+    <form method="post">{% csrf_token %}<input type="hidden" name="action" value="generate">
+      <button class="btn btn-primary" type="submit">{% translate "Generate code" %}</button>
+      <a class="btn btn-outline-secondary" href="{% url 'accounts:profile' %}">{% translate "Back" %}</a></form>
+  </div></div>
+</div></div>
+{% endblock %}

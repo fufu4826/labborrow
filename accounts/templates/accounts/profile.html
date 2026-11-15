@@ -9,6 +9,12 @@
       <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
       <a class="btn btn-outline-secondary" href="{% url 'accounts:password_change' %}">{% translate "Change password" %}</a>
     </form>
+    <hr>
+    <div class="d-flex flex-wrap align-items-center gap-2">
+      <a class="btn btn-outline-success" href="{% url 'accounts:line_link' %}"><i class="bi bi-chat-dots"></i> {% translate "Link LINE" %}</a>
+      {% if user.line_user_id %}<span class="badge text-bg-success">{% translate "Linked" %}</span>
+      {% else %}<span class="badge text-bg-secondary">{% translate "Not linked" %}</span>{% endif %}
+    </div>
   </div></div>
 </div></div>
 {% endblock %}
