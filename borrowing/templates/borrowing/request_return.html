@@ -6,16 +6,16 @@
 <form method="post" enctype="multipart/form-data" class="card card-body">{% csrf_token %}
   {% for err in form.non_field_errors %}<div class="alert alert-danger">{{ err }}</div>{% endfor %}
   <div class="table-responsive mb-3"><table class="table align-middle">
-    <thead><tr><th>{% translate "Equipment" %}</th><th class="text-end">{% translate "Borrowed" %}</th>
-      <th style="min-width:6rem">{% translate "Good" %}</th><th style="min-width:6rem">{% translate "Damaged" %}</th><th style="min-width:12rem">{% translate "Note" %}</th></tr></thead>
+    <thead><tr><th scope="col">{% translate "Equipment" %}</th><th scope="col" class="text-end">{% translate "Borrowed" %}</th>
+      <th scope="col" style="min-width:6rem">{% translate "Good" %}</th><th scope="col" style="min-width:6rem">{% translate "Damaged" %}</th><th scope="col" style="min-width:12rem">{% translate "Note" %}</th></tr></thead>
     <tbody>
     {% for row in form.rows %}
       <tr>
         <td>{{ row.item.equipment.display_name }}<div class="small text-muted">{{ row.item.equipment.asset_code }}</div></td>
         <td class="text-end">{{ row.item.quantity }}</td>
-        <td>{{ row.good }}{% for e in row.good.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</td>
-        <td>{{ row.damaged }}{% for e in row.damaged.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</td>
-        <td>{{ row.note }}</td>
+        <td><label class="visually-hidden" for="{{ row.good.id_for_label }}">{% translate 'Good' %} – {{ row.item.equipment.display_name }}</label>{{ row.good }}{% for e in row.good.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</td>
+        <td><label class="visually-hidden" for="{{ row.damaged.id_for_label }}">{% translate 'Damaged' %} – {{ row.item.equipment.display_name }}</label>{{ row.damaged }}{% for e in row.damaged.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</td>
+        <td><label class="visually-hidden" for="{{ row.note.id_for_label }}">{% translate 'Note' %} – {{ row.item.equipment.display_name }}</label>{{ row.note }}</td>
       </tr>
     {% endfor %}
     </tbody>

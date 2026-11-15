@@ -16,8 +16,8 @@
 <div class="table-responsive">
   <table class="table table-hover align-middle bg-white">
     <thead><tr>
-      <th>{% translate "Username" %}</th><th>{% translate "Name" %}</th><th>{% translate "ID" %}</th>
-      <th>{% translate "Role" %}</th><th>{% translate "Status" %}</th><th></th>
+      <th scope="col">{% translate "Username" %}</th><th scope="col">{% translate "Name" %}</th><th scope="col">{% translate "ID" %}</th>
+      <th scope="col">{% translate "Role" %}</th><th scope="col">{% translate "Status" %}</th><th scope="col"></th>
     </tr></thead>
     <tbody>
     {% for u in users %}
@@ -35,9 +35,9 @@
 </div>
 {% if is_paginated %}
 <nav aria-label="{% translate 'Pages' %}"><ul class="pagination justify-content-center">
-  {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?{{ querystring }}&page={{ page_obj.previous_page_number }}">&laquo;</a></li>{% endif %}
+  {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?{{ querystring }}&page={{ page_obj.previous_page_number }}" aria-label="{% translate 'Previous' %}">&laquo;</a></li>{% endif %}
   <li class="page-item disabled"><span class="page-link">{{ page_obj.number }} / {{ paginator.num_pages }}</span></li>
-  {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?{{ querystring }}&page={{ page_obj.next_page_number }}">&raquo;</a></li>{% endif %}
+  {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?{{ querystring }}&page={{ page_obj.next_page_number }}" aria-label="{% translate 'Next' %}">&raquo;</a></li>{% endif %}
 </ul></nav>
 {% endif %}
 {% endblock %}

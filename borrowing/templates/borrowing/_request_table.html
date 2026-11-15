@@ -3,9 +3,9 @@
 <div class="table-responsive d-none d-md-block">
   <table class="table table-hover align-middle bg-white mb-0">
     <thead><tr>
-      <th>{% translate "Code" %}</th>{% if show_user %}<th>{% translate "Borrower" %}</th>{% endif %}
-      <th>{% translate "Items" %}</th><th>{% translate "Borrow at" %}</th><th>{% translate "Due at" %}</th>
-      <th>{% translate "Status" %}</th><th></th>
+      <th scope="col">{% translate "Code" %}</th>{% if show_user %}<th scope="col">{% translate "Borrower" %}</th>{% endif %}
+      <th scope="col">{% translate "Items" %}</th><th scope="col">{% translate "Borrow at" %}</th><th scope="col">{% translate "Due at" %}</th>
+      <th scope="col">{% translate "Status" %}</th><th scope="col"></th>
     </tr></thead>
     <tbody>
     {% for r in page_obj %}

@@ -21,7 +21,7 @@
 
     <div class="card mb-3"><div class="card-header">{% translate "Items" %}</div>
       <div class="table-responsive"><table class="table mb-0 align-middle">
-        <thead><tr><th>{% translate "Equipment" %}</th><th>{% translate "Code" %}</th><th class="text-end">{% translate "Quantity" %}</th></tr></thead>
+        <thead><tr><th scope="col">{% translate "Equipment" %}</th><th scope="col">{% translate "Code" %}</th><th scope="col" class="text-end">{% translate "Quantity" %}</th></tr></thead>
         <tbody>{% for i in req.items.all %}<tr><td>{{ i.equipment.display_name }}</td><td>{{ i.equipment.asset_code }}</td><td class="text-end">{{ i.quantity }}</td></tr>{% endfor %}</tbody>
       </table></div>
     </div>
@@ -30,7 +30,7 @@
     <div class="card mb-3"><div class="card-header">{% translate "Return" %}</div><div class="card-body">
       <p class="mb-2">{% translate "Returned at" %}: {{ record.returned_at|date:"d/m/Y H:i" }} &middot; {% translate "Received by" %}: {{ record.received_by.get_full_name|default:record.received_by.username }}</p>
       <div class="table-responsive"><table class="table table-sm">
-        <thead><tr><th>{% translate "Equipment" %}</th><th class="text-end">{% translate "Good" %}</th><th class="text-end">{% translate "Damaged" %}</th><th>{% translate "Note" %}</th></tr></thead>
+        <thead><tr><th scope="col">{% translate "Equipment" %}</th><th scope="col" class="text-end">{% translate "Good" %}</th><th scope="col" class="text-end">{% translate "Damaged" %}</th><th scope="col">{% translate "Note" %}</th></tr></thead>
         <tbody>{% for ri in return_items %}<tr><td>{{ ri.borrow_item.equipment.display_name }}</td><td class="text-end">{{ ri.quantity_good }}</td><td class="text-end {% if ri.quantity_damaged %}text-danger fw-semibold{% endif %}">{{ ri.quantity_damaged }}</td><td>{{ ri.note }}</td></tr>{% endfor %}</tbody>
       </table></div>
       {% if record.note %}<p><strong>{% translate "General note" %}:</strong> {{ record.note }}</p>{% endif %}

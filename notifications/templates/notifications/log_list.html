@@ -25,8 +25,8 @@
 <div class="table-responsive">
   <table class="table table-sm table-striped align-middle">
     <thead><tr>
-      <th>{% translate "Time" %}</th><th>{% translate "Recipient" %}</th><th>{% translate "Event" %}</th>
-      <th>{% translate "Status" %}</th><th>{% translate "Attempts" %}</th><th>{% translate "Error" %}</th>
+      <th scope="col">{% translate "Time" %}</th><th scope="col">{% translate "Recipient" %}</th><th scope="col">{% translate "Event" %}</th>
+      <th scope="col">{% translate "Status" %}</th><th scope="col">{% translate "Attempts" %}</th><th scope="col">{% translate "Error" %}</th>
     </tr></thead>
     <tbody>
     {% for l in logs %}
@@ -43,9 +43,9 @@
 </div>
 {% if is_paginated %}
 <nav><ul class="pagination">
-  {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?{{ query }}&page={{ page_obj.previous_page_number }}">&laquo;</a></li>{% endif %}
+  {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?{{ query }}&page={{ page_obj.previous_page_number }}" aria-label="{% translate 'Previous' %}">&laquo;</a></li>{% endif %}
   <li class="page-item disabled"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
-  {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?{{ query }}&page={{ page_obj.next_page_number }}">&raquo;</a></li>{% endif %}
+  {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?{{ query }}&page={{ page_obj.next_page_number }}" aria-label="{% translate 'Next' %}">&raquo;</a></li>{% endif %}
 </ul></nav>
 {% endif %}
 {% endblock %}

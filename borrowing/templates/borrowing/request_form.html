@@ -13,8 +13,8 @@
     <div id="item-rows">
       {% for f in formset %}
       <div class="item-row row g-2 mb-2 align-items-start">
-        <div class="col-7 col-md-8">{{ f.equipment }}{% for e in f.equipment.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
-        <div class="col-3 col-md-2">{{ f.quantity }}{% for e in f.quantity.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+        <div class="col-7 col-md-8"><label class="visually-hidden" for="{{ f.equipment.id_for_label }}">{% translate 'Equipment' %}</label>{{ f.equipment }}{% for e in f.equipment.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+        <div class="col-3 col-md-2"><label class="visually-hidden" for="{{ f.quantity.id_for_label }}">{% translate 'Quantity' %}</label>{{ f.quantity }}{% for e in f.quantity.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
         <div class="col-2"><button type="button" class="btn btn-outline-danger remove-row" aria-label="{% translate 'Remove' %}"><i class="bi bi-trash"></i></button></div>
       </div>
       {% endfor %}
@@ -22,8 +22,8 @@
     <button type="button" id="add-row" class="btn btn-outline-primary btn-sm align-self-start mb-3"><i class="bi bi-plus-lg"></i> {% translate "Add item" %}</button>
     <template id="empty-form">
       <div class="item-row row g-2 mb-2 align-items-start">
-        <div class="col-7 col-md-8">{{ formset.empty_form.equipment }}</div>
-        <div class="col-3 col-md-2">{{ formset.empty_form.quantity }}</div>
+        <div class="col-7 col-md-8"><label class="visually-hidden" for="{{ formset.empty_form.equipment.id_for_label }}">{% translate 'Equipment' %}</label>{{ formset.empty_form.equipment }}</div>
+        <div class="col-3 col-md-2"><label class="visually-hidden" for="{{ formset.empty_form.quantity.id_for_label }}">{% translate 'Quantity' %}</label>{{ formset.empty_form.quantity }}</div>
         <div class="col-2"><button type="button" class="btn btn-outline-danger remove-row" aria-label="{% translate 'Remove' %}"><i class="bi bi-trash"></i></button></div>
       </div>
     </template>

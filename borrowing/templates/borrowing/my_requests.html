@@ -25,7 +25,7 @@
       <div class="d-flex gap-2 align-items-start">
         {% if "convert" in b.actions %}<button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#convert-{{ b.pk }}">{% translate "Convert to request" %}</button>{% endif %}
         {% if "cancel" in b.actions %}
-        <form method="post" action="{% url 'borrowing:booking_cancel' b.pk %}">{% csrf_token %}<button class="btn btn-sm btn-outline-danger">{% translate "Cancel" %}</button></form>
+        {% translate "Are you sure?" as confirm_msg %}<form method="post" action="{% url 'borrowing:booking_cancel' b.pk %}" onsubmit="return confirm('{{ confirm_msg|escapejs }}')">{% csrf_token %}<button class="btn btn-sm btn-outline-danger">{% translate "Cancel" %}</button></form>
         {% endif %}
       </div>
     </div>

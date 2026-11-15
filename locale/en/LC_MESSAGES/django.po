@@ -80,6 +80,10 @@ msgstr ""
 msgid "Add friend"
 msgstr ""
 
+#: accounts/templates/accounts/line_link.html:18
+msgid "LINE QR code"
+msgstr ""
+
 #: accounts/templates/accounts/line_link.html:2 accounts/templates/accounts/line_link.html:6 accounts/templates/accounts/profile.html:14
 msgid "Link LINE"
 msgstr ""
@@ -110,6 +114,10 @@ msgstr ""
 
 #: accounts/templates/accounts/line_link.html:8
 msgid "You will receive notifications via LINE."
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:9 borrowing/templates/borrowing/my_requests.html:28
+msgid "Are you sure?"
 msgstr ""
 
 #: accounts/templates/accounts/login.html:13
@@ -190,6 +198,14 @@ msgstr ""
 
 #: accounts/templates/accounts/user_list.html:37 borrowing/templates/borrowing/_pagination.html:3 inventory/templates/inventory/equipment_list.html:44
 msgid "Pages"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:38 borrowing/templates/borrowing/_pagination.html:4 inventory/templates/inventory/equipment_list.html:45
+msgid "Previous"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:40 borrowing/templates/borrowing/_pagination.html:6 inventory/templates/inventory/equipment_list.html:47
+msgid "Next"
 msgstr ""
 
 #: accounts/templates/accounts/user_list.html:7 accounts/templates/accounts/user_list.html:14 borrowing/templates/borrowing/staff_requests.html:9
@@ -643,11 +659,11 @@ msgstr ""
 msgid "Returned at"
 msgstr ""
 
-#: borrowing/templates/borrowing/request_detail.html:33 borrowing/templates/borrowing/request_return.html:10 inventory/models.py:41
+#: borrowing/templates/borrowing/request_detail.html:33 borrowing/templates/borrowing/request_return.html:10 borrowing/templates/borrowing/request_return.html:17
 msgid "Damaged"
 msgstr ""
 
-#: borrowing/templates/borrowing/request_detail.html:33 borrowing/templates/borrowing/request_return.html:10
+#: borrowing/templates/borrowing/request_detail.html:33 borrowing/templates/borrowing/request_return.html:10 borrowing/templates/borrowing/request_return.html:16
 msgid "Good"
 msgstr ""
 

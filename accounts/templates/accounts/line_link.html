@@ -6,7 +6,7 @@
     <h1 class="h4 mb-3">{% translate "Link LINE" %}</h1>
     {% if linked %}
       <p><span class="badge text-bg-success">{% translate "Linked" %}</span> {% translate "You will receive notifications via LINE." %}</p>
-      <form method="post">{% csrf_token %}<input type="hidden" name="action" value="unlink">
+      {% translate "Are you sure?" as confirm_msg %}<form method="post" onsubmit="return confirm('{{ confirm_msg|escapejs }}')">{% csrf_token %}<input type="hidden" name="action" value="unlink">
         <button class="btn btn-outline-danger" type="submit">{% translate "Unlink" %}</button></form>
     {% else %}
       <p><span class="badge text-bg-secondary">{% translate "Not linked" %}</span></p>
@@ -15,7 +15,7 @@
     <p>{% translate "1. Add the official account as a friend." %}</p>
     {% if add_url %}
       <p><a class="btn btn-success" href="{{ add_url }}" target="_blank" rel="noopener">{% translate "Add friend" %} {{ basic_id }}</a></p>
-      <p><img src="{{ qr_url }}" alt="LINE QR" width="160" height="160"></p>
+      <p><img src="{{ qr_url }}" alt="{% translate 'LINE QR code' %}" width="160" height="160"></p>
     {% else %}
       <p class="text-muted">{% translate "The LINE official account is not configured yet." %}</p>
     {% endif %}
