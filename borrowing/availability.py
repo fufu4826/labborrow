@@ -76,6 +76,50 @@ def free_now(equipment, at=None):
     return max(equipment.usable_quantity - on_loan_quantity(equipment, at) - reserved_quantity(equipment, at), 0)
 
 
+def _sum_by_equipment(qs):
+    return {row["equipment_id"]: row["s"] for row in qs.values("equipment_id").annotate(s=Sum("quantity"))}
+
+
+def bulk_status(equipment_list, at=None):
+    """{equipment.pk: (display_status, free_now)} for many items with 4 queries in total.
+
+    Same rules as `display_status` / `free_now`; use it for lists, dashboards and reports.
+    """
+    from maintenance.models import RepairStatus  # local import: maintenance depends on borrowing
+
+    at = at or timezone.now()
+    items = list(equipment_list)
+    ids = [eq.pk for eq in items]
+    loaned = _sum_by_equipment(BorrowItem.objects.filter(equipment_id__in=ids, request__status__in=ON_LOAN))
+    booked = _sum_by_equipment(Booking.objects.filter(equipment_id__in=ids, status=BookingStatus.ACTIVE,
+                                                      start_at__lte=at, end_at__gt=at))
+    requested = _sum_by_equipment(BorrowItem.objects.filter(
+        equipment_id__in=ids, request__status__in=["pending", "approved"],
+        request__borrow_at__lte=at, request__due_at__gt=at))
+    from maintenance.models import DamageReport
+    repairing = set(DamageReport.objects.filter(equipment_id__in=ids, status=RepairStatus.IN_REPAIR)
+                    .values_list("equipment_id", flat=True))
+    result = {}
+    for eq in items:
+        if not eq.is_active or eq.status != AdminStatus.AVAILABLE:
+            result[eq.pk] = (DisplayStatus.UNAVAILABLE, 0)
+            continue
+        usable = eq.usable_quantity
+        if usable == 0:
+            result[eq.pk] = (DisplayStatus.REPAIRING if eq.pk in repairing else DisplayStatus.DAMAGED, 0)
+            continue
+        out = loaned.get(eq.pk, 0)
+        reserved = booked.get(eq.pk, 0) + requested.get(eq.pk, 0)
+        if out >= usable:
+            status = DisplayStatus.BORROWED
+        elif out + reserved >= usable:
+            status = DisplayStatus.RESERVED
+        else:
+            status = DisplayStatus.AVAILABLE
+        result[eq.pk] = (status, max(usable - out - reserved, 0))
+    return result
+
+
 STATUS_BADGE = {
     DisplayStatus.AVAILABLE: "success",
     DisplayStatus.RESERVED: "info",
