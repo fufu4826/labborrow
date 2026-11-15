@@ -15,7 +15,24 @@
   <div class="col-4 col-md-3"><button class="btn btn-outline-primary w-100" type="submit">{% translate "Filter" %}</button></div>
 </form>
 {% endif %}
-<div class="table-responsive">
+{# Phones: one card per report; tablets and up: table #}
+<div class="list-group d-md-none mb-3">
+  {% for r in reports %}
+  <a class="list-group-item list-group-item-action" href="{{ r.get_absolute_url }}">
+    <div class="d-flex justify-content-between align-items-start gap-2">
+      <div>
+        <div class="fw-semibold">{{ r.equipment.display_name }} × {{ r.quantity }}</div>
+        <div class="small">{{ r.problem }}</div>
+        <div class="small text-muted">{{ r }} · {{ r.created_at|date:"d/m/Y H:i" }}{% if is_staff_view %} · {{ r.reported_by.get_full_name|default:r.reported_by.username }}{% endif %}</div>
+      </div>
+      <span class="badge bg-{{ r.badge }} text-nowrap">{{ r.get_status_display }}</span>
+    </div>
+  </a>
+  {% empty %}
+  <div class="list-group-item text-center text-muted py-4">{% translate "No damage reports." %}</div>
+  {% endfor %}
+</div>
+<div class="table-responsive d-none d-md-block">
 <table class="table table-hover align-middle">
   <thead><tr>
     <th scope="col">{% translate "Code" %}</th><th scope="col">{% translate "Equipment" %}</th><th scope="col">{% translate "Qty" %}</th>
