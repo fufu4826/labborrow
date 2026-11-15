@@ -10,3 +10,4 @@ staticfiles/
 .ruff_cache/
 .coverage
 htmlcov/
+.test-tmp/

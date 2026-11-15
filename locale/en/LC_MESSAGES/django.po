@@ -40,15 +40,15 @@ msgstr ""
 msgid "language"
 msgstr ""
 
-#: accounts/models.py:21
+#: accounts/models.py:22
 msgid "LINE user ID"
 msgstr ""
 
-#: accounts/models.py:26 borrowing/models.py:36
+#: accounts/models.py:27 borrowing/models.py:36
 msgid "user"
 msgstr ""
 
-#: accounts/models.py:27
+#: accounts/models.py:28
 msgid "users"
 msgstr ""
 
@@ -234,6 +234,10 @@ msgstr ""
 
 #: accounts/views.py:95
 msgid "User updated."
+msgstr ""
+
+#: accounts/views_line.py:35
+msgid "Unable to generate a code. Please try again."
 msgstr ""
 
 #: borrowing/forms.py:115
@@ -813,6 +817,83 @@ msgstr ""
 msgid "Thai"
 msgstr ""
 
+#: core/django_strings.py:10
+msgid "Enter the same password as before, for verification."
+msgstr ""
+
+#: core/django_strings.py:11
+msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+
+#: core/django_strings.py:12
+#, python-format
+msgid "The password is too similar to the %(verbose_name)s."
+msgstr ""
+
+#: core/django_strings.py:13
+msgid "Your password can’t be too similar to your other personal information."
+msgstr ""
+
+#: core/django_strings.py:14
+msgid "This password is too common."
+msgstr ""
+
+#: core/django_strings.py:15
+msgid "Your password can’t be a commonly used password."
+msgstr ""
+
+#: core/django_strings.py:16
+msgid "This password is entirely numeric."
+msgstr ""
+
+#: core/django_strings.py:17
+msgid "Your password can’t be entirely numeric."
+msgstr ""
+
+#: core/django_strings.py:18
+msgid "Enter a valid username. This value may contain only letters, numbers, and @/./+/-/_ characters."
+msgstr ""
+
+#: core/django_strings.py:19
+msgid "Enter a valid integer."
+msgstr ""
+
+#: core/django_strings.py:20
+msgid "Enter a complete value."
+msgstr ""
+
+#: core/django_strings.py:21
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: core/django_strings.py:22
+msgid "This password is too short. It must contain at least %d character."
+msgid_plural "This password is too short. It must contain at least %d characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/django_strings.py:24
+#, python-format
+msgid "Your password must contain at least %(min_length)d character."
+msgid_plural "Your password must contain at least %(min_length)d characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/django_strings.py:26
+#, python-format
+msgid "Ensure this value has at least %(limit_value)d character (it has %(show_value)d)."
+msgid_plural "Ensure this value has at least %(limit_value)d characters (it has %(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/django_strings.py:28
+#, python-format
+msgid "Ensure this value has at most %(limit_value)d character (it has %(show_value)d)."
+msgid_plural "Ensure this value has at most %(limit_value)d characters (it has %(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
 #: core/forms.py:14 core/models.py:28
 msgid "open weekdays"
 msgstr ""
@@ -918,7 +999,7 @@ msgstr ""
 msgid "Find equipment"
 msgstr ""
 
-#: core/views.py:41
+#: core/views.py:85
 msgid "Settings saved."
 msgstr ""
 
@@ -1280,6 +1361,10 @@ msgstr ""
 msgid "Damage report submitted."
 msgstr ""
 
+#: notifications/linking.py:46
+msgid "Too many attempts, please try again later."
+msgstr ""
+
 #: notifications/models.py:11
 msgid "LINE account linked"
 msgstr ""
@@ -1450,17 +1535,17 @@ msgstr ""
 msgid "Retry failed"
 msgstr ""
 
-#: notifications/views.py:23
+#: notifications/views.py:109
+#, python-format
+msgid "Retried %(n)d failed notifications, %(ok)d sent."
+msgstr ""
+
+#: notifications/views.py:25
 msgid "Send the 6-digit code shown on the LINE link page of the system to link your account."
 msgstr ""
 
-#: notifications/views.py:28
+#: notifications/views.py:30
 msgid "Thank you for adding us. Open the LINE link page in the system, then send the 6-digit code here."
-msgstr ""
-
-#: notifications/views.py:97
-#, python-format
-msgid "Retried %(n)d failed notifications, %(ok)d sent."
 msgstr ""
 
 #: reports/exports.py:103
@@ -1683,6 +1768,10 @@ msgstr ""
 msgid "Requests"
 msgstr ""
 
-#: templates/partials/nav_items.html:25
+#: templates/partials/nav_items.html:26
+msgid "Notifications"
+msgstr ""
+
+#: templates/partials/nav_items.html:27
 msgid "Settings"
 msgstr ""

@@ -25,8 +25,8 @@ REPORT_LABELS = {
 
 class ReportFilterForm(forms.Form):
     kind = forms.ChoiceField(label=_("Report"), choices=[(key, value) for key, value in REPORT_LABELS.items()])
-    date_from = forms.DateField(label=_("From"), widget=forms.DateInput(attrs={"type": "date"}))
-    date_to = forms.DateField(label=_("To"), widget=forms.DateInput(attrs={"type": "date"}))
+    date_from = forms.DateField(label=_("From"), widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"))
+    date_to = forms.DateField(label=_("To"), widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"))
     fmt = forms.ChoiceField(label=_("Format"), choices=[("xlsx", "Excel (.xlsx)"), ("pdf", "PDF")])
 
     def clean(self):

@@ -22,5 +22,7 @@
   {% if u_dash %}<li class="nav-item"><a class="nav-link" href="{{ u_dash }}"><i class="bi bi-speedometer2"></i> {% translate "Dashboard" %}</a></li>{% endif %}
   {% if u_reports %}<li class="nav-item"><a class="nav-link" href="{{ u_reports }}"><i class="bi bi-file-earmark-bar-graph"></i> {% translate "Reports" %}</a></li>{% endif %}
   {% if u_users %}<li class="nav-item"><a class="nav-link" href="{{ u_users }}"><i class="bi bi-people"></i> {% translate "Users" %}</a></li>{% endif %}
+  {% url 'notifications:log_list' as u_notif %}
+  {% if u_notif %}<li class="nav-item"><a class="nav-link" href="{{ u_notif }}"><i class="bi bi-bell"></i> {% translate "Notifications" %}</a></li>{% endif %}
   {% if u_settings %}<li class="nav-item"><a class="nav-link" href="{{ u_settings }}"><i class="bi bi-gear"></i> {% translate "Settings" %}</a></li>{% endif %}
 {% endif %}
