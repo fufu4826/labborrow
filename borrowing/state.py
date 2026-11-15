@@ -30,6 +30,8 @@ REQUEST_EVENTS = {
     "cancel": ({R.PENDING, R.APPROVED}, R.CANCELLED, "owner_or_staff"),
     "hand_over": ({R.APPROVED}, R.BORROWED, "staff"),
     "mark_overdue": ({R.BORROWED}, R.OVERDUE, "system"),
+    # Staff extended due_at (e.g. in the admin): the next check_due puts the loan back to "on loan".
+    "clear_overdue": ({R.OVERDUE}, R.BORROWED, "system"),
     "receive_return": ({R.BORROWED, R.OVERDUE}, R.RETURNED, "staff"),
 }
 
@@ -123,6 +125,9 @@ def transition(obj, event, actor=None, **data):
         elif event == "mark_overdue":
             obj.overdue_notified_at = now
             fields.append("overdue_notified_at")
+        elif event == "clear_overdue":
+            obj.overdue_notified_at = obj.reminder_sent_at = None
+            fields += ["overdue_notified_at", "reminder_sent_at"]
     else:
         if event == "cancel":
             _check_cancel_window(obj.start_at, actor)

@@ -11,23 +11,53 @@ from inventory.models import AdminStatus, DisplayStatus
 from .models import HOLDING_BOOKING, HOLDING_REQUEST, ON_LOAN, Booking, BookingStatus, BorrowItem
 
 
-def held_quantity(equipment, start, end, exclude_booking=None, exclude_request=None):
-    """Units held by bookings and borrow requests that overlap [start, end)."""
+def hold_intervals(equipment, start, end, exclude_booking=None, exclude_request=None):
+    """[(from, to, qty)] of every hold on `equipment` that overlaps [start, end), clipped to the window.
+
+    Bookings and pending/approved requests hold their own window. Units already handed over
+    (borrowed/overdue) hold from the hand-over (or borrow_at, whichever is earlier) until they are actually
+    returned, even after the due time and before check_due marks them overdue.
+    """
     bookings = Booking.objects.filter(equipment=equipment, status__in=HOLDING_BOOKING,
                                       start_at__lt=end, end_at__gt=start)
     if exclude_booking is not None:
         bookings = bookings.exclude(pk=exclude_booking.pk)
-    # Requests hold their own window; units already handed over (borrowed/overdue) hold from borrow_at
-    # until they are actually returned, even after the due time and before check_due marks them overdue.
     items = BorrowItem.objects.filter(
         Q(request__status__in=HOLDING_REQUEST, request__borrow_at__lt=end, request__due_at__gt=start)
-        | Q(request__status__in=ON_LOAN, request__borrow_at__lt=end),
+        | Q(request__status__in=ON_LOAN),
         equipment=equipment,
-    )
+    ).select_related("request")
     if exclude_request is not None:
         items = items.exclude(request=exclude_request)
-    total = (bookings.aggregate(s=Sum("quantity"))["s"] or 0) + (items.aggregate(s=Sum("quantity"))["s"] or 0)
-    return total
+    raw = [(b.start_at, b.end_at, b.quantity) for b in bookings]
+    for item in items:
+        req = item.request
+        if req.status in ON_LOAN:
+            begin = min(req.borrow_at, req.handed_over_at or req.borrow_at)
+            raw.append((begin, end, item.quantity))  # open-ended until returned
+        else:
+            raw.append((req.borrow_at, req.due_at, item.quantity))
+    clipped = []
+    for s, e, q in raw:
+        s, e = max(s, start), min(e, end)
+        if s < e:
+            clipped.append((s, e, q))
+    return clipped
+
+
+def peak_quantity(intervals):
+    """Largest number of units held at the same moment (half-open intervals: end == start is no overlap)."""
+    events = sorted([(s, 1, q) for s, _e, q in intervals] + [(e, 0, -q) for _s, e, q in intervals])
+    peak = current = 0
+    for _t, _kind, delta in events:  # at equal times kind 0 (release) sorts before kind 1 (take)
+        current += delta
+        peak = max(peak, current)
+    return peak
+
+
+def held_quantity(equipment, start, end, exclude_booking=None, exclude_request=None):
+    """Peak number of units held during [start, end) — what a new hold for the whole window competes with."""
+    return peak_quantity(hold_intervals(equipment, start, end, exclude_booking, exclude_request))
 
 
 def available_quantity(equipment, start, end, exclude_booking=None, exclude_request=None):
