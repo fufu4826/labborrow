@@ -3,7 +3,7 @@
 Services that create bookings/requests call `available_quantity` again inside their transaction after
 `select_for_update()` on the Equipment rows.
 """
-from django.db.models import Sum
+from django.db.models import Q, Sum
 from django.utils import timezone
 
 from inventory.models import AdminStatus, DisplayStatus
@@ -17,16 +17,17 @@ def held_quantity(equipment, start, end, exclude_booking=None, exclude_request=N
                                       start_at__lt=end, end_at__gt=start)
     if exclude_booking is not None:
         bookings = bookings.exclude(pk=exclude_booking.pk)
-    items = BorrowItem.objects.filter(equipment=equipment, request__status__in=HOLDING_REQUEST,
-                                      request__borrow_at__lt=end, request__due_at__gt=start)
-    # Overdue loans keep holding the unit until they are returned, whatever their due time.
-    overdue = BorrowItem.objects.filter(equipment=equipment, request__status="overdue")
+    # Requests hold their own window; units already handed over (borrowed/overdue) hold from borrow_at
+    # until they are actually returned, even after the due time and before check_due marks them overdue.
+    items = BorrowItem.objects.filter(
+        Q(request__status__in=HOLDING_REQUEST, request__borrow_at__lt=end, request__due_at__gt=start)
+        | Q(request__status__in=ON_LOAN, request__borrow_at__lt=end),
+        equipment=equipment,
+    )
     if exclude_request is not None:
         items = items.exclude(request=exclude_request)
-        overdue = overdue.exclude(request=exclude_request)
     total = (bookings.aggregate(s=Sum("quantity"))["s"] or 0) + (items.aggregate(s=Sum("quantity"))["s"] or 0)
-    overdue_extra = overdue.exclude(pk__in=items.values("pk")).aggregate(s=Sum("quantity"))["s"] or 0
-    return total + overdue_extra
+    return total
 
 
 def available_quantity(equipment, start, end, exclude_booking=None, exclude_request=None):
