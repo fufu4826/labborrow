@@ -797,6 +797,42 @@ msgstr ""
 msgid "Thai"
 msgstr ""
 
+#: core/forms.py:14 core/models.py:28
+msgid "open weekdays"
+msgstr ""
+
+#: core/forms.py:36
+msgid "Closing time must be after opening time."
+msgstr ""
+
+#: core/forms.py:7
+msgid "Monday"
+msgstr ""
+
+#: core/forms.py:7
+msgid "Thursday"
+msgstr ""
+
+#: core/forms.py:7
+msgid "Tuesday"
+msgstr ""
+
+#: core/forms.py:7
+msgid "Wednesday"
+msgstr ""
+
+#: core/forms.py:8
+msgid "Friday"
+msgstr ""
+
+#: core/forms.py:8
+msgid "Saturday"
+msgstr ""
+
+#: core/forms.py:8
+msgid "Sunday"
+msgstr ""
+
 #: core/models.py:10
 msgid "updated at"
 msgstr ""
@@ -819,10 +855,6 @@ msgstr ""
 
 #: core/models.py:26
 msgid "closing time"
-msgstr ""
-
-#: core/models.py:28
-msgid "open weekdays"
 msgstr ""
 
 #: core/models.py:29

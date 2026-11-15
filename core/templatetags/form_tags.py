@@ -29,8 +29,17 @@ def _add_class(field):
 def bs_field(field):
     if field.is_hidden:
         return mark_safe(str(field))
-    widget_html = _add_class(field)
     errors = format_html_join("", '<div class="invalid-feedback d-block">{}</div>', ((e,) for e in field.errors))
+    if isinstance(field.field.widget, forms.CheckboxSelectMultiple | forms.RadioSelect):
+        options = format_html_join(
+            "",
+            '<div class="form-check form-check-inline">{}<label class="form-check-label" for="{}">{}</label></div>',
+            ((sub.tag(), sub.id_for_label, sub.choice_label) for sub in field.subwidgets),
+        )
+        options = options.replace('<input ', '<input class="form-check-input" ')
+        return format_html('<div class="mb-3"><div class="form-label">{}</div>{}{}</div>',
+                           field.label, mark_safe(options), errors)
+    widget_html = _add_class(field)
     help_text = format_html('<div class="form-text">{}</div>', field.help_text) if field.help_text else ""
     if isinstance(field.field.widget, forms.CheckboxInput):
         return format_html(

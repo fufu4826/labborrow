@@ -23,11 +23,25 @@ def test_settings_staff_can_edit(staff_client):
     url = reverse("core:settings")
     assert staff_client.get(url).status_code == 200
     data = {"max_items_per_request": 3, "max_borrow_days": 5, "max_advance_booking_days": 10,
-            "open_time": "08:00", "close_time": "17:00", "open_weekdays": "0,1,2,3,4",
+            "open_time": "08:00", "close_time": "17:00", "open_weekdays": ["0", "1", "2", "3", "5"],
             "due_reminder_hours": 12, "cancel_before_hours": 1}
     resp = staff_client.post(url, data)
     assert resp.status_code == 302
-    assert SystemSetting.load().max_items_per_request == 3
+    setting = SystemSetting.load()
+    assert setting.max_items_per_request == 3
+    assert setting.weekday_list == [0, 1, 2, 3, 5]
+    page = staff_client.get(url).content.decode()
+    assert 'class="form-check-input"' in page
+    assert page.count("checked") == 5
+
+
+def test_settings_close_must_be_after_open(staff_client):
+    data = {"max_items_per_request": 3, "max_borrow_days": 5, "max_advance_booking_days": 10,
+            "open_time": "17:00", "close_time": "08:00", "open_weekdays": ["0"],
+            "due_reminder_hours": 12, "cancel_before_hours": 1}
+    resp = staff_client.post(reverse("core:settings"), data)
+    assert resp.status_code == 200
+    assert SystemSetting.load().open_time.hour != 17
 
 
 def test_setting_is_singleton(db):
