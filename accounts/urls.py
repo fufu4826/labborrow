@@ -14,4 +14,5 @@ urlpatterns = [
     path("password/", views.PasswordChange.as_view(), name="password_change"),
     path("users/", views.UserListView.as_view(), name="user_list"),
     path("users/<int:pk>/edit/", views.UserEditView.as_view(), name="user_edit"),
+    path("users/<int:pk>/password/", views.UserSetPasswordView.as_view(), name="user_set_password"),
 ]
