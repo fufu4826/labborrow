@@ -1,1 +1,12 @@
-﻿
+﻿body { font-family: "Sarabun", system-ui, -apple-system, "Segoe UI", sans-serif; }
+.navbar-brand { white-space: normal; }
+/* Tabs scroll sideways on small screens instead of widening the page */
+.nav-tabs { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; }
+.nav-tabs .nav-link { white-space: nowrap; }
+/* FullCalendar: compact title on phones */
+@media (max-width: 575.98px) {
+  .fc .fc-toolbar-title { font-size: 1.1rem; }
+  .fc .fc-toolbar.fc-header-toolbar { gap: .5rem; }
+}
+.equipment-thumb { height: 160px; object-fit: cover; }
+@media (max-width: 575.98px) { .equipment-thumb { height: 120px; } }

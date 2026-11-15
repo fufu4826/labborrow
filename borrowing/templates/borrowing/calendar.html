@@ -22,10 +22,14 @@
 document.addEventListener("DOMContentLoaded", function () {
   var filter = document.getElementById("equipment-filter");
   var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
-    locale: "{{ lang }}",
+    locale: "{{ LANGUAGE_CODE|default:'th' }}",
+    noEventsContent: "{% translate 'No bookings in this period' %}",
     initialView: window.innerWidth < 768 ? "listWeek" : "dayGridMonth",
     height: "auto",
-    headerToolbar: {left: "prev,next today", center: "title", right: "dayGridMonth,timeGridWeek,listWeek"},
+    headerToolbar: window.innerWidth < 768
+      ? {left: "prev,next", center: "title", right: "today"}
+      : {left: "prev,next today", center: "title", right: "dayGridMonth,timeGridWeek,listWeek"},
+    footerToolbar: window.innerWidth < 768 ? {center: "dayGridMonth,timeGridWeek,listWeek"} : false,
     events: {url: "{% url 'borrowing:calendar_events' %}", extraParams: function () { return {equipment: filter.value}; }}
   });
   calendar.render();

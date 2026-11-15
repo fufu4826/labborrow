@@ -579,6 +579,10 @@ msgstr "จองอุปกรณ์"
 msgid "All equipment"
 msgstr "อุปกรณ์ทั้งหมด"
 
+#: borrowing/templates/borrowing/calendar.html:26
+msgid "No bookings in this period"
+msgstr "ไม่มีการจองในช่วงเวลานี้"
+
 #: borrowing/templates/borrowing/calendar.html:3 borrowing/templates/borrowing/calendar.html:6
 msgid "Booking calendar"
 msgstr "ปฏิทินการจอง"
