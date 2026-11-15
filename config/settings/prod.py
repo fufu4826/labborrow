@@ -1,5 +1,10 @@
+from django.core.exceptions import ImproperlyConfigured
+
 from .base import *  # noqa: F401,F403
-from .base import env, env_bool
+from .base import SECRET_KEY, env, env_bool
+
+if SECRET_KEY.startswith("dev-insecure") or len(SECRET_KEY) < 50:
+    raise ImproperlyConfigured("Set a long random SECRET_KEY in .env for production (see deploy/DEPLOY.md).")
 
 DEBUG = False
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
