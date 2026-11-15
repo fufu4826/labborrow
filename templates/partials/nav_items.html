@@ -1,0 +1,26 @@
+{% load i18n %}
+{# Each link is shown only when its URL exists, so apps can be added phase by phase. #}
+{% url 'inventory:list' as u_equipment %}
+{% url 'borrowing:calendar' as u_calendar %}
+{% url 'borrowing:my_requests' as u_my %}
+{% url 'maintenance:list' as u_damage %}
+{% url 'borrowing:staff_requests' as u_staff_req %}
+{% url 'borrowing:history' as u_history %}
+{% url 'reports:dashboard' as u_dash %}
+{% url 'reports:index' as u_reports %}
+{% url 'accounts:user_list' as u_users %}
+{% url 'core:settings' as u_settings %}
+{% if u_equipment %}<li class="nav-item"><a class="nav-link" href="{{ u_equipment }}"><i class="bi bi-box-seam"></i> {% translate "Equipment" %}</a></li>{% endif %}
+{% if is_borrower_role and not is_staff_role %}
+  {% if u_calendar %}<li class="nav-item"><a class="nav-link" href="{{ u_calendar }}"><i class="bi bi-calendar3"></i> {% translate "Bookings" %}</a></li>{% endif %}
+  {% if u_my %}<li class="nav-item"><a class="nav-link" href="{{ u_my }}"><i class="bi bi-list-check"></i> {% translate "My requests" %}</a></li>{% endif %}
+{% endif %}
+{% if u_damage %}<li class="nav-item"><a class="nav-link" href="{{ u_damage }}"><i class="bi bi-tools"></i> {% translate "Damage reports" %}</a></li>{% endif %}
+{% if is_staff_role %}
+  {% if u_staff_req %}<li class="nav-item"><a class="nav-link" href="{{ u_staff_req }}"><i class="bi bi-inboxes"></i> {% translate "Requests" %}</a></li>{% endif %}
+  {% if u_history %}<li class="nav-item"><a class="nav-link" href="{{ u_history }}"><i class="bi bi-clock-history"></i> {% translate "History" %}</a></li>{% endif %}
+  {% if u_dash %}<li class="nav-item"><a class="nav-link" href="{{ u_dash }}"><i class="bi bi-speedometer2"></i> {% translate "Dashboard" %}</a></li>{% endif %}
+  {% if u_reports %}<li class="nav-item"><a class="nav-link" href="{{ u_reports }}"><i class="bi bi-file-earmark-bar-graph"></i> {% translate "Reports" %}</a></li>{% endif %}
+  {% if u_users %}<li class="nav-item"><a class="nav-link" href="{{ u_users }}"><i class="bi bi-people"></i> {% translate "Users" %}</a></li>{% endif %}
+  {% if u_settings %}<li class="nav-item"><a class="nav-link" href="{{ u_settings }}"><i class="bi bi-gear"></i> {% translate "Settings" %}</a></li>{% endif %}
+{% endif %}

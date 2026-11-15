@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% load i18n form_tags %}
+{% block content %}
+<h1 class="h3 mb-3">{% translate "System settings" %}</h1>
+<div class="card"><div class="card-body">
+<form method="post" novalidate>{% csrf_token %}
+  {% bs_form form %}
+  <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
+</form>
+</div></div>
+{% endblock %}

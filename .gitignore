@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+db.sqlite3
+media/
+.test_media/
+staticfiles/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.mo

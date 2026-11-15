@@ -1,0 +1,8 @@
+{% load i18n %}{% get_current_language as LANG %}
+<form method="post" action="{% url 'core:set_language' %}" class="d-inline">{% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  <input type="hidden" name="language" value="{% if LANG == 'th' %}en{% else %}th{% endif %}">
+  <button type="submit" class="btn btn-sm btn-outline-secondary" title="{% translate 'Change language' %}">
+    <i class="bi bi-translate"></i> {% if LANG == 'th' %}EN{% else %}ไทย{% endif %}
+  </button>
+</form>
