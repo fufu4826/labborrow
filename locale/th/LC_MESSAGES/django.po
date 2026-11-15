@@ -1,0 +1,1636 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: labborrow\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: accounts/forms.py:10
+msgid "I am a"
+msgstr "ฉันเป็น"
+
+#: accounts/forms.py:46
+msgid "You cannot remove your own staff role."
+msgstr "ไม่สามารถถอนสิทธิ์เจ้าหน้าที่ของตนเองได้"
+
+#: accounts/forms.py:48
+msgid "You cannot deactivate your own account."
+msgstr "ไม่สามารถปิดการใช้งานบัญชีของตนเองได้"
+
+#: accounts/models.py:15
+msgid "role"
+msgstr "บทบาท"
+
+#: accounts/models.py:16
+msgid "student / staff ID"
+msgstr "รหัสนักศึกษา / รหัสบุคลากร"
+
+#: accounts/models.py:17
+msgid "phone"
+msgstr "โทรศัพท์"
+
+#: accounts/models.py:18
+msgid "department / program"
+msgstr "ภาควิชา / หลักสูตร"
+
+#: accounts/models.py:19
+msgid "language"
+msgstr "ภาษา"
+
+#: accounts/models.py:21
+msgid "LINE user ID"
+msgstr "LINE user ID"
+
+#: accounts/models.py:26 borrowing/models.py:36
+msgid "user"
+msgstr "ผู้ใช้"
+
+#: accounts/models.py:27
+msgid "users"
+msgstr "ผู้ใช้"
+
+#: accounts/models.py:7
+msgid "Student"
+msgstr "นักศึกษา"
+
+#: accounts/models.py:8
+msgid "Teacher"
+msgstr "อาจารย์"
+
+#: accounts/models.py:9
+msgid "Lab staff / Administrator"
+msgstr "เจ้าหน้าที่ห้องปฏิบัติการ / ผู้ดูแลระบบ"
+
+#: accounts/templates/accounts/line_link.html:10
+msgid "Unlink"
+msgstr "ยกเลิกการเชื่อมต่อ"
+
+#: accounts/templates/accounts/line_link.html:12 accounts/templates/accounts/profile.html:16
+msgid "Not linked"
+msgstr "ยังไม่เชื่อมต่อ"
+
+#: accounts/templates/accounts/line_link.html:15
+msgid "1. Add the official account as a friend."
+msgstr "1. เพิ่มบัญชีทางการเป็นเพื่อน"
+
+#: accounts/templates/accounts/line_link.html:17
+msgid "Add friend"
+msgstr "เพิ่มเพื่อน"
+
+#: accounts/templates/accounts/line_link.html:2 accounts/templates/accounts/line_link.html:6 accounts/templates/accounts/profile.html:14
+msgid "Link LINE"
+msgstr "เชื่อมต่อ LINE"
+
+#: accounts/templates/accounts/line_link.html:20
+msgid "The LINE official account is not configured yet."
+msgstr "ยังไม่ได้ตั้งค่าบัญชีทางการ LINE"
+
+#: accounts/templates/accounts/line_link.html:22
+msgid "2. Generate a code and send it to the official account in chat."
+msgstr "2. สร้างรหัสแล้วส่งไปยังบัญชีทางการในแชต"
+
+#: accounts/templates/accounts/line_link.html:26
+msgid "Valid until"
+msgstr "ใช้ได้ถึง"
+
+#: accounts/templates/accounts/line_link.html:30
+msgid "Generate code"
+msgstr "สร้างรหัส"
+
+#: accounts/templates/accounts/line_link.html:31 borrowing/templates/borrowing/request_detail.html:7 maintenance/templates/maintenance/detail.html:7
+msgid "Back"
+msgstr "กลับ"
+
+#: accounts/templates/accounts/line_link.html:8 accounts/templates/accounts/profile.html:15
+msgid "Linked"
+msgstr "เชื่อมต่อแล้ว"
+
+#: accounts/templates/accounts/line_link.html:8
+msgid "You will receive notifications via LINE."
+msgstr "คุณจะได้รับการแจ้งเตือนผ่าน LINE"
+
+#: accounts/templates/accounts/login.html:13
+msgid "No account yet?"
+msgstr "ยังไม่มีบัญชี?"
+
+#: accounts/templates/accounts/login.html:13 accounts/templates/accounts/signup.html:2 accounts/templates/accounts/signup.html:6
+msgid "Sign up"
+msgstr "สมัครสมาชิก"
+
+#: accounts/templates/accounts/login.html:2 accounts/templates/accounts/login.html:6 accounts/templates/accounts/login.html:10
+msgid "Log in"
+msgstr "เข้าสู่ระบบ"
+
+#: accounts/templates/accounts/password_change.html:10 accounts/templates/accounts/user_edit.html:11 borrowing/templates/borrowing/booking_form.html:16
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#: accounts/templates/accounts/password_change.html:2 accounts/templates/accounts/password_change.html:6 accounts/templates/accounts/password_change.html:9
+msgid "Change password"
+msgstr "เปลี่ยนรหัสผ่าน"
+
+#: accounts/templates/accounts/profile.html:2 accounts/templates/accounts/profile.html:6 templates/base.html:39
+msgid "My profile"
+msgstr "ข้อมูลส่วนตัวของฉัน"
+
+#: accounts/templates/accounts/profile.html:9 accounts/templates/accounts/user_edit.html:10 core/templates/core/settings_form.html:7
+msgid "Save"
+msgstr "บันทึก"
+
+#: accounts/templates/accounts/signup.html:11
+msgid "Already have an account?"
+msgstr "มีบัญชีอยู่แล้ว?"
+
+#: accounts/templates/accounts/user_edit.html:2 accounts/templates/accounts/user_edit.html:6
+msgid "Edit user"
+msgstr "แก้ไขผู้ใช้"
+
+#: accounts/templates/accounts/user_list.html:10
+msgid "All roles"
+msgstr "ทุกบทบาท"
+
+#: accounts/templates/accounts/user_list.html:19
+msgid "ID"
+msgstr "รหัส"
+
+#: accounts/templates/accounts/user_list.html:19 reports/services.py:133 reports/services.py:179
+msgid "Name"
+msgstr "ชื่อ"
+
+#: accounts/templates/accounts/user_list.html:19
+msgid "Username"
+msgstr "ชื่อผู้ใช้"
+
+#: accounts/templates/accounts/user_list.html:2 accounts/templates/accounts/user_list.html:4 templates/partials/nav_items.html:24
+msgid "Users"
+msgstr "ผู้ใช้"
+
+#: accounts/templates/accounts/user_list.html:20 borrowing/forms.py:128 borrowing/templates/borrowing/_request_table.html:8
+msgid "Status"
+msgstr "สถานะ"
+
+#: accounts/templates/accounts/user_list.html:27 borrowing/models.py:14 borrowing/templates/borrowing/my_requests.html:10
+msgid "Active"
+msgstr "ใช้งาน"
+
+#: accounts/templates/accounts/user_list.html:27
+msgid "Inactive"
+msgstr "ไม่ใช้งาน"
+
+#: accounts/templates/accounts/user_list.html:28 inventory/templates/inventory/category_list.html:17 inventory/templates/inventory/equipment_detail.html:25
+msgid "Edit"
+msgstr "แก้ไข"
+
+#: accounts/templates/accounts/user_list.html:31
+msgid "No users found."
+msgstr "ไม่พบผู้ใช้"
+
+#: accounts/templates/accounts/user_list.html:37 borrowing/templates/borrowing/_pagination.html:3 inventory/templates/inventory/equipment_list.html:44
+msgid "Pages"
+msgstr "หน้า"
+
+#: accounts/templates/accounts/user_list.html:7 accounts/templates/accounts/user_list.html:14 borrowing/templates/borrowing/staff_requests.html:9
+msgid "Search"
+msgstr "ค้นหา"
+
+#: accounts/templates/accounts/user_list.html:7
+msgid "Search username, name or ID"
+msgstr "ค้นหาด้วยชื่อผู้ใช้ ชื่อ หรือรหัส"
+
+#: accounts/templates/accounts/user_list.html:9 accounts/templates/accounts/user_list.html:20 reports/services.py:179
+msgid "Role"
+msgstr "บทบาท"
+
+#: accounts/views.py:29
+msgid "Welcome! Your account has been created."
+msgstr "ยินดีต้อนรับ! สร้างบัญชีของคุณเรียบร้อยแล้ว"
+
+#: accounts/views.py:42
+msgid "Profile updated."
+msgstr "อัปเดตข้อมูลส่วนตัวแล้ว"
+
+#: accounts/views.py:51
+msgid "Password changed."
+msgstr "เปลี่ยนรหัสผ่านแล้ว"
+
+#: accounts/views.py:95
+msgid "User updated."
+msgstr "อัปเดตข้อมูลผู้ใช้แล้ว"
+
+#: borrowing/forms.py:115
+#, python-format
+msgid "Good + damaged must equal the borrowed quantity (%(qty)s)."
+msgstr "จำนวนสภาพดีรวมกับชำรุดต้องเท่ากับจำนวนที่ยืม (%(qty)s)"
+
+#: borrowing/forms.py:126 reports/views.py:28
+msgid "From"
+msgstr "จาก"
+
+#: borrowing/forms.py:127 reports/views.py:29
+msgid "To"
+msgstr "ถึง"
+
+#: borrowing/forms.py:130 borrowing/templates/borrowing/_request_table.html:6 borrowing/templates/borrowing/request_detail.html:14
+msgid "Borrower"
+msgstr "ผู้ยืม"
+
+#: borrowing/forms.py:132 borrowing/forms.py:129 borrowing/templates/borrowing/staff_requests.html:17
+msgid "All"
+msgstr "ทั้งหมด"
+
+#: borrowing/forms.py:34
+msgid "Start"
+msgstr "เริ่ม"
+
+#: borrowing/forms.py:35
+msgid "End"
+msgstr "สิ้นสุด"
+
+#: borrowing/forms.py:36 borrowing/forms.py:49 borrowing/templates/borrowing/request_detail.html:24
+msgid "Quantity"
+msgstr "จำนวน"
+
+#: borrowing/forms.py:37 borrowing/templates/borrowing/request_detail.html:33 borrowing/templates/borrowing/request_return.html:10
+msgid "Note"
+msgstr "หมายเหตุ"
+
+#: borrowing/forms.py:41 borrowing/forms.py:63 borrowing/templates/borrowing/my_requests.html:36
+msgid "Purpose"
+msgstr "วัตถุประสงค์"
+
+#: borrowing/forms.py:46 borrowing/forms.py:131 borrowing/templates/borrowing/calendar.html:10
+msgid "Equipment"
+msgstr "อุปกรณ์"
+
+#: borrowing/forms.py:61 borrowing/templates/borrowing/_request_table.html:7 borrowing/templates/borrowing/request_detail.html:16
+msgid "Borrow at"
+msgstr "ยืมตั้งแต่"
+
+#: borrowing/forms.py:62 borrowing/templates/borrowing/_request_table.html:7 borrowing/templates/borrowing/request_detail.html:17
+msgid "Due at"
+msgstr "กำหนดคืน"
+
+#: borrowing/forms.py:78 borrowing/services.py:219
+msgid "Upload at most five condition images."
+msgstr "อัปโหลดรูปภาพสภาพอุปกรณ์ได้ไม่เกิน 5 รูป"
+
+#: borrowing/forms.py:82
+msgid "Each image must be 5 MB or smaller."
+msgstr "แต่ละรูปต้องมีขนาดไม่เกิน 5 MB"
+
+#: borrowing/forms.py:85
+msgid "Only JPG, PNG or WebP images are allowed."
+msgstr "อนุญาตเฉพาะรูปภาพ JPG, PNG หรือ WebP เท่านั้น"
+
+#: borrowing/forms.py:91 borrowing/templates/borrowing/request_detail.html:36
+msgid "General note"
+msgstr "หมายเหตุทั่วไป"
+
+#: borrowing/forms.py:92
+msgid "Condition photos"
+msgstr "รูปภาพสภาพอุปกรณ์"
+
+#: borrowing/forms.py:93
+msgid "Up to 5 images (JPG, PNG, WebP), 5 MB each."
+msgstr "ไม่เกิน 5 รูป (JPG, PNG, WebP) ขนาดรูปละไม่เกิน 5 MB"
+
+#: borrowing/models.py:110
+msgid "borrowed item"
+msgstr "รายการที่ยืม"
+
+#: borrowing/models.py:111
+msgid "borrowed items"
+msgstr "รายการที่ยืม"
+
+#: borrowing/models.py:119
+msgid "returned at"
+msgstr "คืนเมื่อ"
+
+#: borrowing/models.py:121
+msgid "received by"
+msgstr "รับคืนโดย"
+
+#: borrowing/models.py:125
+msgid "return"
+msgstr "การคืน"
+
+#: borrowing/models.py:126
+msgid "returns"
+msgstr "การคืน"
+
+#: borrowing/models.py:135
+msgid "good"
+msgstr "สภาพดี"
+
+#: borrowing/models.py:136
+msgid "damaged"
+msgstr "ชำรุด"
+
+#: borrowing/models.py:145 inventory/models.py:58 maintenance/models.py:37
+msgid "image"
+msgstr "รูปภาพ"
+
+#: borrowing/models.py:146
+msgid "caption"
+msgstr "คำอธิบายภาพ"
+
+#: borrowing/models.py:15 borrowing/models.py:24 borrowing/views.py:291
+msgid "Cancelled"
+msgstr "ยกเลิก"
+
+#: borrowing/models.py:16
+msgid "Converted to request"
+msgstr "แปลงเป็นคำขอแล้ว"
+
+#: borrowing/models.py:17
+msgid "Expired"
+msgstr "หมดอายุ"
+
+#: borrowing/models.py:21
+msgid "Pending approval"
+msgstr "รออนุมัติ"
+
+#: borrowing/models.py:22 borrowing/views.py:278 borrowing/views.py:279
+msgid "Approved"
+msgstr "อนุมัติแล้ว"
+
+#: borrowing/models.py:23 borrowing/views.py:278
+msgid "Rejected"
+msgstr "ไม่อนุมัติ"
+
+#: borrowing/models.py:25 borrowing/templates/borrowing/staff_requests.html:16 inventory/models.py:39
+msgid "On loan"
+msgstr "กำลังยืม"
+
+#: borrowing/models.py:26 notifications/models.py:19
+msgid "Overdue"
+msgstr "เกินกำหนด"
+
+#: borrowing/models.py:27 borrowing/views.py:288
+msgid "Returned"
+msgstr "คืนแล้ว"
+
+#: borrowing/models.py:38 borrowing/models.py:106 inventory/models.py:70
+msgid "equipment"
+msgstr "อุปกรณ์"
+
+#: borrowing/models.py:39 borrowing/models.py:107 maintenance/models.py:34
+msgid "quantity"
+msgstr "จำนวน"
+
+#: borrowing/models.py:40
+msgid "start"
+msgstr "เริ่มต้น"
+
+#: borrowing/models.py:41
+msgid "end"
+msgstr "สิ้นสุด"
+
+#: borrowing/models.py:42 borrowing/models.py:66 inventory/models.py:62
+msgid "status"
+msgstr "สถานะ"
+
+#: borrowing/models.py:44 borrowing/models.py:122 borrowing/models.py:137
+msgid "note"
+msgstr "หมายเหตุ"
+
+#: borrowing/models.py:50 borrowing/models.py:62
+msgid "booking"
+msgstr "การจอง"
+
+#: borrowing/models.py:51
+msgid "bookings"
+msgstr "การจอง"
+
+#: borrowing/models.py:60
+msgid "borrower"
+msgstr "ผู้ยืม"
+
+#: borrowing/models.py:63
+msgid "purpose"
+msgstr "วัตถุประสงค์"
+
+#: borrowing/models.py:64
+msgid "borrow at"
+msgstr "เวลาที่ยืม"
+
+#: borrowing/models.py:65
+msgid "due at"
+msgstr "กำหนดคืน"
+
+#: borrowing/models.py:68
+msgid "reason for rejection"
+msgstr "เหตุผลที่ไม่อนุมัติ"
+
+#: borrowing/models.py:70
+msgid "decided by"
+msgstr "ผู้พิจารณา"
+
+#: borrowing/models.py:81
+msgid "borrow request"
+msgstr "คำขอยืม"
+
+#: borrowing/models.py:82
+msgid "borrow requests"
+msgstr "คำขอยืม"
+
+#: borrowing/services.py:103
+msgid "The requested equipment quantity is not available."
+msgstr "จำนวนอุปกรณ์ที่ขอไม่พร้อมใช้งาน"
+
+#: borrowing/services.py:118 borrowing/services.py:144
+msgid "The maximum number of items per request was exceeded."
+msgstr "เกินจำนวนรายการสูงสุดต่อคำขอ"
+
+#: borrowing/services.py:142
+msgid "This booking has already started or passed."
+msgstr "การจองนี้เริ่มหรือผ่านไปแล้ว"
+
+#: borrowing/services.py:163
+msgid "Choose items within the maximum number of items per request."
+msgstr "เลือกรายการให้ไม่เกินจำนวนสูงสุดต่อคำขอ"
+
+#: borrowing/services.py:211
+msgid "Not enough usable units to hand over right now (damaged or not yet returned)."
+msgstr "จำนวนที่ใช้งานได้ไม่เพียงพอสำหรับการส่งมอบในขณะนี้ (ชำรุดหรือยังไม่ได้คืน)"
+
+#: borrowing/services.py:224
+msgid "Provide return quantities for every borrowed item."
+msgstr "กรุณาระบุจำนวนที่คืนสำหรับทุกรายการที่ยืม"
+
+#: borrowing/services.py:228
+msgid "Provide good and damaged quantities and a note for each item."
+msgstr "กรุณาระบุจำนวนสภาพดีและชำรุดพร้อมหมายเหตุของแต่ละรายการ"
+
+#: borrowing/services.py:232
+msgid "Return quantities must match the borrowed quantity."
+msgstr "จำนวนที่คืนต้องตรงกับจำนวนที่ยืม"
+
+#: borrowing/services.py:246
+msgid "Damaged at return"
+msgstr "ชำรุดเมื่อคืน"
+
+#: borrowing/services.py:36
+msgid "Start and end must include a time zone."
+msgstr "วันเวลาเริ่มและสิ้นสุดต้องระบุเขตเวลา"
+
+#: borrowing/services.py:40
+msgid "Choose an end after the start within the maximum borrowing duration."
+msgstr "เลือกเวลาสิ้นสุดให้หลังเวลาเริ่มและอยู่ภายในระยะเวลายืมสูงสุด"
+
+#: borrowing/services.py:42
+msgid "The start cannot be in the past."
+msgstr "เวลาเริ่มต้องไม่เป็นเวลาที่ผ่านมาแล้ว"
+
+#: borrowing/services.py:44
+msgid "The start exceeds the advance booking limit."
+msgstr "เวลาเริ่มเกินระยะเวลาจองล่วงหน้าที่กำหนด"
+
+#: borrowing/services.py:51
+msgid "Choose a time on an open weekday within opening hours."
+msgstr "เลือกเวลาในวันทำการที่อยู่ในเวลาเปิดให้บริการ"
+
+#: borrowing/services.py:80
+msgid "Only borrowers can create bookings or requests."
+msgstr "เฉพาะผู้ยืมเท่านั้นที่สร้างการจองหรือคำขอได้"
+
+#: borrowing/services.py:85
+msgid "Quantity must be a positive integer."
+msgstr "จำนวนต้องเป็นจำนวนเต็มบวก"
+
+#: borrowing/services.py:97
+msgid "Equipment no longer exists."
+msgstr "ไม่พบอุปกรณ์นี้แล้ว"
+
+#: borrowing/state.py:101
+#, python-format
+msgid "This action is not possible in status “%(status)s”."
+msgstr "ไม่สามารถดำเนินการนี้ในสถานะ “%(status)s” ได้"
+
+#: borrowing/state.py:111
+msgid "Please give a reason for the rejection."
+msgstr "กรุณาระบุเหตุผลในการไม่อนุมัติ"
+
+#: borrowing/state.py:53 borrowing/state.py:60 borrowing/state.py:50
+msgid "You are not allowed to do this."
+msgstr "คุณไม่มีสิทธิ์ดำเนินการนี้"
+
+#: borrowing/state.py:56
+msgid "Only lab staff can do this."
+msgstr "เฉพาะเจ้าหน้าที่ห้องปฏิบัติการเท่านั้นที่ดำเนินการนี้ได้"
+
+#: borrowing/state.py:58
+msgid "Only the owner can do this."
+msgstr "เฉพาะเจ้าของรายการเท่านั้นที่ดำเนินการนี้ได้"
+
+#: borrowing/state.py:69
+msgid "It is too late to cancel. Please contact the lab staff."
+msgstr "ไม่สามารถยกเลิกได้แล้ว กรุณาติดต่อเจ้าหน้าที่ห้องปฏิบัติการ"
+
+#: borrowing/state.py:98
+msgid "Unknown action."
+msgstr "ไม่รู้จักการดำเนินการนี้"
+
+#: borrowing/templates/borrowing/_request_table.html:20 borrowing/templates/borrowing/request_detail.html:44
+msgid "Approve"
+msgstr "อนุมัติ"
+
+#: borrowing/templates/borrowing/_request_table.html:21 borrowing/templates/borrowing/request_detail.html:46
+msgid "Hand over"
+msgstr "ส่งมอบ"
+
+#: borrowing/templates/borrowing/_request_table.html:22 borrowing/templates/borrowing/request_detail.html:47 borrowing/templates/borrowing/request_return.html:3
+msgid "Receive return"
+msgstr "รับคืน"
+
+#: borrowing/templates/borrowing/_request_table.html:24
+msgid "Details"
+msgstr "รายละเอียด"
+
+#: borrowing/templates/borrowing/_request_table.html:28 borrowing/templates/borrowing/_request_table.html:45
+msgid "No requests found."
+msgstr "ไม่พบคำขอ"
+
+#: borrowing/templates/borrowing/_request_table.html:6 borrowing/templates/borrowing/request_detail.html:24 maintenance/templates/maintenance/list.html:21
+msgid "Code"
+msgstr "รหัส"
+
+#: borrowing/templates/borrowing/_request_table.html:7 borrowing/templates/borrowing/request_detail.html:22 borrowing/templates/borrowing/request_form.html:10
+msgid "Items"
+msgstr "รายการ"
+
+#: borrowing/templates/borrowing/booking_form.html:13 borrowing/templates/borrowing/request_form.html:30
+#, python-format
+msgid "Maximum %(n)s days."
+msgstr "สูงสุด %(n)s วัน"
+
+#: borrowing/templates/borrowing/booking_form.html:15 inventory/templates/inventory/equipment_detail.html:29
+msgid "Book"
+msgstr "จอง"
+
+#: borrowing/templates/borrowing/booking_form.html:3 borrowing/templates/borrowing/booking_form.html:6
+msgid "Book equipment"
+msgstr "จองอุปกรณ์"
+
+#: borrowing/templates/borrowing/calendar.html:12
+msgid "All equipment"
+msgstr "อุปกรณ์ทั้งหมด"
+
+#: borrowing/templates/borrowing/calendar.html:3 borrowing/templates/borrowing/calendar.html:6
+msgid "Booking calendar"
+msgstr "ปฏิทินการจอง"
+
+#: borrowing/templates/borrowing/calendar.html:7 borrowing/templates/borrowing/my_requests.html:7 borrowing/templates/borrowing/request_form.html:3
+msgid "New borrow request"
+msgstr "สร้างคำขอยืมใหม่"
+
+#: borrowing/templates/borrowing/history.html:13 maintenance/templates/maintenance/list.html:15 notifications/templates/notifications/log_list.html:23
+msgid "Filter"
+msgstr "กรอง"
+
+#: borrowing/templates/borrowing/history.html:3 borrowing/templates/borrowing/history.html:5 borrowing/templates/borrowing/my_requests.html:11
+msgid "History"
+msgstr "ประวัติ"
+
+#: borrowing/templates/borrowing/my_requests.html:15
+msgid "My bookings"
+msgstr "การจองของฉัน"
+
+#: borrowing/templates/borrowing/my_requests.html:26
+msgid "Convert to request"
+msgstr "แปลงเป็นคำขอ"
+
+#: borrowing/templates/borrowing/my_requests.html:3 borrowing/templates/borrowing/my_requests.html:6 templates/partials/nav_items.html:16
+msgid "My requests"
+msgstr "คำขอของฉัน"
+
+#: borrowing/templates/borrowing/my_requests.html:35 borrowing/templates/borrowing/my_requests.html:38 borrowing/templates/borrowing/request_detail.html:70
+msgid "Close"
+msgstr "ปิด"
+
+#: borrowing/templates/borrowing/my_requests.html:35
+msgid "Convert to borrow request"
+msgstr "แปลงเป็นคำขอยืม"
+
+#: borrowing/templates/borrowing/my_requests.html:38
+msgid "Submit"
+msgstr "ส่ง"
+
+#: borrowing/templates/borrowing/my_requests.html:42
+msgid "You have no bookings."
+msgstr "คุณยังไม่มีการจอง"
+
+#: borrowing/templates/borrowing/request_detail.html:18 borrowing/templates/borrowing/request_detail.html:71
+msgid "Reason for rejection"
+msgstr "เหตุผลที่ไม่อนุมัติ"
+
+#: borrowing/templates/borrowing/request_detail.html:30
+msgid "Return"
+msgstr "คืน"
+
+#: borrowing/templates/borrowing/request_detail.html:31
+msgid "Received by"
+msgstr "รับคืนโดย"
+
+#: borrowing/templates/borrowing/request_detail.html:31 reports/services.py:126
+msgid "Returned at"
+msgstr "คืนเมื่อ"
+
+#: borrowing/templates/borrowing/request_detail.html:33 borrowing/templates/borrowing/request_return.html:10 inventory/models.py:41
+msgid "Damaged"
+msgstr "ชำรุด"
+
+#: borrowing/templates/borrowing/request_detail.html:33 borrowing/templates/borrowing/request_return.html:10
+msgid "Good"
+msgstr "สภาพดี"
+
+#: borrowing/templates/borrowing/request_detail.html:37
+msgid "Condition photo"
+msgstr "รูปภาพสภาพอุปกรณ์"
+
+#: borrowing/templates/borrowing/request_detail.html:43
+msgid "Actions"
+msgstr "การดำเนินการ"
+
+#: borrowing/templates/borrowing/request_detail.html:45 borrowing/templates/borrowing/request_detail.html:73
+msgid "Reject"
+msgstr "ไม่อนุมัติ"
+
+#: borrowing/templates/borrowing/request_detail.html:48
+msgid "Cancel request"
+msgstr "ยกเลิกคำขอ"
+
+#: borrowing/templates/borrowing/request_detail.html:48
+msgid "Cancel this request?"
+msgstr "ยืนยันยกเลิกคำขอนี้หรือไม่?"
+
+#: borrowing/templates/borrowing/request_detail.html:49
+msgid "No actions available."
+msgstr "ไม่มีการดำเนินการที่ใช้ได้"
+
+#: borrowing/templates/borrowing/request_detail.html:52
+msgid "Status timeline"
+msgstr "ไทม์ไลน์สถานะ"
+
+#: borrowing/templates/borrowing/request_detail.html:70
+msgid "Reject request"
+msgstr "ไม่อนุมัติคำขอ"
+
+#: borrowing/templates/borrowing/request_form.html:11
+#, python-format
+msgid "At most %(n)s items in total per request."
+msgstr "รวมแล้วไม่เกิน %(n)s รายการต่อคำขอ"
+
+#: borrowing/templates/borrowing/request_form.html:18 borrowing/templates/borrowing/request_form.html:27
+msgid "Remove"
+msgstr "ลบ"
+
+#: borrowing/templates/borrowing/request_form.html:22
+msgid "Add item"
+msgstr "เพิ่มรายการ"
+
+#: borrowing/templates/borrowing/request_form.html:32
+msgid "Submit request"
+msgstr "ส่งคำขอ"
+
+#: borrowing/templates/borrowing/request_return.html:25
+msgid "Confirm return"
+msgstr "ยืนยันการคืน"
+
+#: borrowing/templates/borrowing/request_return.html:9
+msgid "Borrowed"
+msgstr "ยืมแล้ว"
+
+#: borrowing/templates/borrowing/staff_requests.html:14 notifications/models.py:25
+msgid "Pending"
+msgstr "รอดำเนินการ"
+
+#: borrowing/templates/borrowing/staff_requests.html:15
+msgid "To hand over"
+msgstr "รอส่งมอบ"
+
+#: borrowing/templates/borrowing/staff_requests.html:3 borrowing/templates/borrowing/staff_requests.html:5
+msgid "Borrow requests"
+msgstr "คำขอยืม"
+
+#: borrowing/templates/borrowing/staff_requests.html:9
+msgid "Code, borrower or equipment"
+msgstr "ค้นหาด้วยรหัส ผู้ยืม หรืออุปกรณ์"
+
+#: borrowing/views.py:154
+msgid "Booked"
+msgstr "จองแล้ว"
+
+#: borrowing/views.py:193
+msgid "The booking was created."
+msgstr "สร้างการจองเรียบร้อยแล้ว"
+
+#: borrowing/views.py:206
+msgid "Please state the purpose of the loan."
+msgstr "กรุณาระบุวัตถุประสงค์ในการยืม"
+
+#: borrowing/views.py:208
+msgid "The booking was converted to a borrow request."
+msgstr "แปลงการจองเป็นคำขอยืมเรียบร้อยแล้ว"
+
+#: borrowing/views.py:217
+msgid "The booking was cancelled."
+msgstr "ยกเลิกการจองแล้ว"
+
+#: borrowing/views.py:238
+msgid "The borrow request was submitted."
+msgstr "ส่งคำขอยืมเรียบร้อยแล้ว"
+
+#: borrowing/views.py:276
+msgid "Request created"
+msgstr "สร้างคำขอแล้ว"
+
+#: borrowing/views.py:282
+msgid "Handed over"
+msgstr "ส่งมอบแล้ว"
+
+#: borrowing/views.py:285
+msgid "Marked overdue"
+msgstr "ทำเครื่องหมายเกินกำหนดแล้ว"
+
+#: borrowing/views.py:310
+msgid "The request was cancelled."
+msgstr "ยกเลิกคำขอแล้ว"
+
+#: borrowing/views.py:368
+msgid "The request was approved."
+msgstr "อนุมัติคำขอแล้ว"
+
+#: borrowing/views.py:375
+msgid "The request was rejected."
+msgstr "ไม่อนุมัติคำขอแล้ว"
+
+#: borrowing/views.py:381
+msgid "The equipment was handed over."
+msgstr "ส่งมอบอุปกรณ์แล้ว"
+
+#: borrowing/views.py:388
+msgid "This request is not on loan."
+msgstr "คำขอนี้ไม่ได้อยู่ในสถานะกำลังยืม"
+
+#: borrowing/views.py:404
+msgid "The return was recorded."
+msgstr "บันทึกการคืนแล้ว"
+
+#: borrowing/views.py:89
+#, python-format
+msgid "Open %(days)s, %(open)s-%(close)s."
+msgstr "เปิดให้บริการ %(days)s เวลา %(open)s-%(close)s."
+
+#: config/settings/base.py:103
+msgid "English"
+msgstr "อังกฤษ"
+
+#: config/settings/base.py:103
+msgid "Thai"
+msgstr "ไทย"
+
+#: core/models.py:10
+msgid "updated at"
+msgstr "อัปเดตเมื่อ"
+
+#: core/models.py:20
+msgid "max items per request"
+msgstr "จำนวนรายการสูงสุดต่อคำขอ"
+
+#: core/models.py:22
+msgid "max borrow days"
+msgstr "จำนวนวันยืมสูงสุด"
+
+#: core/models.py:24
+msgid "max advance booking days"
+msgstr "จำนวนวันจองล่วงหน้าสูงสุด"
+
+#: core/models.py:25
+msgid "opening time"
+msgstr "เวลาเปิดให้บริการ"
+
+#: core/models.py:26
+msgid "closing time"
+msgstr "เวลาปิดให้บริการ"
+
+#: core/models.py:28
+msgid "open weekdays"
+msgstr "วันทำการ"
+
+#: core/models.py:29
+msgid "Comma separated, Monday=0 ... Sunday=6"
+msgstr "คั่นด้วยเครื่องหมายจุลภาค จันทร์=0 ... อาทิตย์=6"
+
+#: core/models.py:30
+msgid "due reminder (hours before)"
+msgstr "เตือนก่อนกำหนดคืน (ชั่วโมงล่วงหน้า)"
+
+#: core/models.py:32
+msgid "cancel allowed until (hours before start)"
+msgstr "อนุญาตให้ยกเลิกได้ถึง (ชั่วโมงก่อนเริ่ม)"
+
+#: core/models.py:35
+msgid "system setting"
+msgstr "การตั้งค่าระบบ"
+
+#: core/models.py:36
+msgid "system settings"
+msgstr "การตั้งค่าระบบ"
+
+#: core/models.py:39 core/templates/core/settings_form.html:3
+msgid "System settings"
+msgstr "ตั้งค่าระบบ"
+
+#: core/models.py:9
+msgid "created at"
+msgstr "สร้างเมื่อ"
+
+#: core/templates/core/home.html:10
+msgid "Search equipment and check availability."
+msgstr "ค้นหาอุปกรณ์และตรวจสอบความพร้อมใช้งาน"
+
+#: core/templates/core/home.html:3
+#, python-format
+msgid "Welcome, %(name)s"
+msgstr "ยินดีต้อนรับ %(name)s"
+
+#: core/templates/core/home.html:4
+msgid "Chemistry Laboratory Equipment Borrowing and Returning System, Faculty of Science and Technology, Sakon Nakhon Rajabhat University"
+msgstr "ระบบยืม-คืนอุปกรณ์ห้องปฏิบัติการเคมี คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏสกลนคร"
+
+#: core/templates/core/home.html:9
+msgid "Find equipment"
+msgstr "ค้นหาอุปกรณ์"
+
+#: core/views.py:41
+msgid "Settings saved."
+msgstr "บันทึกการตั้งค่าแล้ว"
+
+#: inventory/forms.py:28
+msgid "Image must be 5 MB or smaller."
+msgstr "รูปภาพต้องมีขนาดไม่เกิน 5 MB"
+
+#: inventory/forms.py:30
+msgid "Only JPG, PNG or WEBP images are allowed."
+msgstr "อนุญาตเฉพาะรูปภาพ JPG, PNG หรือ WEBP เท่านั้น"
+
+#: inventory/forms.py:39
+msgid "Quantity out of service cannot exceed the total quantity."
+msgstr "จำนวนที่ไม่พร้อมใช้งานต้องไม่เกินจำนวนทั้งหมด"
+
+#: inventory/forms.py:45
+msgid "Name or asset code"
+msgstr "ชื่อหรือรหัสครุภัณฑ์"
+
+#: inventory/forms.py:47 inventory/templates/inventory/category_form.html:3 reports/services.py:133
+msgid "Category"
+msgstr "หมวดหมู่"
+
+#: inventory/forms.py:48
+msgid "All categories"
+msgstr "ทุกหมวดหมู่"
+
+#: inventory/forms.py:51 maintenance/forms.py:65 notifications/templates/notifications/log_list.html:13
+msgid "All statuses"
+msgstr "ทุกสถานะ"
+
+#: inventory/forms.py:53 maintenance/templates/maintenance/detail.html:18 maintenance/templates/maintenance/list.html:23
+msgid "Date"
+msgstr "วันที่"
+
+#: inventory/models.py:11 inventory/models.py:52
+msgid "name (Thai)"
+msgstr "ชื่อ (ไทย)"
+
+#: inventory/models.py:12 inventory/models.py:53
+msgid "name (English)"
+msgstr "ชื่อ (อังกฤษ)"
+
+#: inventory/models.py:13 inventory/models.py:56 maintenance/models.py:36
+msgid "description"
+msgstr "คำอธิบาย"
+
+#: inventory/models.py:17 inventory/models.py:55
+msgid "category"
+msgstr "หมวดหมู่"
+
+#: inventory/models.py:18
+msgid "categories"
+msgstr "หมวดหมู่"
+
+#: inventory/models.py:31 inventory/models.py:37
+msgid "Available"
+msgstr "พร้อมใช้งาน"
+
+#: inventory/models.py:32 inventory/models.py:42
+msgid "Unavailable"
+msgstr "ไม่พร้อมใช้งาน"
+
+#: inventory/models.py:38
+msgid "Reserved"
+msgstr "จองแล้ว"
+
+#: inventory/models.py:40 maintenance/models.py:14
+msgid "Under repair"
+msgstr "อยู่ระหว่างซ่อม"
+
+#: inventory/models.py:51
+msgid "asset code"
+msgstr "รหัสครุภัณฑ์"
+
+#: inventory/models.py:57
+msgid "storage location"
+msgstr "สถานที่จัดเก็บ"
+
+#: inventory/models.py:59
+msgid "total quantity"
+msgstr "จำนวนทั้งหมด"
+
+#: inventory/models.py:61
+msgid "quantity out of service"
+msgstr "จำนวนที่ไม่พร้อมใช้งาน"
+
+#: inventory/models.py:64
+msgid "active"
+msgstr "ใช้งาน"
+
+#: inventory/templates/inventory/category_confirm_delete.html:11 inventory/templates/inventory/category_list.html:18 inventory/templates/inventory/equipment_confirm_delete.html:11
+msgid "Delete"
+msgstr "ลบ"
+
+#: inventory/templates/inventory/category_confirm_delete.html:3 inventory/templates/inventory/category_confirm_delete.html:5
+msgid "Delete category"
+msgstr "ลบหมวดหมู่"
+
+#: inventory/templates/inventory/category_confirm_delete.html:8
+msgid "Are you sure you want to delete this category?"
+msgstr "คุณแน่ใจหรือไม่ว่าต้องการลบหมวดหมู่นี้?"
+
+#: inventory/templates/inventory/category_form.html:5 inventory/templates/inventory/category_list.html:7
+msgid "Add category"
+msgstr "เพิ่มหมวดหมู่"
+
+#: inventory/templates/inventory/category_form.html:5
+msgid "Edit category"
+msgstr "แก้ไขหมวดหมู่"
+
+#: inventory/templates/inventory/category_list.html:11
+msgid "Name (English)"
+msgstr "ชื่อ (อังกฤษ)"
+
+#: inventory/templates/inventory/category_list.html:11
+msgid "Name (Thai)"
+msgstr "ชื่อ (ไทย)"
+
+#: inventory/templates/inventory/category_list.html:22
+msgid "No categories yet."
+msgstr "ยังไม่มีหมวดหมู่"
+
+#: inventory/templates/inventory/category_list.html:3 inventory/templates/inventory/category_list.html:6 inventory/templates/inventory/equipment_list.html:9
+msgid "Categories"
+msgstr "หมวดหมู่"
+
+#: inventory/templates/inventory/equipment_confirm_delete.html:3 inventory/templates/inventory/equipment_confirm_delete.html:5
+msgid "Delete equipment"
+msgstr "ลบอุปกรณ์"
+
+#: inventory/templates/inventory/equipment_confirm_delete.html:8
+msgid "Are you sure you want to delete this equipment? It will be hidden from the list."
+msgstr "คุณแน่ใจหรือไม่ว่าต้องการลบอุปกรณ์นี้? อุปกรณ์จะถูกซ่อนจากรายการ"
+
+#: inventory/templates/inventory/equipment_detail.html:15
+msgid "This equipment has been removed."
+msgstr "อุปกรณ์นี้ถูกลบแล้ว"
+
+#: inventory/templates/inventory/equipment_detail.html:17 inventory/templates/inventory/equipment_list.html:35
+msgid "Free now"
+msgstr "ว่างตอนนี้"
+
+#: inventory/templates/inventory/equipment_detail.html:18 reports/services.py:143
+msgid "Total quantity"
+msgstr "จำนวนทั้งหมด"
+
+#: inventory/templates/inventory/equipment_detail.html:19
+msgid "Quantity out of service"
+msgstr "จำนวนที่ไม่พร้อมใช้งาน"
+
+#: inventory/templates/inventory/equipment_detail.html:20
+msgid "Storage location"
+msgstr "สถานที่จัดเก็บ"
+
+#: inventory/templates/inventory/equipment_detail.html:31
+msgid "Borrow"
+msgstr "ยืม"
+
+#: inventory/templates/inventory/equipment_detail.html:34 maintenance/templates/maintenance/form.html:3 maintenance/templates/maintenance/form.html:5
+msgid "Report damage"
+msgstr "แจ้งชำรุด"
+
+#: inventory/templates/inventory/equipment_detail.html:38
+msgid "Availability for the next 14 days"
+msgstr "ความพร้อมใช้งานใน 14 วันข้างหน้า"
+
+#: inventory/templates/inventory/equipment_detail.html:44
+msgid "Closed"
+msgstr "ปิดให้บริการ"
+
+#: inventory/templates/inventory/equipment_detail.html:5
+msgid "Back to equipment"
+msgstr "กลับไปหน้าอุปกรณ์"
+
+#: inventory/templates/inventory/equipment_form.html:3 inventory/templates/inventory/equipment_form.html:5 inventory/templates/inventory/equipment_list.html:10
+msgid "Add equipment"
+msgstr "เพิ่มอุปกรณ์"
+
+#: inventory/templates/inventory/equipment_form.html:3 inventory/templates/inventory/equipment_form.html:5
+msgid "Edit equipment"
+msgstr "แก้ไขอุปกรณ์"
+
+#: inventory/templates/inventory/equipment_list.html:35
+msgid "Free on"
+msgstr "ว่างวันที่"
+
+#: inventory/templates/inventory/equipment_list.html:40
+msgid "No equipment found."
+msgstr "ไม่พบอุปกรณ์"
+
+#: inventory/views.py:122
+msgid "This category still has equipment and cannot be deleted."
+msgstr "หมวดหมู่นี้ยังมีอุปกรณ์อยู่ จึงลบไม่ได้"
+
+#: inventory/views.py:124
+msgid "Category deleted."
+msgstr "ลบหมวดหมู่แล้ว"
+
+#: inventory/views.py:67
+msgid "Equipment saved."
+msgstr "บันทึกอุปกรณ์แล้ว"
+
+#: inventory/views.py:88
+msgid "Equipment deleted."
+msgstr "ลบอุปกรณ์แล้ว"
+
+#: maintenance/forms.py:16
+msgid "Images must be at most 5 MB."
+msgstr "รูปภาพต้องมีขนาดไม่เกิน 5 MB"
+
+#: maintenance/forms.py:23
+msgid "Upload a JPEG, PNG or WEBP image."
+msgstr "อัปโหลดรูปภาพ JPEG, PNG หรือ WEBP"
+
+#: maintenance/forms.py:27
+msgid "The image has too many pixels."
+msgstr "รูปภาพมีจำนวนพิกเซลมากเกินไป"
+
+#: maintenance/forms.py:34 maintenance/templates/maintenance/detail.html:15 maintenance/templates/maintenance/list.html:22
+msgid "Problem"
+msgstr "ปัญหา"
+
+#: maintenance/forms.py:36 maintenance/templates/maintenance/detail.html:16
+msgid "Description"
+msgstr "รายละเอียด"
+
+#: maintenance/forms.py:37 maintenance/templates/maintenance/detail.html:23
+msgid "Photo"
+msgstr "รูปภาพ"
+
+#: maintenance/forms.py:47 maintenance/services.py:40
+#, python-format
+msgid "Quantity must be between 1 and %(max)s."
+msgstr "จำนวนต้องอยู่ระหว่าง 1 ถึง %(max)s"
+
+#: maintenance/forms.py:52
+msgid "New status"
+msgstr "สถานะใหม่"
+
+#: maintenance/forms.py:54 maintenance/templates/maintenance/detail.html:19
+msgid "Staff note"
+msgstr "หมายเหตุของเจ้าหน้าที่"
+
+#: maintenance/models.py:12
+msgid "Reported"
+msgstr "แจ้งแล้ว"
+
+#: maintenance/models.py:13
+msgid "Confirmed damaged"
+msgstr "ยืนยันว่าชำรุด"
+
+#: maintenance/models.py:15
+msgid "Repaired"
+msgstr "ซ่อมแล้ว"
+
+#: maintenance/models.py:16
+msgid "Written off"
+msgstr "จำหน่ายออก"
+
+#: maintenance/models.py:17
+msgid "Not damaged"
+msgstr "ไม่ชำรุด"
+
+#: maintenance/models.py:25
+msgid "Reported by user"
+msgstr "ผู้ใช้แจ้ง"
+
+#: maintenance/models.py:26
+msgid "Found at return"
+msgstr "พบตอนคืน"
+
+#: maintenance/models.py:33
+msgid "reported by"
+msgstr "แจ้งโดย"
+
+#: maintenance/models.py:35
+msgid "problem"
+msgstr "ปัญหา"
+
+#: maintenance/models.py:38
+msgid "source"
+msgstr "แหล่งที่มา"
+
+#: maintenance/models.py:43
+msgid "staff note"
+msgstr "หมายเหตุของเจ้าหน้าที่"
+
+#: maintenance/models.py:45
+msgid "handled by"
+msgstr "ดำเนินการโดย"
+
+#: maintenance/models.py:46
+msgid "resolved at"
+msgstr "แก้ไขเมื่อ"
+
+#: maintenance/models.py:50
+msgid "damage report"
+msgstr "การแจ้งชำรุด"
+
+#: maintenance/models.py:51
+msgid "damage reports"
+msgstr "การแจ้งชำรุด"
+
+#: maintenance/services.py:38
+msgid "Invalid quantity."
+msgstr "จำนวนไม่ถูกต้อง"
+
+#: maintenance/services.py:58
+msgid "This status change is not allowed."
+msgstr "ไม่อนุญาตให้เปลี่ยนสถานะนี้"
+
+#: maintenance/services.py:62
+msgid "Damaged unit counts are inconsistent; cannot resolve this report."
+msgstr "จำนวนหน่วยที่ชำรุดไม่สอดคล้องกัน ไม่สามารถดำเนินการแจ้งนี้ได้"
+
+#: maintenance/services.py:65
+#, python-format
+msgid "Only %(n)s usable unit(s) remain; cannot mark more as damaged."
+msgstr "เหลือหน่วยที่ใช้งานได้เพียง %(n)s หน่วย ไม่สามารถทำเครื่องหมายชำรุดเพิ่มได้"
+
+#: maintenance/templates/maintenance/detail.html:17 maintenance/templates/maintenance/list.html:22 reports/services.py:164
+msgid "Reported by"
+msgstr "แจ้งโดย"
+
+#: maintenance/templates/maintenance/detail.html:20
+msgid "Handled by"
+msgstr "ดำเนินการโดย"
+
+#: maintenance/templates/maintenance/detail.html:21
+msgid "Resolved at"
+msgstr "แก้ไขเมื่อ"
+
+#: maintenance/templates/maintenance/detail.html:30
+msgid "Update status"
+msgstr "อัปเดตสถานะ"
+
+#: maintenance/templates/maintenance/form.html:10
+msgid "Submit report"
+msgstr "ส่งการแจ้ง"
+
+#: maintenance/templates/maintenance/list.html:21
+msgid "Qty"
+msgstr "จำนวน"
+
+#: maintenance/templates/maintenance/list.html:3 maintenance/templates/maintenance/list.html:6 templates/partials/nav_items.html:18
+msgid "Damage reports"
+msgstr "การแจ้งชำรุด"
+
+#: maintenance/templates/maintenance/list.html:37
+msgid "No damage reports."
+msgstr "ไม่มีการแจ้งชำรุด"
+
+#: maintenance/views.py:104
+msgid "Status updated."
+msgstr "อัปเดตสถานะแล้ว"
+
+#: maintenance/views.py:64
+msgid "Damage report submitted."
+msgstr "ส่งการแจ้งชำรุดแล้ว"
+
+#: notifications/models.py:11
+msgid "LINE account linked"
+msgstr "เชื่อมต่อบัญชี LINE แล้ว"
+
+#: notifications/models.py:13
+msgid "Request approved"
+msgstr "คำขออนุมัติแล้ว"
+
+#: notifications/models.py:14
+msgid "Request rejected"
+msgstr "คำขอไม่ได้รับการอนุมัติ"
+
+#: notifications/models.py:15
+msgid "Booking created"
+msgstr "สร้างการจองแล้ว"
+
+#: notifications/models.py:16
+msgid "Booking cancelled"
+msgstr "ยกเลิกการจองแล้ว"
+
+#: notifications/models.py:17
+msgid "Request cancelled"
+msgstr "ยกเลิกคำขอแล้ว"
+
+#: notifications/models.py:18
+msgid "Return due soon"
+msgstr "ใกล้ถึงกำหนดคืน"
+
+#: notifications/models.py:20
+msgid "Return confirmed"
+msgstr "ยืนยันการคืนแล้ว"
+
+#: notifications/models.py:21
+msgid "Damage reported"
+msgstr "แจ้งชำรุดแล้ว"
+
+#: notifications/models.py:26
+msgid "Sent"
+msgstr "ส่งแล้ว"
+
+#: notifications/models.py:27
+msgid "Failed"
+msgstr "ล้มเหลว"
+
+#: notifications/models.py:28
+msgid "Skipped (LINE not linked or disabled)"
+msgstr "ข้าม (ยังไม่เชื่อมต่อ LINE หรือปิดการใช้งาน)"
+
+#: notifications/models.py:33
+msgid "recipient"
+msgstr "ผู้รับ"
+
+#: notifications/models.py:34
+msgid "event"
+msgstr "เหตุการณ์"
+
+#: notifications/models.py:35
+msgid "message"
+msgstr "ข้อความ"
+
+#: notifications/models.py:38
+msgid "attempts"
+msgstr "จำนวนครั้งที่ส่ง"
+
+#: notifications/models.py:39
+msgid "error"
+msgstr "ข้อผิดพลาด"
+
+#: notifications/models.py:40
+msgid "sent at"
+msgstr "ส่งเมื่อ"
+
+#: notifications/models.py:46
+msgid "notification log"
+msgstr "บันทึกการแจ้งเตือน"
+
+#: notifications/models.py:47
+msgid "notification logs"
+msgstr "บันทึกการแจ้งเตือน"
+
+#: notifications/services.py:29
+msgid "Your LINE account is now linked to the Chem Lab Borrow system."
+msgstr "บัญชี LINE ของคุณเชื่อมต่อกับระบบ Chem Lab Borrow แล้ว"
+
+#: notifications/services.py:30
+#, python-format
+msgid "New borrow request %(code)s from %(name)s: %(items)s, %(start)s – %(end)s."
+msgstr "มีคำขอยืมใหม่ %(code)s จาก %(name)s: %(items)s, %(start)s – %(end)s"
+
+#: notifications/services.py:31
+#, python-format
+msgid "Your request %(code)s was approved. Pick up the equipment at %(start)s."
+msgstr "คำขอ %(code)s ของคุณได้รับการอนุมัติแล้ว กรุณารับอุปกรณ์เมื่อ %(start)s"
+
+#: notifications/services.py:32
+#, python-format
+msgid "Your request %(code)s was not approved. Reason: %(reason)s"
+msgstr "คำขอ %(code)s ของคุณไม่ได้รับการอนุมัติ เหตุผล: %(reason)s"
+
+#: notifications/services.py:33
+#, python-format
+msgid "Booking %(code)s confirmed: %(items)s, %(start)s – %(end)s."
+msgstr "ยืนยันการจอง %(code)s: %(items)s, %(start)s – %(end)s"
+
+#: notifications/services.py:34
+#, python-format
+msgid "Booking %(code)s was cancelled: %(items)s, %(start)s."
+msgstr "ยกเลิกการจอง %(code)s แล้ว: %(items)s, %(start)s"
+
+#: notifications/services.py:35
+#, python-format
+msgid "Request %(code)s was cancelled."
+msgstr "ยกเลิกคำขอ %(code)s แล้ว"
+
+#: notifications/services.py:36
+#, python-format
+msgid "Reminder: please return %(items)s (request %(code)s) by %(end)s."
+msgstr "แจ้งเตือน: กรุณาคืน %(items)s (คำขอ %(code)s) ภายในวันที่ %(end)s"
+
+#: notifications/services.py:37
+#, python-format
+msgid "Request %(code)s is overdue since %(end)s: %(items)s. Please return it as soon as possible."
+msgstr "คำขอ %(code)s เกินกำหนดตั้งแต่ %(end)s: %(items)s กรุณาคืนโดยเร็วที่สุด"
+
+#: notifications/services.py:38
+#, python-format
+msgid "Return of request %(code)s is confirmed. Thank you."
+msgstr "ยืนยันการคืนของคำขอ %(code)s แล้ว ขอบคุณ"
+
+#: notifications/services.py:39
+#, python-format
+msgid "Damage reported for %(items)s: %(reason)s"
+msgstr "แจ้งชำรุดสำหรับ %(items)s: %(reason)s"
+
+#: notifications/templates/notifications/log_list.html:18 notifications/templates/notifications/log_list.html:28
+msgid "Event"
+msgstr "เหตุการณ์"
+
+#: notifications/templates/notifications/log_list.html:19
+msgid "All events"
+msgstr "ทุกเหตุการณ์"
+
+#: notifications/templates/notifications/log_list.html:2 notifications/templates/notifications/log_list.html:5
+msgid "Notification log"
+msgstr "บันทึกการแจ้งเตือน"
+
+#: notifications/templates/notifications/log_list.html:28
+msgid "Recipient"
+msgstr "ผู้รับ"
+
+#: notifications/templates/notifications/log_list.html:28
+msgid "Time"
+msgstr "เวลา"
+
+#: notifications/templates/notifications/log_list.html:29
+msgid "Attempts"
+msgstr "จำนวนครั้งที่ส่ง"
+
+#: notifications/templates/notifications/log_list.html:29
+msgid "Error"
+msgstr "ข้อผิดพลาด"
+
+#: notifications/templates/notifications/log_list.html:39
+msgid "No notifications."
+msgstr "ไม่มีการแจ้งเตือน"
+
+#: notifications/templates/notifications/log_list.html:7
+msgid "Retry failed"
+msgstr "ส่งซ้ำที่ล้มเหลว"
+
+#: notifications/views.py:23
+msgid "Send the 6-digit code shown on the LINE link page of the system to link your account."
+msgstr "กรุณาส่งรหัส 6 หลักที่แสดงในหน้าเชื่อมต่อ LINE ของระบบ เพื่อเชื่อมต่อบัญชีของคุณ"
+
+#: notifications/views.py:28
+msgid "Thank you for adding us. Open the LINE link page in the system, then send the 6-digit code here."
+msgstr "ขอบคุณที่เพิ่มเพื่อนกับเรา กรุณาเปิดหน้าเชื่อมต่อ LINE ในระบบ แล้วส่งรหัส 6 หลักมาที่นี่"
+
+#: notifications/views.py:97
+#, python-format
+msgid "Retried %(n)d failed notifications, %(ok)d sent."
+msgstr "ส่งซ้ำการแจ้งเตือนที่ล้มเหลว %(n)d รายการ สำเร็จ %(ok)d รายการ"
+
+#: reports/exports.py:103
+msgid "Generated"
+msgstr "สร้างเมื่อ"
+
+#: reports/exports.py:124
+msgid "Page"
+msgstr "หน้า"
+
+#: reports/exports.py:48 reports/exports.py:102
+msgid "Period"
+msgstr "ช่วงเวลา"
+
+#: reports/services.py:125 reports/views.py:17
+msgid "Loan report"
+msgstr "รายงานการยืม"
+
+#: reports/services.py:125 reports/services.py:152
+msgid "Request code"
+msgstr "รหัสคำขอ"
+
+#: reports/services.py:133
+msgid "Asset"
+msgstr "ครุภัณฑ์"
+
+#: reports/services.py:133 reports/views.py:18
+msgid "Equipment report"
+msgstr "รายงานอุปกรณ์"
+
+#: reports/services.py:133
+msgid "Out of service"
+msgstr "ไม่พร้อมใช้งาน"
+
+#: reports/services.py:133
+msgid "Total"
+msgstr "รวม"
+
+#: reports/services.py:134
+msgid "Display status"
+msgstr "สถานะที่แสดง"
+
+#: reports/services.py:143 reports/views.py:19
+msgid "Most borrowed equipment"
+msgstr "อุปกรณ์ที่ยืมมากที่สุด"
+
+#: reports/services.py:143
+msgid "Times borrowed"
+msgstr "จำนวนครั้งที่ยืม"
+
+#: reports/services.py:152 reports/views.py:20
+msgid "Overdue report"
+msgstr "รายงานเกินกำหนด"
+
+#: reports/services.py:152
+msgid "Phone"
+msgstr "โทรศัพท์"
+
+#: reports/services.py:153
+msgid "Days overdue"
+msgstr "จำนวนวันที่เกินกำหนด"
+
+#: reports/services.py:163
+msgid "Damage code"
+msgstr "รหัสการแจ้งชำรุด"
+
+#: reports/services.py:163 reports/views.py:21
+msgid "Damaged equipment report"
+msgstr "รายงานอุปกรณ์ชำรุด"
+
+#: reports/services.py:164
+msgid "Reported at"
+msgstr "แจ้งเมื่อ"
+
+#: reports/services.py:179
+msgid "Number of requests"
+msgstr "จำนวนคำขอ"
+
+#: reports/services.py:179
+msgid "Total items"
+msgstr "จำนวนรายการรวม"
+
+#: reports/services.py:179 reports/views.py:22
+msgid "Usage by user"
+msgstr "การใช้งานตามผู้ใช้"
+
+#: reports/templates/reports/dashboard.html:12
+msgid "Total equipment"
+msgstr "อุปกรณ์ทั้งหมด"
+
+#: reports/templates/reports/dashboard.html:13
+msgid "Available units"
+msgstr "หน่วยที่พร้อมใช้งาน"
+
+#: reports/templates/reports/dashboard.html:14
+msgid "Units on loan"
+msgstr "หน่วยที่กำลังยืม"
+
+#: reports/templates/reports/dashboard.html:15
+msgid "Damaged units"
+msgstr "หน่วยที่ชำรุด"
+
+#: reports/templates/reports/dashboard.html:16
+msgid "Pending requests"
+msgstr "คำขอที่รออนุมัติ"
+
+#: reports/templates/reports/dashboard.html:17
+msgid "Overdue requests"
+msgstr "คำขอที่เกินกำหนด"
+
+#: reports/templates/reports/dashboard.html:18
+msgid "Loans this month"
+msgstr "การยืมเดือนนี้"
+
+#: reports/templates/reports/dashboard.html:19
+msgid "Top borrowed"
+msgstr "ยืมมากที่สุด"
+
+#: reports/templates/reports/dashboard.html:20
+msgid "No data"
+msgstr "ไม่มีข้อมูล"
+
+#: reports/templates/reports/dashboard.html:20
+msgid "units"
+msgstr "หน่วย"
+
+#: reports/templates/reports/dashboard.html:24 reports/templates/reports/dashboard.html:24
+msgid "Monthly loans"
+msgstr "การยืมรายเดือน"
+
+#: reports/templates/reports/dashboard.html:25 reports/templates/reports/dashboard.html:25
+msgid "Top 10 equipment"
+msgstr "อุปกรณ์ 10 อันดับแรก"
+
+#: reports/templates/reports/dashboard.html:26 reports/templates/reports/dashboard.html:26
+msgid "Equipment status"
+msgstr "สถานะอุปกรณ์"
+
+#: reports/templates/reports/dashboard.html:38
+msgid "Loans"
+msgstr "การยืม"
+
+#: reports/templates/reports/dashboard.html:4 reports/templates/reports/dashboard.html:8
+msgid "Reports dashboard"
+msgstr "แดชบอร์ดรายงาน"
+
+#: reports/templates/reports/dashboard.html:42
+msgid "Units borrowed"
+msgstr "หน่วยที่ยืม"
+
+#: reports/templates/reports/dashboard.html:9
+msgid "Export reports"
+msgstr "ส่งออกรายงาน"
+
+#: reports/templates/reports/index.html:12
+msgid "Choose report and period"
+msgstr "เลือกรายงานและช่วงเวลา"
+
+#: reports/templates/reports/index.html:15
+msgid "Apply"
+msgstr "นำไปใช้"
+
+#: reports/templates/reports/index.html:18
+msgid "Download a report"
+msgstr "ดาวน์โหลดรายงาน"
+
+#: reports/templates/reports/index.html:24
+msgid "Excel"
+msgstr "Excel"
+
+#: reports/templates/reports/index.html:25
+msgid "PDF"
+msgstr "PDF"
+
+#: reports/templates/reports/index.html:4 reports/templates/reports/index.html:8 templates/partials/nav_items.html:23
+msgid "Reports"
+msgstr "รายงาน"
+
+#: reports/templates/reports/index.html:9 templates/partials/nav_items.html:22
+msgid "Dashboard"
+msgstr "แดชบอร์ด"
+
+#: reports/views.py:27
+msgid "Report"
+msgstr "รายงาน"
+
+#: reports/views.py:30
+msgid "Format"
+msgstr "รูปแบบ"
+
+#: reports/views.py:35
+msgid "The start date must be before the end date."
+msgstr "วันที่เริ่มต้นต้องอยู่ก่อนวันที่สิ้นสุด"
+
+#: templates/base.html:19
+msgid "Chem Lab Borrow"
+msgstr "Chem Lab Borrow"
+
+#: templates/base.html:23
+msgid "Toggle navigation"
+msgstr "สลับเมนู"
+
+#: templates/base.html:43
+msgid "Log out"
+msgstr "ออกจากระบบ"
+
+#: templates/base.html:7
+msgid "Chemistry Lab Equipment Borrowing"
+msgstr "ระบบยืมอุปกรณ์ห้องปฏิบัติการเคมี"
+
+#: templates/partials/language_switch.html:5
+msgid "Change language"
+msgstr "เปลี่ยนภาษา"
+
+#: templates/partials/nav_items.html:15
+msgid "Bookings"
+msgstr "การจอง"
+
+#: templates/partials/nav_items.html:20
+msgid "Requests"
+msgstr "คำขอ"
+
+#: templates/partials/nav_items.html:25
+msgid "Settings"
+msgstr "ตั้งค่า"

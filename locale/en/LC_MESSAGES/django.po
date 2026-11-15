@@ -1,0 +1,1636 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: labborrow\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/forms.py:10
+msgid "I am a"
+msgstr ""
+
+#: accounts/forms.py:46
+msgid "You cannot remove your own staff role."
+msgstr ""
+
+#: accounts/forms.py:48
+msgid "You cannot deactivate your own account."
+msgstr ""
+
+#: accounts/models.py:15
+msgid "role"
+msgstr ""
+
+#: accounts/models.py:16
+msgid "student / staff ID"
+msgstr ""
+
+#: accounts/models.py:17
+msgid "phone"
+msgstr ""
+
+#: accounts/models.py:18
+msgid "department / program"
+msgstr ""
+
+#: accounts/models.py:19
+msgid "language"
+msgstr ""
+
+#: accounts/models.py:21
+msgid "LINE user ID"
+msgstr ""
+
+#: accounts/models.py:26 borrowing/models.py:36
+msgid "user"
+msgstr ""
+
+#: accounts/models.py:27
+msgid "users"
+msgstr ""
+
+#: accounts/models.py:7
+msgid "Student"
+msgstr ""
+
+#: accounts/models.py:8
+msgid "Teacher"
+msgstr ""
+
+#: accounts/models.py:9
+msgid "Lab staff / Administrator"
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:10
+msgid "Unlink"
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:12 accounts/templates/accounts/profile.html:16
+msgid "Not linked"
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:15
+msgid "1. Add the official account as a friend."
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:17
+msgid "Add friend"
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:2 accounts/templates/accounts/line_link.html:6 accounts/templates/accounts/profile.html:14
+msgid "Link LINE"
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:20
+msgid "The LINE official account is not configured yet."
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:22
+msgid "2. Generate a code and send it to the official account in chat."
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:26
+msgid "Valid until"
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:30
+msgid "Generate code"
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:31 borrowing/templates/borrowing/request_detail.html:7 maintenance/templates/maintenance/detail.html:7
+msgid "Back"
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:8 accounts/templates/accounts/profile.html:15
+msgid "Linked"
+msgstr ""
+
+#: accounts/templates/accounts/line_link.html:8
+msgid "You will receive notifications via LINE."
+msgstr ""
+
+#: accounts/templates/accounts/login.html:13
+msgid "No account yet?"
+msgstr ""
+
+#: accounts/templates/accounts/login.html:13 accounts/templates/accounts/signup.html:2 accounts/templates/accounts/signup.html:6
+msgid "Sign up"
+msgstr ""
+
+#: accounts/templates/accounts/login.html:2 accounts/templates/accounts/login.html:6 accounts/templates/accounts/login.html:10
+msgid "Log in"
+msgstr ""
+
+#: accounts/templates/accounts/password_change.html:10 accounts/templates/accounts/user_edit.html:11 borrowing/templates/borrowing/booking_form.html:16
+msgid "Cancel"
+msgstr ""
+
+#: accounts/templates/accounts/password_change.html:2 accounts/templates/accounts/password_change.html:6 accounts/templates/accounts/password_change.html:9
+msgid "Change password"
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:2 accounts/templates/accounts/profile.html:6 templates/base.html:39
+msgid "My profile"
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:9 accounts/templates/accounts/user_edit.html:10 core/templates/core/settings_form.html:7
+msgid "Save"
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:11
+msgid "Already have an account?"
+msgstr ""
+
+#: accounts/templates/accounts/user_edit.html:2 accounts/templates/accounts/user_edit.html:6
+msgid "Edit user"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:10
+msgid "All roles"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:19
+msgid "ID"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:19 reports/services.py:133 reports/services.py:179
+msgid "Name"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:19
+msgid "Username"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:2 accounts/templates/accounts/user_list.html:4 templates/partials/nav_items.html:24
+msgid "Users"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:20 borrowing/forms.py:128 borrowing/templates/borrowing/_request_table.html:8
+msgid "Status"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:27 borrowing/models.py:14 borrowing/templates/borrowing/my_requests.html:10
+msgid "Active"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:27
+msgid "Inactive"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:28 inventory/templates/inventory/category_list.html:17 inventory/templates/inventory/equipment_detail.html:25
+msgid "Edit"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:31
+msgid "No users found."
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:37 borrowing/templates/borrowing/_pagination.html:3 inventory/templates/inventory/equipment_list.html:44
+msgid "Pages"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:7 accounts/templates/accounts/user_list.html:14 borrowing/templates/borrowing/staff_requests.html:9
+msgid "Search"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:7
+msgid "Search username, name or ID"
+msgstr ""
+
+#: accounts/templates/accounts/user_list.html:9 accounts/templates/accounts/user_list.html:20 reports/services.py:179
+msgid "Role"
+msgstr ""
+
+#: accounts/views.py:29
+msgid "Welcome! Your account has been created."
+msgstr ""
+
+#: accounts/views.py:42
+msgid "Profile updated."
+msgstr ""
+
+#: accounts/views.py:51
+msgid "Password changed."
+msgstr ""
+
+#: accounts/views.py:95
+msgid "User updated."
+msgstr ""
+
+#: borrowing/forms.py:115
+#, python-format
+msgid "Good + damaged must equal the borrowed quantity (%(qty)s)."
+msgstr ""
+
+#: borrowing/forms.py:126 reports/views.py:28
+msgid "From"
+msgstr ""
+
+#: borrowing/forms.py:127 reports/views.py:29
+msgid "To"
+msgstr ""
+
+#: borrowing/forms.py:130 borrowing/templates/borrowing/_request_table.html:6 borrowing/templates/borrowing/request_detail.html:14
+msgid "Borrower"
+msgstr ""
+
+#: borrowing/forms.py:132 borrowing/forms.py:129 borrowing/templates/borrowing/staff_requests.html:17
+msgid "All"
+msgstr ""
+
+#: borrowing/forms.py:34
+msgid "Start"
+msgstr ""
+
+#: borrowing/forms.py:35
+msgid "End"
+msgstr ""
+
+#: borrowing/forms.py:36 borrowing/forms.py:49 borrowing/templates/borrowing/request_detail.html:24
+msgid "Quantity"
+msgstr ""
+
+#: borrowing/forms.py:37 borrowing/templates/borrowing/request_detail.html:33 borrowing/templates/borrowing/request_return.html:10
+msgid "Note"
+msgstr ""
+
+#: borrowing/forms.py:41 borrowing/forms.py:63 borrowing/templates/borrowing/my_requests.html:36
+msgid "Purpose"
+msgstr ""
+
+#: borrowing/forms.py:46 borrowing/forms.py:131 borrowing/templates/borrowing/calendar.html:10
+msgid "Equipment"
+msgstr ""
+
+#: borrowing/forms.py:61 borrowing/templates/borrowing/_request_table.html:7 borrowing/templates/borrowing/request_detail.html:16
+msgid "Borrow at"
+msgstr ""
+
+#: borrowing/forms.py:62 borrowing/templates/borrowing/_request_table.html:7 borrowing/templates/borrowing/request_detail.html:17
+msgid "Due at"
+msgstr ""
+
+#: borrowing/forms.py:78 borrowing/services.py:219
+msgid "Upload at most five condition images."
+msgstr ""
+
+#: borrowing/forms.py:82
+msgid "Each image must be 5 MB or smaller."
+msgstr ""
+
+#: borrowing/forms.py:85
+msgid "Only JPG, PNG or WebP images are allowed."
+msgstr ""
+
+#: borrowing/forms.py:91 borrowing/templates/borrowing/request_detail.html:36
+msgid "General note"
+msgstr ""
+
+#: borrowing/forms.py:92
+msgid "Condition photos"
+msgstr ""
+
+#: borrowing/forms.py:93
+msgid "Up to 5 images (JPG, PNG, WebP), 5 MB each."
+msgstr ""
+
+#: borrowing/models.py:110
+msgid "borrowed item"
+msgstr ""
+
+#: borrowing/models.py:111
+msgid "borrowed items"
+msgstr ""
+
+#: borrowing/models.py:119
+msgid "returned at"
+msgstr ""
+
+#: borrowing/models.py:121
+msgid "received by"
+msgstr ""
+
+#: borrowing/models.py:125
+msgid "return"
+msgstr ""
+
+#: borrowing/models.py:126
+msgid "returns"
+msgstr ""
+
+#: borrowing/models.py:135
+msgid "good"
+msgstr ""
+
+#: borrowing/models.py:136
+msgid "damaged"
+msgstr ""
+
+#: borrowing/models.py:145 inventory/models.py:58 maintenance/models.py:37
+msgid "image"
+msgstr ""
+
+#: borrowing/models.py:146
+msgid "caption"
+msgstr ""
+
+#: borrowing/models.py:15 borrowing/models.py:24 borrowing/views.py:291
+msgid "Cancelled"
+msgstr ""
+
+#: borrowing/models.py:16
+msgid "Converted to request"
+msgstr ""
+
+#: borrowing/models.py:17
+msgid "Expired"
+msgstr ""
+
+#: borrowing/models.py:21
+msgid "Pending approval"
+msgstr ""
+
+#: borrowing/models.py:22 borrowing/views.py:278 borrowing/views.py:279
+msgid "Approved"
+msgstr ""
+
+#: borrowing/models.py:23 borrowing/views.py:278
+msgid "Rejected"
+msgstr ""
+
+#: borrowing/models.py:25 borrowing/templates/borrowing/staff_requests.html:16 inventory/models.py:39
+msgid "On loan"
+msgstr ""
+
+#: borrowing/models.py:26 notifications/models.py:19
+msgid "Overdue"
+msgstr ""
+
+#: borrowing/models.py:27 borrowing/views.py:288
+msgid "Returned"
+msgstr ""
+
+#: borrowing/models.py:38 borrowing/models.py:106 inventory/models.py:70
+msgid "equipment"
+msgstr ""
+
+#: borrowing/models.py:39 borrowing/models.py:107 maintenance/models.py:34
+msgid "quantity"
+msgstr ""
+
+#: borrowing/models.py:40
+msgid "start"
+msgstr ""
+
+#: borrowing/models.py:41
+msgid "end"
+msgstr ""
+
+#: borrowing/models.py:42 borrowing/models.py:66 inventory/models.py:62
+msgid "status"
+msgstr ""
+
+#: borrowing/models.py:44 borrowing/models.py:122 borrowing/models.py:137
+msgid "note"
+msgstr ""
+
+#: borrowing/models.py:50 borrowing/models.py:62
+msgid "booking"
+msgstr ""
+
+#: borrowing/models.py:51
+msgid "bookings"
+msgstr ""
+
+#: borrowing/models.py:60
+msgid "borrower"
+msgstr ""
+
+#: borrowing/models.py:63
+msgid "purpose"
+msgstr ""
+
+#: borrowing/models.py:64
+msgid "borrow at"
+msgstr ""
+
+#: borrowing/models.py:65
+msgid "due at"
+msgstr ""
+
+#: borrowing/models.py:68
+msgid "reason for rejection"
+msgstr ""
+
+#: borrowing/models.py:70
+msgid "decided by"
+msgstr ""
+
+#: borrowing/models.py:81
+msgid "borrow request"
+msgstr ""
+
+#: borrowing/models.py:82
+msgid "borrow requests"
+msgstr ""
+
+#: borrowing/services.py:103
+msgid "The requested equipment quantity is not available."
+msgstr ""
+
+#: borrowing/services.py:118 borrowing/services.py:144
+msgid "The maximum number of items per request was exceeded."
+msgstr ""
+
+#: borrowing/services.py:142
+msgid "This booking has already started or passed."
+msgstr ""
+
+#: borrowing/services.py:163
+msgid "Choose items within the maximum number of items per request."
+msgstr ""
+
+#: borrowing/services.py:211
+msgid "Not enough usable units to hand over right now (damaged or not yet returned)."
+msgstr ""
+
+#: borrowing/services.py:224
+msgid "Provide return quantities for every borrowed item."
+msgstr ""
+
+#: borrowing/services.py:228
+msgid "Provide good and damaged quantities and a note for each item."
+msgstr ""
+
+#: borrowing/services.py:232
+msgid "Return quantities must match the borrowed quantity."
+msgstr ""
+
+#: borrowing/services.py:246
+msgid "Damaged at return"
+msgstr ""
+
+#: borrowing/services.py:36
+msgid "Start and end must include a time zone."
+msgstr ""
+
+#: borrowing/services.py:40
+msgid "Choose an end after the start within the maximum borrowing duration."
+msgstr ""
+
+#: borrowing/services.py:42
+msgid "The start cannot be in the past."
+msgstr ""
+
+#: borrowing/services.py:44
+msgid "The start exceeds the advance booking limit."
+msgstr ""
+
+#: borrowing/services.py:51
+msgid "Choose a time on an open weekday within opening hours."
+msgstr ""
+
+#: borrowing/services.py:80
+msgid "Only borrowers can create bookings or requests."
+msgstr ""
+
+#: borrowing/services.py:85
+msgid "Quantity must be a positive integer."
+msgstr ""
+
+#: borrowing/services.py:97
+msgid "Equipment no longer exists."
+msgstr ""
+
+#: borrowing/state.py:101
+#, python-format
+msgid "This action is not possible in status “%(status)s”."
+msgstr ""
+
+#: borrowing/state.py:111
+msgid "Please give a reason for the rejection."
+msgstr ""
+
+#: borrowing/state.py:53 borrowing/state.py:60 borrowing/state.py:50
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: borrowing/state.py:56
+msgid "Only lab staff can do this."
+msgstr ""
+
+#: borrowing/state.py:58
+msgid "Only the owner can do this."
+msgstr ""
+
+#: borrowing/state.py:69
+msgid "It is too late to cancel. Please contact the lab staff."
+msgstr ""
+
+#: borrowing/state.py:98
+msgid "Unknown action."
+msgstr ""
+
+#: borrowing/templates/borrowing/_request_table.html:20 borrowing/templates/borrowing/request_detail.html:44
+msgid "Approve"
+msgstr ""
+
+#: borrowing/templates/borrowing/_request_table.html:21 borrowing/templates/borrowing/request_detail.html:46
+msgid "Hand over"
+msgstr ""
+
+#: borrowing/templates/borrowing/_request_table.html:22 borrowing/templates/borrowing/request_detail.html:47 borrowing/templates/borrowing/request_return.html:3
+msgid "Receive return"
+msgstr ""
+
+#: borrowing/templates/borrowing/_request_table.html:24
+msgid "Details"
+msgstr ""
+
+#: borrowing/templates/borrowing/_request_table.html:28 borrowing/templates/borrowing/_request_table.html:45
+msgid "No requests found."
+msgstr ""
+
+#: borrowing/templates/borrowing/_request_table.html:6 borrowing/templates/borrowing/request_detail.html:24 maintenance/templates/maintenance/list.html:21
+msgid "Code"
+msgstr ""
+
+#: borrowing/templates/borrowing/_request_table.html:7 borrowing/templates/borrowing/request_detail.html:22 borrowing/templates/borrowing/request_form.html:10
+msgid "Items"
+msgstr ""
+
+#: borrowing/templates/borrowing/booking_form.html:13 borrowing/templates/borrowing/request_form.html:30
+#, python-format
+msgid "Maximum %(n)s days."
+msgstr ""
+
+#: borrowing/templates/borrowing/booking_form.html:15 inventory/templates/inventory/equipment_detail.html:29
+msgid "Book"
+msgstr ""
+
+#: borrowing/templates/borrowing/booking_form.html:3 borrowing/templates/borrowing/booking_form.html:6
+msgid "Book equipment"
+msgstr ""
+
+#: borrowing/templates/borrowing/calendar.html:12
+msgid "All equipment"
+msgstr ""
+
+#: borrowing/templates/borrowing/calendar.html:3 borrowing/templates/borrowing/calendar.html:6
+msgid "Booking calendar"
+msgstr ""
+
+#: borrowing/templates/borrowing/calendar.html:7 borrowing/templates/borrowing/my_requests.html:7 borrowing/templates/borrowing/request_form.html:3
+msgid "New borrow request"
+msgstr ""
+
+#: borrowing/templates/borrowing/history.html:13 maintenance/templates/maintenance/list.html:15 notifications/templates/notifications/log_list.html:23
+msgid "Filter"
+msgstr ""
+
+#: borrowing/templates/borrowing/history.html:3 borrowing/templates/borrowing/history.html:5 borrowing/templates/borrowing/my_requests.html:11
+msgid "History"
+msgstr ""
+
+#: borrowing/templates/borrowing/my_requests.html:15
+msgid "My bookings"
+msgstr ""
+
+#: borrowing/templates/borrowing/my_requests.html:26
+msgid "Convert to request"
+msgstr ""
+
+#: borrowing/templates/borrowing/my_requests.html:3 borrowing/templates/borrowing/my_requests.html:6 templates/partials/nav_items.html:16
+msgid "My requests"
+msgstr ""
+
+#: borrowing/templates/borrowing/my_requests.html:35 borrowing/templates/borrowing/my_requests.html:38 borrowing/templates/borrowing/request_detail.html:70
+msgid "Close"
+msgstr ""
+
+#: borrowing/templates/borrowing/my_requests.html:35
+msgid "Convert to borrow request"
+msgstr ""
+
+#: borrowing/templates/borrowing/my_requests.html:38
+msgid "Submit"
+msgstr ""
+
+#: borrowing/templates/borrowing/my_requests.html:42
+msgid "You have no bookings."
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:18 borrowing/templates/borrowing/request_detail.html:71
+msgid "Reason for rejection"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:30
+msgid "Return"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:31
+msgid "Received by"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:31 reports/services.py:126
+msgid "Returned at"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:33 borrowing/templates/borrowing/request_return.html:10 inventory/models.py:41
+msgid "Damaged"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:33 borrowing/templates/borrowing/request_return.html:10
+msgid "Good"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:37
+msgid "Condition photo"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:43
+msgid "Actions"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:45 borrowing/templates/borrowing/request_detail.html:73
+msgid "Reject"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:48
+msgid "Cancel request"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:48
+msgid "Cancel this request?"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:49
+msgid "No actions available."
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:52
+msgid "Status timeline"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_detail.html:70
+msgid "Reject request"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_form.html:11
+#, python-format
+msgid "At most %(n)s items in total per request."
+msgstr ""
+
+#: borrowing/templates/borrowing/request_form.html:18 borrowing/templates/borrowing/request_form.html:27
+msgid "Remove"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_form.html:22
+msgid "Add item"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_form.html:32
+msgid "Submit request"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_return.html:25
+msgid "Confirm return"
+msgstr ""
+
+#: borrowing/templates/borrowing/request_return.html:9
+msgid "Borrowed"
+msgstr ""
+
+#: borrowing/templates/borrowing/staff_requests.html:14 notifications/models.py:25
+msgid "Pending"
+msgstr ""
+
+#: borrowing/templates/borrowing/staff_requests.html:15
+msgid "To hand over"
+msgstr ""
+
+#: borrowing/templates/borrowing/staff_requests.html:3 borrowing/templates/borrowing/staff_requests.html:5
+msgid "Borrow requests"
+msgstr ""
+
+#: borrowing/templates/borrowing/staff_requests.html:9
+msgid "Code, borrower or equipment"
+msgstr ""
+
+#: borrowing/views.py:154
+msgid "Booked"
+msgstr ""
+
+#: borrowing/views.py:193
+msgid "The booking was created."
+msgstr ""
+
+#: borrowing/views.py:206
+msgid "Please state the purpose of the loan."
+msgstr ""
+
+#: borrowing/views.py:208
+msgid "The booking was converted to a borrow request."
+msgstr ""
+
+#: borrowing/views.py:217
+msgid "The booking was cancelled."
+msgstr ""
+
+#: borrowing/views.py:238
+msgid "The borrow request was submitted."
+msgstr ""
+
+#: borrowing/views.py:276
+msgid "Request created"
+msgstr ""
+
+#: borrowing/views.py:282
+msgid "Handed over"
+msgstr ""
+
+#: borrowing/views.py:285
+msgid "Marked overdue"
+msgstr ""
+
+#: borrowing/views.py:310
+msgid "The request was cancelled."
+msgstr ""
+
+#: borrowing/views.py:368
+msgid "The request was approved."
+msgstr ""
+
+#: borrowing/views.py:375
+msgid "The request was rejected."
+msgstr ""
+
+#: borrowing/views.py:381
+msgid "The equipment was handed over."
+msgstr ""
+
+#: borrowing/views.py:388
+msgid "This request is not on loan."
+msgstr ""
+
+#: borrowing/views.py:404
+msgid "The return was recorded."
+msgstr ""
+
+#: borrowing/views.py:89
+#, python-format
+msgid "Open %(days)s, %(open)s-%(close)s."
+msgstr ""
+
+#: config/settings/base.py:103
+msgid "English"
+msgstr ""
+
+#: config/settings/base.py:103
+msgid "Thai"
+msgstr ""
+
+#: core/models.py:10
+msgid "updated at"
+msgstr ""
+
+#: core/models.py:20
+msgid "max items per request"
+msgstr ""
+
+#: core/models.py:22
+msgid "max borrow days"
+msgstr ""
+
+#: core/models.py:24
+msgid "max advance booking days"
+msgstr ""
+
+#: core/models.py:25
+msgid "opening time"
+msgstr ""
+
+#: core/models.py:26
+msgid "closing time"
+msgstr ""
+
+#: core/models.py:28
+msgid "open weekdays"
+msgstr ""
+
+#: core/models.py:29
+msgid "Comma separated, Monday=0 ... Sunday=6"
+msgstr ""
+
+#: core/models.py:30
+msgid "due reminder (hours before)"
+msgstr ""
+
+#: core/models.py:32
+msgid "cancel allowed until (hours before start)"
+msgstr ""
+
+#: core/models.py:35
+msgid "system setting"
+msgstr ""
+
+#: core/models.py:36
+msgid "system settings"
+msgstr ""
+
+#: core/models.py:39 core/templates/core/settings_form.html:3
+msgid "System settings"
+msgstr ""
+
+#: core/models.py:9
+msgid "created at"
+msgstr ""
+
+#: core/templates/core/home.html:10
+msgid "Search equipment and check availability."
+msgstr ""
+
+#: core/templates/core/home.html:3
+#, python-format
+msgid "Welcome, %(name)s"
+msgstr ""
+
+#: core/templates/core/home.html:4
+msgid "Chemistry Laboratory Equipment Borrowing and Returning System, Faculty of Science and Technology, Sakon Nakhon Rajabhat University"
+msgstr ""
+
+#: core/templates/core/home.html:9
+msgid "Find equipment"
+msgstr ""
+
+#: core/views.py:41
+msgid "Settings saved."
+msgstr ""
+
+#: inventory/forms.py:28
+msgid "Image must be 5 MB or smaller."
+msgstr ""
+
+#: inventory/forms.py:30
+msgid "Only JPG, PNG or WEBP images are allowed."
+msgstr ""
+
+#: inventory/forms.py:39
+msgid "Quantity out of service cannot exceed the total quantity."
+msgstr ""
+
+#: inventory/forms.py:45
+msgid "Name or asset code"
+msgstr ""
+
+#: inventory/forms.py:47 inventory/templates/inventory/category_form.html:3 reports/services.py:133
+msgid "Category"
+msgstr ""
+
+#: inventory/forms.py:48
+msgid "All categories"
+msgstr ""
+
+#: inventory/forms.py:51 maintenance/forms.py:65 notifications/templates/notifications/log_list.html:13
+msgid "All statuses"
+msgstr ""
+
+#: inventory/forms.py:53 maintenance/templates/maintenance/detail.html:18 maintenance/templates/maintenance/list.html:23
+msgid "Date"
+msgstr ""
+
+#: inventory/models.py:11 inventory/models.py:52
+msgid "name (Thai)"
+msgstr ""
+
+#: inventory/models.py:12 inventory/models.py:53
+msgid "name (English)"
+msgstr ""
+
+#: inventory/models.py:13 inventory/models.py:56 maintenance/models.py:36
+msgid "description"
+msgstr ""
+
+#: inventory/models.py:17 inventory/models.py:55
+msgid "category"
+msgstr ""
+
+#: inventory/models.py:18
+msgid "categories"
+msgstr ""
+
+#: inventory/models.py:31 inventory/models.py:37
+msgid "Available"
+msgstr ""
+
+#: inventory/models.py:32 inventory/models.py:42
+msgid "Unavailable"
+msgstr ""
+
+#: inventory/models.py:38
+msgid "Reserved"
+msgstr ""
+
+#: inventory/models.py:40 maintenance/models.py:14
+msgid "Under repair"
+msgstr ""
+
+#: inventory/models.py:51
+msgid "asset code"
+msgstr ""
+
+#: inventory/models.py:57
+msgid "storage location"
+msgstr ""
+
+#: inventory/models.py:59
+msgid "total quantity"
+msgstr ""
+
+#: inventory/models.py:61
+msgid "quantity out of service"
+msgstr ""
+
+#: inventory/models.py:64
+msgid "active"
+msgstr ""
+
+#: inventory/templates/inventory/category_confirm_delete.html:11 inventory/templates/inventory/category_list.html:18 inventory/templates/inventory/equipment_confirm_delete.html:11
+msgid "Delete"
+msgstr ""
+
+#: inventory/templates/inventory/category_confirm_delete.html:3 inventory/templates/inventory/category_confirm_delete.html:5
+msgid "Delete category"
+msgstr ""
+
+#: inventory/templates/inventory/category_confirm_delete.html:8
+msgid "Are you sure you want to delete this category?"
+msgstr ""
+
+#: inventory/templates/inventory/category_form.html:5 inventory/templates/inventory/category_list.html:7
+msgid "Add category"
+msgstr ""
+
+#: inventory/templates/inventory/category_form.html:5
+msgid "Edit category"
+msgstr ""
+
+#: inventory/templates/inventory/category_list.html:11
+msgid "Name (English)"
+msgstr ""
+
+#: inventory/templates/inventory/category_list.html:11
+msgid "Name (Thai)"
+msgstr ""
+
+#: inventory/templates/inventory/category_list.html:22
+msgid "No categories yet."
+msgstr ""
+
+#: inventory/templates/inventory/category_list.html:3 inventory/templates/inventory/category_list.html:6 inventory/templates/inventory/equipment_list.html:9
+msgid "Categories"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_confirm_delete.html:3 inventory/templates/inventory/equipment_confirm_delete.html:5
+msgid "Delete equipment"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_confirm_delete.html:8
+msgid "Are you sure you want to delete this equipment? It will be hidden from the list."
+msgstr ""
+
+#: inventory/templates/inventory/equipment_detail.html:15
+msgid "This equipment has been removed."
+msgstr ""
+
+#: inventory/templates/inventory/equipment_detail.html:17 inventory/templates/inventory/equipment_list.html:35
+msgid "Free now"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_detail.html:18 reports/services.py:143
+msgid "Total quantity"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_detail.html:19
+msgid "Quantity out of service"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_detail.html:20
+msgid "Storage location"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_detail.html:31
+msgid "Borrow"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_detail.html:34 maintenance/templates/maintenance/form.html:3 maintenance/templates/maintenance/form.html:5
+msgid "Report damage"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_detail.html:38
+msgid "Availability for the next 14 days"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_detail.html:44
+msgid "Closed"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_detail.html:5
+msgid "Back to equipment"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_form.html:3 inventory/templates/inventory/equipment_form.html:5 inventory/templates/inventory/equipment_list.html:10
+msgid "Add equipment"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_form.html:3 inventory/templates/inventory/equipment_form.html:5
+msgid "Edit equipment"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_list.html:35
+msgid "Free on"
+msgstr ""
+
+#: inventory/templates/inventory/equipment_list.html:40
+msgid "No equipment found."
+msgstr ""
+
+#: inventory/views.py:122
+msgid "This category still has equipment and cannot be deleted."
+msgstr ""
+
+#: inventory/views.py:124
+msgid "Category deleted."
+msgstr ""
+
+#: inventory/views.py:67
+msgid "Equipment saved."
+msgstr ""
+
+#: inventory/views.py:88
+msgid "Equipment deleted."
+msgstr ""
+
+#: maintenance/forms.py:16
+msgid "Images must be at most 5 MB."
+msgstr ""
+
+#: maintenance/forms.py:23
+msgid "Upload a JPEG, PNG or WEBP image."
+msgstr ""
+
+#: maintenance/forms.py:27
+msgid "The image has too many pixels."
+msgstr ""
+
+#: maintenance/forms.py:34 maintenance/templates/maintenance/detail.html:15 maintenance/templates/maintenance/list.html:22
+msgid "Problem"
+msgstr ""
+
+#: maintenance/forms.py:36 maintenance/templates/maintenance/detail.html:16
+msgid "Description"
+msgstr ""
+
+#: maintenance/forms.py:37 maintenance/templates/maintenance/detail.html:23
+msgid "Photo"
+msgstr ""
+
+#: maintenance/forms.py:47 maintenance/services.py:40
+#, python-format
+msgid "Quantity must be between 1 and %(max)s."
+msgstr ""
+
+#: maintenance/forms.py:52
+msgid "New status"
+msgstr ""
+
+#: maintenance/forms.py:54 maintenance/templates/maintenance/detail.html:19
+msgid "Staff note"
+msgstr ""
+
+#: maintenance/models.py:12
+msgid "Reported"
+msgstr ""
+
+#: maintenance/models.py:13
+msgid "Confirmed damaged"
+msgstr ""
+
+#: maintenance/models.py:15
+msgid "Repaired"
+msgstr ""
+
+#: maintenance/models.py:16
+msgid "Written off"
+msgstr ""
+
+#: maintenance/models.py:17
+msgid "Not damaged"
+msgstr ""
+
+#: maintenance/models.py:25
+msgid "Reported by user"
+msgstr ""
+
+#: maintenance/models.py:26
+msgid "Found at return"
+msgstr ""
+
+#: maintenance/models.py:33
+msgid "reported by"
+msgstr ""
+
+#: maintenance/models.py:35
+msgid "problem"
+msgstr ""
+
+#: maintenance/models.py:38
+msgid "source"
+msgstr ""
+
+#: maintenance/models.py:43
+msgid "staff note"
+msgstr ""
+
+#: maintenance/models.py:45
+msgid "handled by"
+msgstr ""
+
+#: maintenance/models.py:46
+msgid "resolved at"
+msgstr ""
+
+#: maintenance/models.py:50
+msgid "damage report"
+msgstr ""
+
+#: maintenance/models.py:51
+msgid "damage reports"
+msgstr ""
+
+#: maintenance/services.py:38
+msgid "Invalid quantity."
+msgstr ""
+
+#: maintenance/services.py:58
+msgid "This status change is not allowed."
+msgstr ""
+
+#: maintenance/services.py:62
+msgid "Damaged unit counts are inconsistent; cannot resolve this report."
+msgstr ""
+
+#: maintenance/services.py:65
+#, python-format
+msgid "Only %(n)s usable unit(s) remain; cannot mark more as damaged."
+msgstr ""
+
+#: maintenance/templates/maintenance/detail.html:17 maintenance/templates/maintenance/list.html:22 reports/services.py:164
+msgid "Reported by"
+msgstr ""
+
+#: maintenance/templates/maintenance/detail.html:20
+msgid "Handled by"
+msgstr ""
+
+#: maintenance/templates/maintenance/detail.html:21
+msgid "Resolved at"
+msgstr ""
+
+#: maintenance/templates/maintenance/detail.html:30
+msgid "Update status"
+msgstr ""
+
+#: maintenance/templates/maintenance/form.html:10
+msgid "Submit report"
+msgstr ""
+
+#: maintenance/templates/maintenance/list.html:21
+msgid "Qty"
+msgstr ""
+
+#: maintenance/templates/maintenance/list.html:3 maintenance/templates/maintenance/list.html:6 templates/partials/nav_items.html:18
+msgid "Damage reports"
+msgstr ""
+
+#: maintenance/templates/maintenance/list.html:37
+msgid "No damage reports."
+msgstr ""
+
+#: maintenance/views.py:104
+msgid "Status updated."
+msgstr ""
+
+#: maintenance/views.py:64
+msgid "Damage report submitted."
+msgstr ""
+
+#: notifications/models.py:11
+msgid "LINE account linked"
+msgstr ""
+
+#: notifications/models.py:13
+msgid "Request approved"
+msgstr ""
+
+#: notifications/models.py:14
+msgid "Request rejected"
+msgstr ""
+
+#: notifications/models.py:15
+msgid "Booking created"
+msgstr ""
+
+#: notifications/models.py:16
+msgid "Booking cancelled"
+msgstr ""
+
+#: notifications/models.py:17
+msgid "Request cancelled"
+msgstr ""
+
+#: notifications/models.py:18
+msgid "Return due soon"
+msgstr ""
+
+#: notifications/models.py:20
+msgid "Return confirmed"
+msgstr ""
+
+#: notifications/models.py:21
+msgid "Damage reported"
+msgstr ""
+
+#: notifications/models.py:26
+msgid "Sent"
+msgstr ""
+
+#: notifications/models.py:27
+msgid "Failed"
+msgstr ""
+
+#: notifications/models.py:28
+msgid "Skipped (LINE not linked or disabled)"
+msgstr ""
+
+#: notifications/models.py:33
+msgid "recipient"
+msgstr ""
+
+#: notifications/models.py:34
+msgid "event"
+msgstr ""
+
+#: notifications/models.py:35
+msgid "message"
+msgstr ""
+
+#: notifications/models.py:38
+msgid "attempts"
+msgstr ""
+
+#: notifications/models.py:39
+msgid "error"
+msgstr ""
+
+#: notifications/models.py:40
+msgid "sent at"
+msgstr ""
+
+#: notifications/models.py:46
+msgid "notification log"
+msgstr ""
+
+#: notifications/models.py:47
+msgid "notification logs"
+msgstr ""
+
+#: notifications/services.py:29
+msgid "Your LINE account is now linked to the Chem Lab Borrow system."
+msgstr ""
+
+#: notifications/services.py:30
+#, python-format
+msgid "New borrow request %(code)s from %(name)s: %(items)s, %(start)s – %(end)s."
+msgstr ""
+
+#: notifications/services.py:31
+#, python-format
+msgid "Your request %(code)s was approved. Pick up the equipment at %(start)s."
+msgstr ""
+
+#: notifications/services.py:32
+#, python-format
+msgid "Your request %(code)s was not approved. Reason: %(reason)s"
+msgstr ""
+
+#: notifications/services.py:33
+#, python-format
+msgid "Booking %(code)s confirmed: %(items)s, %(start)s – %(end)s."
+msgstr ""
+
+#: notifications/services.py:34
+#, python-format
+msgid "Booking %(code)s was cancelled: %(items)s, %(start)s."
+msgstr ""
+
+#: notifications/services.py:35
+#, python-format
+msgid "Request %(code)s was cancelled."
+msgstr ""
+
+#: notifications/services.py:36
+#, python-format
+msgid "Reminder: please return %(items)s (request %(code)s) by %(end)s."
+msgstr ""
+
+#: notifications/services.py:37
+#, python-format
+msgid "Request %(code)s is overdue since %(end)s: %(items)s. Please return it as soon as possible."
+msgstr ""
+
+#: notifications/services.py:38
+#, python-format
+msgid "Return of request %(code)s is confirmed. Thank you."
+msgstr ""
+
+#: notifications/services.py:39
+#, python-format
+msgid "Damage reported for %(items)s: %(reason)s"
+msgstr ""
+
+#: notifications/templates/notifications/log_list.html:18 notifications/templates/notifications/log_list.html:28
+msgid "Event"
+msgstr ""
+
+#: notifications/templates/notifications/log_list.html:19
+msgid "All events"
+msgstr ""
+
+#: notifications/templates/notifications/log_list.html:2 notifications/templates/notifications/log_list.html:5
+msgid "Notification log"
+msgstr ""
+
+#: notifications/templates/notifications/log_list.html:28
+msgid "Recipient"
+msgstr ""
+
+#: notifications/templates/notifications/log_list.html:28
+msgid "Time"
+msgstr ""
+
+#: notifications/templates/notifications/log_list.html:29
+msgid "Attempts"
+msgstr ""
+
+#: notifications/templates/notifications/log_list.html:29
+msgid "Error"
+msgstr ""
+
+#: notifications/templates/notifications/log_list.html:39
+msgid "No notifications."
+msgstr ""
+
+#: notifications/templates/notifications/log_list.html:7
+msgid "Retry failed"
+msgstr ""
+
+#: notifications/views.py:23
+msgid "Send the 6-digit code shown on the LINE link page of the system to link your account."
+msgstr ""
+
+#: notifications/views.py:28
+msgid "Thank you for adding us. Open the LINE link page in the system, then send the 6-digit code here."
+msgstr ""
+
+#: notifications/views.py:97
+#, python-format
+msgid "Retried %(n)d failed notifications, %(ok)d sent."
+msgstr ""
+
+#: reports/exports.py:103
+msgid "Generated"
+msgstr ""
+
+#: reports/exports.py:124
+msgid "Page"
+msgstr ""
+
+#: reports/exports.py:48 reports/exports.py:102
+msgid "Period"
+msgstr ""
+
+#: reports/services.py:125 reports/views.py:17
+msgid "Loan report"
+msgstr ""
+
+#: reports/services.py:125 reports/services.py:152
+msgid "Request code"
+msgstr ""
+
+#: reports/services.py:133
+msgid "Asset"
+msgstr ""
+
+#: reports/services.py:133 reports/views.py:18
+msgid "Equipment report"
+msgstr ""
+
+#: reports/services.py:133
+msgid "Out of service"
+msgstr ""
+
+#: reports/services.py:133
+msgid "Total"
+msgstr ""
+
+#: reports/services.py:134
+msgid "Display status"
+msgstr ""
+
+#: reports/services.py:143 reports/views.py:19
+msgid "Most borrowed equipment"
+msgstr ""
+
+#: reports/services.py:143
+msgid "Times borrowed"
+msgstr ""
+
+#: reports/services.py:152 reports/views.py:20
+msgid "Overdue report"
+msgstr ""
+
+#: reports/services.py:152
+msgid "Phone"
+msgstr ""
+
+#: reports/services.py:153
+msgid "Days overdue"
+msgstr ""
+
+#: reports/services.py:163
+msgid "Damage code"
+msgstr ""
+
+#: reports/services.py:163 reports/views.py:21
+msgid "Damaged equipment report"
+msgstr ""
+
+#: reports/services.py:164
+msgid "Reported at"
+msgstr ""
+
+#: reports/services.py:179
+msgid "Number of requests"
+msgstr ""
+
+#: reports/services.py:179
+msgid "Total items"
+msgstr ""
+
+#: reports/services.py:179 reports/views.py:22
+msgid "Usage by user"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:12
+msgid "Total equipment"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:13
+msgid "Available units"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:14
+msgid "Units on loan"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:15
+msgid "Damaged units"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:16
+msgid "Pending requests"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:17
+msgid "Overdue requests"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:18
+msgid "Loans this month"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:19
+msgid "Top borrowed"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:20
+msgid "No data"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:20
+msgid "units"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:24 reports/templates/reports/dashboard.html:24
+msgid "Monthly loans"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:25 reports/templates/reports/dashboard.html:25
+msgid "Top 10 equipment"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:26 reports/templates/reports/dashboard.html:26
+msgid "Equipment status"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:38
+msgid "Loans"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:4 reports/templates/reports/dashboard.html:8
+msgid "Reports dashboard"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:42
+msgid "Units borrowed"
+msgstr ""
+
+#: reports/templates/reports/dashboard.html:9
+msgid "Export reports"
+msgstr ""
+
+#: reports/templates/reports/index.html:12
+msgid "Choose report and period"
+msgstr ""
+
+#: reports/templates/reports/index.html:15
+msgid "Apply"
+msgstr ""
+
+#: reports/templates/reports/index.html:18
+msgid "Download a report"
+msgstr ""
+
+#: reports/templates/reports/index.html:24
+msgid "Excel"
+msgstr ""
+
+#: reports/templates/reports/index.html:25
+msgid "PDF"
+msgstr ""
+
+#: reports/templates/reports/index.html:4 reports/templates/reports/index.html:8 templates/partials/nav_items.html:23
+msgid "Reports"
+msgstr ""
+
+#: reports/templates/reports/index.html:9 templates/partials/nav_items.html:22
+msgid "Dashboard"
+msgstr ""
+
+#: reports/views.py:27
+msgid "Report"
+msgstr ""
+
+#: reports/views.py:30
+msgid "Format"
+msgstr ""
+
+#: reports/views.py:35
+msgid "The start date must be before the end date."
+msgstr ""
+
+#: templates/base.html:19
+msgid "Chem Lab Borrow"
+msgstr ""
+
+#: templates/base.html:23
+msgid "Toggle navigation"
+msgstr ""
+
+#: templates/base.html:43
+msgid "Log out"
+msgstr ""
+
+#: templates/base.html:7
+msgid "Chemistry Lab Equipment Borrowing"
+msgstr ""
+
+#: templates/partials/language_switch.html:5
+msgid "Change language"
+msgstr ""
+
+#: templates/partials/nav_items.html:15
+msgid "Bookings"
+msgstr ""
+
+#: templates/partials/nav_items.html:20
+msgid "Requests"
+msgstr ""
+
+#: templates/partials/nav_items.html:25
+msgid "Settings"
+msgstr ""

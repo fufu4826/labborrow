@@ -12,6 +12,7 @@ def make_user(role=Role.STUDENT, password="pass12345!", **kw):
     kw.setdefault("first_name", f"First{n}")
     kw.setdefault("last_name", f"Last{n}")
     kw.setdefault("email", f"user{n}@example.com")
+    kw.setdefault("language", "en")  # tests assert English text; Thai is covered in tests/core/test_i18n.py
     user = User(role=role, **kw)
     user.set_password(password)
     user.save()
