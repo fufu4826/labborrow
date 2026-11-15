@@ -13,3 +13,4 @@ htmlcov/
 .test-tmp/
 .pytest_tmp/
 pytest-of-*/
+*pytest-tmp*/
