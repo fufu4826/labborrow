@@ -1,0 +1,10 @@
+[Unit]
+Description=Run LabBorrow due-date check hourly at minute 7
+
+[Timer]
+OnCalendar=*-*-* *:07:00
+Persistent=true
+Unit=labborrow-check-due.service
+
+[Install]
+WantedBy=timers.target

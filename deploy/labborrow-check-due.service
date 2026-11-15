@@ -1,0 +1,12 @@
+[Unit]
+Description=LabBorrow: check due/overdue and retry notifications
+After=network.target mysql.service
+
+[Service]
+Type=oneshot
+User=labborrow
+WorkingDirectory=/srv/labborrow/app
+EnvironmentFile=/srv/labborrow/app/.env
+Environment=DJANGO_SETTINGS_MODULE=config.settings.prod
+ExecStart=/srv/labborrow/venv/bin/python manage.py check_due
+ExecStart=/srv/labborrow/venv/bin/python manage.py retry_notifications
