@@ -48,3 +48,24 @@ class NotificationLog(TimeStampedModel):
 
     def __str__(self):
         return f"{self.get_event_display()} -> {self.user}"
+
+
+class LineLinkAttempt(TimeStampedModel):
+    """One row per code sent to the OA, used to rate-limit guessing (docs/05-line.md)."""
+    line_user_id = models.CharField(max_length=64, db_index=True)
+    success = models.BooleanField(default=False)
+
+    class Meta:
+        indexes = [models.Index(fields=["line_user_id", "created_at"])]
+
+    def __str__(self):
+        return f"{self.line_user_id} {'ok' if self.success else 'fail'}"
+
+
+class LineWebhookEvent(TimeStampedModel):
+    """webhookEventId of processed events, so redelivered events are ignored."""
+    event_id = models.CharField(max_length=64, unique=True)
+    event_type = models.CharField(max_length=30, blank=True)
+
+    def __str__(self):
+        return self.event_id

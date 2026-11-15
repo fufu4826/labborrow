@@ -1,5 +1,7 @@
 from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import redirect
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from core.permissions import RoleRequiredMixin
@@ -23,8 +25,12 @@ class LineLinkView(RoleRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         user = request.user
         if request.POST.get("action") == "unlink":
-            user.line_user_id = ""
-            user.save(update_fields=["line_user_id"])
+            user.line_user_id = None
+            user.line_link_code = ""
+            user.line_link_expires = None
+            user.save(update_fields=["line_user_id", "line_link_code", "line_link_expires"])
             return redirect("accounts:line_link")
         code = linking.create_link_code(user)
+        if code is None:
+            messages.error(request, _("Unable to generate a code. Please try again."))
         return self.render_to_response(self.get_context_data(code=code, expires=user.line_link_expires))

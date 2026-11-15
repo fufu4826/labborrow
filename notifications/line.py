@@ -16,8 +16,11 @@ def verify_signature(body: bytes, signature: str) -> bool:
     if not secret or not signature:
         return False
     digest = hmac.new(secret.encode(), body, hashlib.sha256).digest()
-    expected = base64.b64encode(digest).decode()
-    return hmac.compare_digest(expected, signature)
+    expected = base64.b64encode(digest)
+    try:
+        return hmac.compare_digest(expected, signature.encode("ascii"))
+    except (UnicodeError, AttributeError, TypeError):
+        return False
 
 
 def reply(reply_token: str, text: str) -> bool:
@@ -27,7 +30,7 @@ def reply(reply_token: str, text: str) -> bool:
         return False
     try:
         resp = requests.post(
-            REPLY_URL, timeout=10,
+            REPLY_URL, timeout=5,
             headers={"Authorization": f"Bearer {token}"},
             json={"replyToken": reply_token, "messages": [{"type": "text", "text": text[:4900]}]},
         )

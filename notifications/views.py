@@ -1,9 +1,11 @@
 import json
 import logging
+from datetime import timedelta
 
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import redirect
+from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.utils.translation import override
 from django.views.decorators.csrf import csrf_exempt
@@ -12,7 +14,7 @@ from django.views.generic import ListView
 from core.permissions import StaffRequiredMixin
 
 from . import line, linking
-from .models import NotificationEvent, NotificationLog, NotificationStatus
+from .models import LineWebhookEvent, NotificationEvent, NotificationLog, NotificationStatus
 from .services import notify, retry_failed
 
 log = logging.getLogger(__name__)
@@ -36,7 +38,10 @@ def _handle_event(ev):
         msg = ev.get("message") or {}
         if msg.get("type") != "text":
             return
-        user = linking.link_by_code(msg.get("text", ""), uid)
+        try:
+            user = linking.link_by_code(msg.get("text", ""), uid, reply_token=token)
+        except linking.LinkRateLimited:
+            return
         if user:
             entry = notify(user, NotificationEvent.LINE_LINKED)
             line.reply(token, entry.message)
@@ -61,9 +66,16 @@ def line_webhook(request):
     for ev in events if isinstance(events, list) else []:
         try:
             if isinstance(ev, dict):
+                event_id = ev.get("webhookEventId")
+                if event_id:
+                    _, created = LineWebhookEvent.objects.get_or_create(
+                        event_id=event_id, defaults={"event_type": ev.get("type", "")})
+                    if not created:
+                        continue
                 _handle_event(ev)
         except Exception:  # noqa: BLE001
             log.exception("LINE webhook event failed")
+    LineWebhookEvent.objects.filter(created_at__lt=timezone.now() - timedelta(days=7)).delete()
     return HttpResponse(status=200)
 
 

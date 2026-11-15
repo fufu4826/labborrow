@@ -72,6 +72,7 @@ sudo -u labborrow mkdir -p /srv/labborrow/app/media /srv/labborrow/backups
 (แทน `ADMIN_USERNAME` ด้วยชื่อผู้ใช้ที่เพิ่งสร้าง)
 
 ## 7. เปิดบริการ systemd
+Gunicorn ต้องตั้ง `Environment=MEDIA_ACCEL=1` เพื่อส่งไฟล์ที่ตรวจสิทธิ์แล้วผ่าน Nginx internal location
 ```bash
 cd /srv/labborrow/app/deploy
 sudo cp gunicorn.service labborrow-check-due.service labborrow-check-due.timer /etc/systemd/system/

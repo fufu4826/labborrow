@@ -1,12 +1,20 @@
+import os
+from pathlib import Path, PureWindowsPath
+from urllib.parse import quote
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 from django.views.generic import UpdateView
 from django.views.i18n import set_language as django_set_language
+
+from borrowing.models import ConditionImage
+from maintenance.models import DamageReport
 
 from .forms import SystemSettingForm
 from .models import SystemSetting
@@ -26,6 +34,42 @@ def set_language(request):
 @login_required
 def home(request):
     return render(request, "core/home.html")
+
+
+@login_required
+def protected_media(request, path):
+    parts = path.split("/")
+    if (not path or ".." in parts or "\\" in path or "\x00" in path
+            or Path(path).is_absolute() or PureWindowsPath(path).drive):
+        raise Http404
+    if parts[0] == "returns":
+        images = ConditionImage.objects.filter(image=path)
+        if not request.user.is_lab_staff:
+            images = images.filter(return_record__request__user=request.user)
+        if not images.exists():
+            raise Http404
+    elif parts[0] == "damage":
+        reports = DamageReport.objects.filter(image=path)
+        if not request.user.is_lab_staff:
+            reports = reports.filter(reported_by=request.user)
+        if not reports.exists():
+            raise Http404
+    elif parts[0] != "equipment":
+        raise Http404
+    root = Path(settings.MEDIA_ROOT).resolve()
+    file_path = (root / path).resolve()
+    if not file_path.is_relative_to(root):
+        raise Http404
+    if not settings.DEBUG and os.environ.get("MEDIA_ACCEL") == "1":
+        response = HttpResponse()
+        response["X-Accel-Redirect"] = "/protected-media/" + quote(path, safe="/")
+    else:
+        try:
+            response = FileResponse(file_path.open("rb"))
+        except (OSError, ValueError) as exc:
+            raise Http404 from exc
+    response["X-Content-Type-Options"] = "nosniff"
+    return response
 
 
 class SystemSettingUpdateView(StaffRequiredMixin, UpdateView):

@@ -20,7 +20,7 @@
         {% if report.handled_by %}<dt class="col-sm-4">{% translate "Handled by" %}</dt><dd class="col-sm-8">{{ report.handled_by.get_full_name|default:report.handled_by.username }}</dd>{% endif %}
         {% if report.resolved_at %}<dt class="col-sm-4">{% translate "Resolved at" %}</dt><dd class="col-sm-8">{{ report.resolved_at|date:"d/m/Y H:i" }}</dd>{% endif %}
       </dl>
-      {% if report.image %}<img src="{{ report.image.url }}" alt="{% translate 'Photo' %}" class="img-fluid rounded mt-3">{% endif %}
+      {% if report.image %}<img src="{% url 'core:media' report.image.name %}" alt="{% translate 'Photo' %}" class="img-fluid rounded mt-3">{% endif %}
     </div>
   </div>
   {% if is_staff_view and form %}

@@ -18,7 +18,8 @@ class User(AbstractUser):
     department = models.CharField(_("department / program"), max_length=150, blank=True)
     language = models.CharField(_("language"), max_length=2, choices=[("th", "ไทย"), ("en", "English")],
                                 default="th")
-    line_user_id = models.CharField(_("LINE user ID"), max_length=64, blank=True, db_index=True)
+    # NULL when not linked (unique allows many NULLs on SQLite and MySQL; never store "").
+    line_user_id = models.CharField(_("LINE user ID"), max_length=64, null=True, blank=True, unique=True)
     line_link_code = models.CharField(max_length=6, blank=True)
     line_link_expires = models.DateTimeField(null=True, blank=True)
 
