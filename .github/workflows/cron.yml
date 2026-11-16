@@ -1,0 +1,20 @@
+# Hourly jobs for hosts without a scheduler (PythonAnywhere free plan).
+# Needs repository secrets CRON_URL (e.g. https://<user>.pythonanywhere.com/cron/) and CRON_TOKEN
+# (same value as CRON_TOKEN in the server's .env). Does nothing until both are set.
+name: hourly-jobs
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+jobs:
+  call:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Call /cron/
+        env:
+          CRON_URL: ${{ secrets.CRON_URL }}
+          CRON_TOKEN: ${{ secrets.CRON_TOKEN }}
+        run: |
+          if [ -z "$CRON_URL" ] || [ -z "$CRON_TOKEN" ]; then echo "secrets not set, skipping"; exit 0; fi
+          curl --fail --silent --show-error --max-time 60 -X POST -H "X-Cron-Token: $CRON_TOKEN" "$CRON_URL"

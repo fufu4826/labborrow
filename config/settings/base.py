@@ -121,6 +121,8 @@ LINE_CHANNEL_SECRET = env("LINE_CHANNEL_SECRET", "")
 LINE_CHANNEL_ACCESS_TOKEN = env("LINE_CHANNEL_ACCESS_TOKEN", "")
 LINE_OA_BASIC_ID = env("LINE_OA_BASIC_ID", "")
 SITE_URL = env("SITE_URL", "http://127.0.0.1:8000")
+# Token for POST /cron/ (hosts without systemd timers, e.g. PythonAnywhere free). Empty = endpoint disabled.
+CRON_TOKEN = env("CRON_TOKEN", "")
 
 LOGGING = {
     "version": 1,

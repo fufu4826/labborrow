@@ -1,3 +1,4 @@
+import hmac
 import os
 from pathlib import Path, PureWindowsPath
 from urllib.parse import quote
@@ -5,10 +6,11 @@ from urllib.parse import quote
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import FileResponse, Http404, HttpResponse
+from django.http import FileResponse, Http404, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import UpdateView
 from django.views.i18n import set_language as django_set_language
@@ -84,3 +86,28 @@ class SystemSettingUpdateView(StaffRequiredMixin, UpdateView):
     def form_valid(self, form):
         messages.success(self.request, _("Settings saved."))
         return super().form_valid(form)
+
+
+@csrf_exempt
+@require_POST
+def cron(request):
+    """Run the hourly jobs (due checks + LINE retries) for hosts without a scheduler.
+
+    Called by an external scheduler (GitHub Actions) with header `X-Cron-Token: <CRON_TOKEN>`.
+    Disabled (404) while CRON_TOKEN is empty.
+    """
+    from borrowing.services import run_due_checks
+    from notifications.models import NotificationStatus
+    from notifications.services import retry_failed
+
+    expected = settings.CRON_TOKEN
+    given = request.headers.get("X-Cron-Token", "")
+    if not expected:
+        raise Http404
+    if not hmac.compare_digest(given.encode(), expected.encode()):
+        return HttpResponse(status=403)
+    counts = run_due_checks()
+    results = retry_failed()
+    counts["retried"] = len(results)
+    counts["retry_sent"] = sum(1 for r in results if r and r.status == NotificationStatus.SENT)
+    return JsonResponse(counts)
