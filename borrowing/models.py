@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from core.models import TimeStampedModel
+from core.uploads import RandomName
 from inventory.models import Equipment
 
 User = settings.AUTH_USER_MODEL
@@ -142,7 +143,7 @@ class ReturnItem(TimeStampedModel):
 
 class ConditionImage(TimeStampedModel):
     return_record = models.ForeignKey(Return, on_delete=models.CASCADE, related_name="images")
-    image = models.ImageField(_("image"), upload_to="returns/")
+    image = models.ImageField(_("image"), upload_to=RandomName("returns"))
     caption = models.CharField(_("caption"), max_length=150, blank=True)
 
     def __str__(self):

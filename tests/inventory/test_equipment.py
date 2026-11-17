@@ -77,3 +77,20 @@ def test_category_crud(staff_client):
                              {"name_th": "สารเคมี"}).status_code == 302
     assert staff_client.post(reverse("inventory:category_delete", args=[c.pk])).status_code == 302
     assert not Category.objects.exists()
+
+
+def test_upload_saved_under_ascii_name_and_original_removed(staff_client, cat):
+    import os
+
+    from django.core.files.uploadedfile import SimpleUploadedFile
+
+    png = make_png()
+    thai = SimpleUploadedFile("ภาพ ทดสอบ.png", png.read(), content_type="image/png")
+    resp = staff_client.post(reverse("inventory:create"), payload(cat, image=thai))
+    assert resp.status_code == 302
+    eq = Equipment.objects.get(asset_code="CH-001")
+    name = os.path.basename(eq.image.name)
+    assert name.isascii() and name.endswith(".jpg")
+    folder = os.path.dirname(eq.image.path)
+    stem = os.path.splitext(name)[0].split("_")[0]
+    assert not [f for f in os.listdir(folder) if f.startswith(stem) and f.endswith(".png")]

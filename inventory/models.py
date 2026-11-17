@@ -5,6 +5,7 @@ from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 from core.models import TimeStampedModel
+from core.uploads import RandomName
 
 
 class Category(TimeStampedModel):
@@ -55,7 +56,7 @@ class Equipment(TimeStampedModel):
                                  verbose_name=_("category"))
     description = models.TextField(_("description"), blank=True)
     location = models.CharField(_("storage location"), max_length=100, blank=True)
-    image = models.ImageField(_("image"), upload_to="equipment/", blank=True)
+    image = models.ImageField(_("image"), upload_to=RandomName("equipment"), blank=True)
     quantity_total = models.PositiveIntegerField(_("total quantity"), default=1,
                                                  validators=[MinValueValidator(1)])
     quantity_out_of_service = models.PositiveIntegerField(_("quantity out of service"), default=0)

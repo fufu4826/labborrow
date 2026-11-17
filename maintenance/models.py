@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from core.models import TimeStampedModel
+from core.uploads import RandomName
 from inventory.models import Equipment
 
 
@@ -34,7 +35,7 @@ class DamageReport(TimeStampedModel):
     quantity = models.PositiveIntegerField(_("quantity"), default=1, validators=[MinValueValidator(1)])
     problem = models.CharField(_("problem"), max_length=150)
     description = models.TextField(_("description"), blank=True)
-    image = models.ImageField(_("image"), upload_to="damage/", blank=True)
+    image = models.ImageField(_("image"), upload_to=RandomName("damage"), blank=True)
     source = models.CharField(_("source"), max_length=10, choices=DamageSource.choices, default=DamageSource.USER)
     return_item = models.ForeignKey("borrowing.ReturnItem", on_delete=models.SET_NULL, null=True, blank=True,
                                     related_name="damage_reports")

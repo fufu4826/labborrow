@@ -30,8 +30,11 @@ def resize_image(field_file, max_px=1600):
         img.save(buf, "JPEG", quality=85, optimize=True)
     finally:
         field_file.close()
-    base = os.path.splitext(os.path.basename(field_file.name))[0]
+    old_name = field_file.name
+    base = os.path.splitext(os.path.basename(old_name))[0]
     field_file.save(f"{base}.jpg", ContentFile(buf.getvalue()), save=True)
+    if old_name != field_file.name:  # e.g. the uploaded .png: keep only the resized .jpg
+        field_file.storage.delete(old_name)
 
 
 def _as_time(value):
