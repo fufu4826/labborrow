@@ -30,3 +30,20 @@ def test_thai_catalog_complete_and_compiled():
     po = polib.pofile(str(po_path))
     assert po.percent_translated() == 100
     assert po_path.with_suffix(".mo").exists()
+
+
+@pytest.mark.django_db
+def test_anonymous_default_is_thai_even_with_english_browser(client, settings):
+    settings.LANGUAGE_CODE = "th"
+    resp = client.get("/accounts/login/", HTTP_ACCEPT_LANGUAGE="en-US,en;q=0.9")
+    assert resp.status_code == 200
+    assert resp.wsgi_request.LANGUAGE_CODE == "th"
+    assert "เข้าสู่ระบบ" in resp.content.decode()
+
+
+@pytest.mark.django_db
+def test_anonymous_language_cookie_is_respected(client, settings):
+    settings.LANGUAGE_CODE = "th"
+    client.cookies[settings.LANGUAGE_COOKIE_NAME] = "en"
+    resp = client.get("/accounts/login/", HTTP_ACCEPT_LANGUAGE="th")
+    assert resp.wsgi_request.LANGUAGE_CODE == "en"
