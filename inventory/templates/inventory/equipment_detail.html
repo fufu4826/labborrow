@@ -5,8 +5,8 @@
 <a href="{% url 'inventory:list' %}" class="small text-decoration-none"><i class="bi bi-arrow-left"></i> {% translate "Back to equipment" %}</a>
 <div class="row g-4 mt-1">
   <div class="col-12 col-md-5">
-    {% if eq.image %}<img src="{{ eq.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ eq.display_name }}">
-    {% else %}<div class="bg-light text-center text-muted py-5 rounded"><i class="bi bi-image display-1"></i></div>{% endif %}
+    {% if eq.image %}<a href="{{ eq.image.url }}" target="_blank" rel="noopener" class="photo-frame photo-frame-detail mx-auto mx-md-0"><img src="{{ eq.image.url }}" alt="{{ eq.display_name }}"></a>
+    {% else %}<div class="photo-frame photo-frame-detail mx-auto mx-md-0"><i class="bi bi-image" aria-hidden="true"></i></div>{% endif %}
   </div>
   <div class="col-12 col-md-7">
     <h1 class="h3">{{ eq.display_name }}</h1>

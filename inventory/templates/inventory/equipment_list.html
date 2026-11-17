@@ -25,8 +25,10 @@
   {% for eq in equipment_list %}
   <div class="col">
     <div class="card h-100 shadow-sm">
-      {% if eq.image %}<img src="{{ eq.image.url }}" class="card-img-top" alt="{{ eq.display_name }}" style="height:160px;object-fit:cover">
-      {% else %}<div class="bg-light text-center text-muted py-5"><i class="bi bi-image fs-1"></i></div>{% endif %}
+      <div class="photo-frame photo-frame-card">
+        {% if eq.image %}<img src="{{ eq.image.url }}" alt="{{ eq.display_name }}" loading="lazy">
+        {% else %}<i class="bi bi-image" aria-hidden="true"></i>{% endif %}
+      </div>
       <div class="card-body">
         <h2 class="h6 card-title mb-1"><a class="stretched-link text-decoration-none" href="{% url 'inventory:detail' eq.pk %}">{{ eq.display_name }}</a></h2>
         <div class="small text-muted">{{ eq.asset_code }} &middot; {{ eq.category.display_name }}</div>
